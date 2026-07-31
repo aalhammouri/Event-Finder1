@@ -1,0 +1,194 @@
+I need you to add two features to the Event Finder run detail page:
+
+FEATURE 1: Enhanced live preview with per-URL breakdown and real-time results
+
+Currently the run detail page (artifacts/event-finder/src/pages/runs/detail.tsx) shows
+a flat activity log and a separate events table. I need a richer live view.
+
+=== BACKEND CHANGES ===
+
+FILE: artifacts/api-server/src/routes/crawlRuns.ts
+
+Add a new SSE event type "page_detail" that includes richer information per page:
+
+In the onProgress callback inside startCrawlRun (line 132), emit additional data:
+- For "page_crawled" events: include the page URL, whether keywords were found,
+  whether it was sent to AI, and the text length
+- For "event_found" events: include all extracted fields (not just eventName and score)
+  so the frontend can show a live preview card without polling the events endpoint
+- For "error" events: include a structured error object with:
+  - errorType: "timeout" | "fetch_failed" | "ai_failed" | "keyword_gate" | "blacklisted"
+    | "archive_skipped" | "unknown"
+  - url: the page URL
+  - errorMessage: human-readable description
+  - duration: how long the page took before failing (in ms)
+
+FILE: artifacts/api-server/src/services/crawler.ts
+
+Modify the onProgress callback calls to include richer data:
+- line 320 (page_crawled): add { textLength: text.length, keywordsFound: boolean }
+- line 344 (archive skip): change type from "error" to a new "skipped" type with reason
+- line 385 (event_found): include the full crawledEvent object in the progress event
+
+Add timing to each page:
+- Record Date.now() before fetchPage and after extraction
+- Include pageDurationMs in the progress event
+
+FILE: artifacts/api-server/src/services/extractor.ts
+
+Track and return extraction metadata alongside the result:
+- Add to ExtractedEvent: extractionMeta?: { pass1DurationMs, pass2DurationMs,
+  imageDurationMs, imagesAnalyzed, keywordsMatched: string[] }
+- Time each AI call and include in the meta
+- Return which keywords triggered the keyword gate
+
+=== FRONTEND CHANGES ===
+
+FILE: artifacts/event-finder/src/pages/runs/detail.tsx
+
+Replace the current two-tab layout with a THREE-panel layout:
+
+PANEL 1 (left, 40% width): Activity Log — keep existing but add:
+- Color-code by new event types: "skipped" = gray, "page_detail" = subtle blue
+- Show page duration (e.g. "2.3s") next to each entry
+- Collapsible detail for each entry — click to expand and see:
+  - For pages: text length, keywords found, whether sent to AI
+  - For events: mini preview card with name, date, org, score
+  - For errors: full error message and duration
+
+PANEL 2 (right top, 60% width): Live Event Cards
+- As "event_found" SSE events arrive with full data, render them immediately as
+  compact cards (no polling needed):
+  - Score pill + Tier badge
+  - Event name (bold)
+  - Org name, date, venue on one line
+  - Auction type badges (Silent/Live/Online) if present
+  - Contact info if found (email, phone)
+  - "Open page" link to eventPageUrl
+- Cards should animate in (slide-down + fade-in)
+- Sort by score descending (highest score at top)
+
+PANEL 3 (right bottom, 60% width): Error Summary Panel
+- Group errors by errorType
+- Show count per type: "Timeouts: 12 | Fetch failed: 3 | No keywords: 45"
+- Expandable section per error type showing the URLs that failed
+- Add a button: "Analyze Errors with AI" (see Feature 2)
+
+For mobile/narrow screens: stack the panels vertically instead of side-by-side.
+
+FEATURE 2: Error log → LLM analysis endpoint
+
+=== BACKEND ===
+
+FILE: artifacts/api-server/src/routes/crawlRuns.ts
+
+Add a new route:
+POST /api/crawl-runs/:id/analyze-errors
+
+This endpoint:
+1. Reads the debugLog from the crawl run
+2. Filters to only error/skipped entries
+3. Groups errors by type and counts them
+4. Sends a summary to OpenAI (gpt-4o-mini) with this prompt:
+
+"""
+You are analyzing the error log from a web scraping run that crawls charity/nonprofit
+websites looking for fundraising events (galas, auctions, golf tournaments, etc).
+
+Here is the error summary from this run:
+- Total URLs attempted: {total}
+- Successfully crawled: {success}
+- Errors: {errorCount}
+
+Error breakdown:
+{for each error type: type, count, sample URLs (up to 5)}
+
+Common patterns in failed URLs:
+{list unique domains that failed, with count per domain}
+
+Pages skipped (archive/past detection):
+{count and sample URLs}
+
+Pages that passed keyword gate but AI returned relevant=false:
+{count and sample URLs}
+
+Analyze these errors and provide:
+1. PATTERNS: What patterns do you see in the failures? Are certain types of sites
+   consistently failing?
+2. CONFIGURATION SUGGESTIONS: Based on the errors, suggest specific changes to:
+   - Search keywords (any that should be added or removed?)
+   - Avoid keywords (any causing false skips?)
+   - Timeout settings (are timeouts too aggressive?)
+   - Max pages per site (too low? too high?)
+3. SITE-SPECIFIC ISSUES: Flag any domains that seem to block scrapers or have
+   unusual structures that might need special handling
+4. EXTRACTION QUALITY: For pages where AI returned relevant=false, do the URLs
+   suggest these might actually be event pages that the AI is incorrectly rejecting?
+
+Return your analysis as JSON:
+{
+  "summary": "2-3 sentence overview",
+  "patterns": [{"pattern": "...", "affected_urls": 5, "suggestion": "..."}],
+  "configSuggestions": [{"setting": "...", "currentValue": "...", "suggestedValue": "...", "reason": "..."}],
+  "siteIssues": [{"domain": "...", "issue": "...", "workaround": "..."}],
+  "falseNegatives": [{"url": "...", "likelyReason": "..."}],
+  "overallHealthScore": 85 // 0-100, how well the crawl performed
+}
+"""
+
+5. Returns the AI analysis as JSON to the frontend
+
+=== FRONTEND ===
+
+FILE: artifacts/event-finder/src/pages/runs/detail.tsx
+
+The "Analyze Errors with AI" button in the Error Summary Panel:
+- On click: POST to /api/crawl-runs/:id/analyze-errors
+- Show a loading spinner: "Analyzing error patterns..."
+- On response: render the analysis in a styled panel:
+
+  CRAWL HEALTH SCORE: [85/100] (color-coded: green > 70, yellow > 40, red <= 40)
+
+  PATTERNS FOUND:
+  - [pattern description] — affects N URLs
+    → Suggestion: [suggestion]
+
+  CONFIGURATION SUGGESTIONS:
+  - Setting: [setting name]
+    Current: [value] → Suggested: [value]
+    Reason: [reason]
+  Each suggestion should have an "Apply" button that sends a PATCH to
+  /api/admin/settings with the suggested value.
+
+  SITE ISSUES:
+  - [domain]: [issue]
+    Workaround: [workaround]
+  Each domain issue should have an "Add to blacklist" button if the suggestion
+  is to skip it.
+
+  POSSIBLE MISSED EVENTS:
+  - [url]: [likely reason]
+  Each should have a "Re-crawl this URL" button that adds it to a temporary
+  retry queue.
+
+=== ADDITIONAL: Per-URL retry from error log ===
+
+FILE: artifacts/api-server/src/routes/crawlRuns.ts
+
+Add a route:
+POST /api/crawl-runs/:id/retry-urls
+Body: { urls: string[] }
+
+This creates a NEW crawl run containing only the specified URLs (from the same
+url_list_id as the original run), starts it, and returns the new run object.
+This allows users to retry specific failed URLs without re-running the entire list.
+
+=== TESTING ===
+
+1. Start a crawl run with 20+ URLs and verify the enhanced live view works
+2. Wait for completion, then click "Analyze Errors with AI" and verify the
+   analysis renders correctly
+3. Test the "Apply" buttons on config suggestions — verify they update admin settings
+4. Test the "Re-crawl this URL" retry flow — verify it creates a new run with
+   only the selected URLs
+5. Test on mobile viewport — verify panels stack vertically

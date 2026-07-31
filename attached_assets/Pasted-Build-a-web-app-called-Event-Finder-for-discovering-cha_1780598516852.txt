@@ -1,0 +1,206 @@
+Build a web app called "Event Finder" for discovering charity galas, silent auctions, and fundraising events by deeply crawling organization websites.
+
+──────────────────────────────────────────
+1. URL MANAGEMENT
+──────────────────────────────────────────
+
+I upload website URLs by pasting them into a text box (one per line) or uploading a .csv/.xlsx file. I can save multiple named lists (e.g. "Houston nonprofits," "Gala orgs batch 2"), edit them, delete them, and upload new URL sets anytime.
+
+──────────────────────────────────────────
+2. FULL SITE CRAWL (not just the homepage)
+──────────────────────────────────────────
+
+For each URL in the list, the app must crawl the ENTIRE website — not just the homepage. Events can live on any page: /events, /gala, /auction, /calendar, /programs, /get-involved, /support, or even deeply nested pages. Every site is structured differently.
+
+Crawl strategy:
+- First, check for a sitemap.xml (fastest way to discover all pages).
+- If no sitemap, follow all internal links from the homepage recursively.
+- Stay on the same domain (don't follow external links).
+- Cap at 30 pages per site to keep run times sane.
+- Prioritize pages whose URL path or link text contains event-related words (event, gala, auction, fundraiser, calendar, benefit, donate, support, tickets, banquet, rsvp) — crawl those first before general pages.
+- Set a 30-second timeout per page. If a page doesn't load, log an error and move to the next page.
+- Process sites ONE AT A TIME (sequential, never concurrent) to stay within memory limits.
+
+──────────────────────────────────────────
+──────────────────────────────────────────
+3. IMAGE READING (triggered only on keyword-matched pages)
+──────────────────────────────────────────
+
+Image reading is EXPENSIVE (time + credits), so it only activates on pages
+that already show relevance:
+
+Trigger image reading when EITHER:
+  a) The page text contains at least one search keyword, OR
+  b) The page URL path contains an event-related word
+     (/event, /gala, /auction, /fundraiser, /calendar, /benefit, /banquet)
+
+When triggered:
+- Take a full-page screenshot with the headless browser.
+- Also extract any large images on the page (minimum 200x200 pixels —
+  skip icons, logos, and decorative images).
+- Send BOTH the page text AND the screenshot/images to the AI so it can
+  read event info embedded in flyer graphics (dates, venues, ticket
+  prices, QR codes with registration links, etc.).
+
+When NOT triggered:
+- The page gets text-only processing. No screenshot, no image extraction,
+  no vision calls. Fast and free.
+
+This keeps image reading targeted to the 5-10% of pages that actually
+matter, instead of burning vision credits on every staff bio and privacy
+policy page.
+
+Image reading can be toggled on/off globally from the admin panel.
+──────────────────────────────────────────
+4. KEYWORD GATE (saves AI credits)
+──────────────────────────────────────────
+
+Before making any AI call on a page, check if the page text contains at least one SEARCH keyword. If no search keywords are found AND the page has no large images that might be event flyers, skip the AI call — mark it unmatched and move on.
+
+IMPORTANT OVERRIDE: If the page text explicitly contains "silent auction," ALWAYS send it to the AI regardless of any avoid keywords present. Silent auctions are the #1 target and must never be skipped.
+
+The search keywords and avoid keywords are ADMIN-CONFIGURABLE (see section 8), but the defaults are:
+
+Default search keywords: silent auction, live auction, online auction, raffle, golf, benefit auction, auction items, fundraiser, fundraising event, benefit dinner, charity, gala, black-tie, gala dinner, church fundraiser
+
+Default avoid keywords: bingo, walk, wine, arts, art silent auction, fashion show, outdoor event
+
+──────────────────────────────────────────
+5. AI EXTRACTION
+──────────────────────────────────────────
+
+Use Replit's built-in AI integrations for all LLM calls (no external API key needed). Send the page text + screenshot/images and ask the AI to return a JSON object with TWO sections:
+
+EVENT INFO (from the event page):
+- Event name
+- Event date and time
+- Event venue name
+- Event venue address
+- Event description (1-2 sentences)
+- Auction type: silent, live, online, or none
+- Has silent auction (boolean)
+- Has live auction (boolean)
+- Individual ticket price (number or null)
+- Table/sponsorship price (number or null)
+- Formality/dress code: black-tie, gala, cocktail, casual, or unknown
+- RSVP or registration link (if found)
+- Event contact person name
+- Event contact email
+- Event contact phone
+- Event page URL (the specific page where this event was found — this becomes the hyperlink in the output)
+- Audience affluence note (one short phrase on why this audience is/isn't wealthy)
+- Sponsorship opportunities mentioned (boolean)
+
+BUSINESS INFO (from the site footer, contact page, or about page):
+- Organization/business name
+- Street address
+- City, state, zip
+- Main phone number
+- General email address
+- Website URL
+- Hours of operation (if listed)
+- Social media links (if found)
+
+The AI should mark an event as IRRELEVANT only if it matches an active avoid keyword AND does not explicitly mention "silent auction." If it mentions silent auction, it is ALWAYS relevant.
+
+──────────────────────────────────────────
+6. SUITABILITY SCORING
+──────────────────────────────────────────
+
+Each event gets a score from 0 to 100 (weights are admin-configurable, see section 8):
+
+- Has a silent or live auction: +30
+- Auction type is specifically silent or live: +10
+- Ticket >= $500 or table >= $5,000: +30 (else +20 if ticket >= $250 / table >= $2,500; else +8 if ticket >= $100)
+- Black-tie or gala formality: +15
+- Event is 6-12 weeks away: +25 (else +10 if 2-6 or 12-17 weeks; else -20 if <2 weeks or past)
+- Beneficiary is hospital/foundation/museum/symphony/opera/ballet/university: +10
+
+Score capped 0-100. Tier A = 70+, B = 45+, C = below 45.
+
+──────────────────────────────────────────
+7. RESULTS DASHBOARD
+──────────────────────────────────────────
+
+After a run, show a results table with these columns. Each event's "Event page URL" should be a clickable hyperlink that opens in a new tab.
+
+Columns:
+- Score, Tier
+- Event name, Event date, Event venue, Event address
+- Auction type, Ticket $, Table $, Formality
+- Org name, Org address, Org phone, Org email
+- Contact name, Contact email, Contact phone
+- Event page URL (clickable hyperlink)
+- Audience note
+- Status (NEW / UPDATED / UNCHANGED)
+- Errors (if any)
+
+Features:
+- Default sort: Score descending (best leads on top)
+- Sortable by any column
+- Filterable by: Tier, Auction type, Status, Date range, Score range, Keyword search across all text fields
+- CSV export button
+- Live progress during a run (server-sent events showing each URL as it processes)
+
+──────────────────────────────────────────
+8. ADMIN PANEL
+──────────────────────────────────────────
+
+A dedicated admin settings page where I can configure:
+
+KEYWORD MANAGEMENT:
+- Search keywords: add, remove, edit the list of keywords the scraper looks for. Changes apply to the next run.
+- Avoid keywords: add, remove, edit the list of keywords that cause events to be skipped.
+- Override keywords: keywords that ALWAYS scrape regardless of avoid list (default: "silent auction"). Add/remove these.
+
+SCORING CONFIGURATION:
+- Adjustable point values for each scoring factor (auction, price, formality, timing, beneficiary)
+- Adjustable tier thresholds (default A=70, B=45)
+- Minimum score threshold for email notifications (default: 45, meaning Tier A and B)
+
+CRAWL SETTINGS:
+- Max pages per site (default: 30)
+- Timeout per page in seconds (default: 30)
+- Toggle image reading on/off (default: on)
+
+EMAIL RECIPIENTS:
+- Add multiple email addresses that receive the weekly digest and run summaries
+- Each email can be toggled active/inactive without deleting it
+- Remove email addresses
+
+DOMAIN BLACKLIST:
+- Add domains that always return junk or are known dead — the scraper skips them entirely
+
+──────────────────────────────────────────
+9. WEEKLY AUTOMATION
+──────────────────────────────────────────
+
+Automatically re-run the scrape for all saved URL lists every Monday at 6 AM Central Time (America/Chicago timezone). On each run:
+
+- Compare results against the previous run for each list
+- Flag events as NEW (not seen before), UPDATED (date or details changed), or UNCHANGED
+- After the run, email ALL registered email recipients a summary of NEW and UPDATED events that meet the minimum score threshold
+- The email should be a clean HTML email grouped by Tier, with event name, date, venue, score, and a clickable link to the event page
+
+Use Resend (resend.com) for sending emails. RESEND_API_KEY is stored as a secret.
+
+──────────────────────────────────────────
+10. RUN HISTORY
+──────────────────────────────────────────
+
+Keep a log of every run showing: date/time, which list, total URLs, pages crawled, events matched, top 3 scoring events, and triggered by (manual or scheduled). Allow re-running any past list from the history view.
+
+──────────────────────────────────────────
+REQUIRED SECRETS
+──────────────────────────────────────────
+- RESEND_API_KEY (from resend.com, free tier is fine)
+- SUPABASE_URL (Supabase project URL)
+- SUPABASE_KEY (Supabase service role key)
+- NOTIFICATION_EMAIL (default recipient — additional emails added via admin panel)
+
+IMPORTANT CONSTRAINTS:
+- Process sites ONE AT A TIME. No concurrent scraping.
+- Use Replit's built-in AI integrations. No external LLM API key.
+- Keyword gate MUST run before any AI call.
+- Silent auction override MUST be respected — never skip a page that mentions "silent auction."
+- Every event in the results table must have a clickable hyperlink to the source page.

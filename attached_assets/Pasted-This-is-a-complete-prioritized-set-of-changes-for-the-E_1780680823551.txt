@@ -1,0 +1,259 @@
+This is a complete, prioritized set of changes for the Event Finder app,
+covering three areas: (1) critical bug fixes, (2) the CRM output format
+that matches our manual research spreadsheet, and (3) a crawling overhaul
+for complete, never-miss-a-page coverage.
+Work through them in the order below. Do NOT rebuild things that already
+work (auth, run controls, automation tab, the basic UI). Only fix and add
+what is described here.
+╔══════════════════════════════════════════╗
+║  SECTION 1 — CRITICAL BUG FIXES (do first) ║
+╚══════════════════════════════════════════╝
+BUG 1 — Event status is always "NEW" (no diff logic):
+Every event is inserted with status "NEW" because there's no comparison
+against previous runs. Fix: after extracting events for a site but BEFORE
+inserting, query the most recent PREVIOUS completed run for the same
+url_list. For each new event, match against the previous run by event_name
+(case-insensitive) + org_name:
+No match → status = "NEW"
+Match, but a key field changed (event_date, event_venue, event_address,
+ticket_price, table_price, auction_type, formality, contact_email,
+contact_phone, rsvp_link) → status = "UPDATED"
+Match, nothing changed → status = "UNCHANGED"
+This is what makes the weekly email digest useful (new/changed only).
+BUG 2 — Hardcoded tier thresholds in scorer.ts:
+getTier() uses hardcoded { tierA: 70, tierB: 45 } instead of the
+config.tierThresholds passed in. Wire getTier() to read the thresholds
+from config so admin changes to tier cutoffs actually take effect.
+BUG 3 — Scheduler ignores database settings:
+The cron is hardcoded to "0 6 * * 1". The scheduleDays, scheduleTime,
+scheduleFrequency, and scheduleTimezone fields saved by the Automation UI
+are stored but never read. Fix:
+a) Add scheduleFrequency (text, default "weekly": daily/weekly/biweekly/
+monthly) and scheduleMonthDay (integer, nullable) columns to
+admin_settings if missing.
+b) On server start, build the cron expression dynamically from the DB
+settings.
+c) When PATCH /admin/settings updates the schedule, destroy and recreate
+the cron job so changes take effect WITHOUT a server restart.
+ALSO FIX (moderate):
+hidePast query param: Zod's coerce.boolean treats "false" as true.
+Read req.query.hidePast === "false" directly (or fix coercion properly).
+Remove the xlsx package from package.json — it's imported nowhere.
+The /results and /runs pages duplicate nearly identical run-card UI.
+Make /results = run list → click to view that run's events table;
+make /runs = the history page with archive/delete/re-run actions.
+Don't duplicate.
+╔══════════════════════════════════════════╗
+║  SECTION 2 — CRM OUTPUT FORMAT (the goal) ║
+╚══════════════════════════════════════════╝
+The whole point of this app is to produce rows that match how Goff
+Financial researched these events by hand — a 30-column format ready
+to import into ACT CRM.
+2A. ADD COLUMNS TO THE events TABLE:
+has_online_auction   BOOLEAN
+has_raffle           BOOLEAN
+has_donation_request BOOLEAN
+contact_title        TEXT
+contact_first_name   TEXT
+contact_last_name    TEXT
+org_state            TEXT
+org_zip              TEXT
+2B. EXPAND AI EXTRACTION to populate the new fields:
+hasOnlineAuction: true if "online auction" / "virtual auction" mentioned
+hasRaffle: true if "raffle" / "drawing" / "50/50" mentioned
+hasDonationRequest: true if page asks for donated items, gift
+certificates, or in-kind donations
+contactTitle: the contact person's job title (e.g. "Development Director")
+contactFirstName + contactLastName: return the name SPLIT into two
+fields — do not return a single combined name
+orgState: 2-letter state (default "TX" if clearly Texas but unstated)
+orgZip: 5-digit zip
+Keep extracting all existing fields too.
+2C. RESULTS TABLE (on-screen) should display these columns, sorted by
+score descending, with clickable hyperlinks on the event page URL and
+RSVP link:
+Score | Tier | Status | Event Name | Event Date | Venue | Venue Address |
+Auction Type | Silent? | Live? | Online? | Raffle? | Ticket $ | Table $ |
+Formality | Org Name | Org Address | Org City | Org State | Org Zip |
+Org Phone | Contact First | Contact Last | Contact Title | Contact Email |
+Contact Phone | RSVP Link | Event Page URL | Found At (timestamp) |
+Donation Needed? | Sponsorship? | Audience Note
+Keep the existing filters (tier, auction type, status, date range, score
+range, keyword search) and keep results grouped BY RUN (click a run to
+see its table — not all runs combined).
+2D. "EXPORT FOR CRM" BUTTON — produce a CSV with EXACTLY these 30 columns
+in EXACTLY this order and these exact header names (this matches the ACT
+import template — do not rename):
+GCP - Donation Needed By
+GCP - Online Auction
+GCP - Live Auction
+GCP - Silent Auction
+GCP - Raffle
+(blank column — empty header, empty values, required by CRM)
+GCP - Event Web Page
+Organization ID
+GCP - Event Date Sort
+GCP - Beneficiary of Fundraiser
+GCP - Event
+First Name
+Last name
+Salutation
+Title 1
+Mailing Address 1
+Mailing Address 2
+Mailing City
+Mailing State
+Mailing Zip
+Phone - Business
+E-mail
+GCP - Event Status
+Primary Group 1
+Primary Group 2
+Web Site
+GC - Estate Planning Expiration Date
+GCP - Items Donated
+Contact
+Company
+Mapping:
+GCP - Donation Needed By → hasDonationRequest (Yes/No/Unkown)
+GCP - Online Auction     → hasOnlineAuction   (Yes/No/Unkown)
+GCP - Live Auction       → hasLiveAuction     (Yes/No/Unkown)
+GCP - Silent Auction     → hasSilentAuction   (Yes/No/Unkown)
+GCP - Raffle             → hasRaffle          (Yes/No/Unkown)
+(col 6)                  → empty
+GCP - Event Web Page     → eventPageUrl
+Organization ID          → empty (filled in CRM later)
+GCP - Event Date Sort    → eventDate as M/D/YYYY
+GCP - Beneficiary        → orgName
+GCP - Event              → eventName
+First Name               → contactFirstName
+Last name                → contactLastName
+Salutation               → empty
+Title 1                  → contactTitle
+Mailing Address 1        → orgName  (the org name IS the mailing name line)
+Mailing Address 2        → orgAddress (street goes here)
+Mailing City             → orgCity
+Mailing State            → orgState (default "TX")
+Mailing Zip              → orgZip
+Phone - Business         → orgPhone
+E-mail                   → contactEmail (fall back to orgEmail)
+GCP - Event Status       → always "Pending"
+Primary Group 1          → admin setting primaryGroup1Label (default "2026 Events")
+Primary Group 2          → always "Charity"
+Web Site                 → orgWebsite
+GC - Estate Planning...  → empty
+GCP - Items Donated      → empty
+Contact                  → empty
+Company                  → orgWebsite
+CRITICAL: boolean fields output the exact strings "Yes", "No", or
+"Unkown" — "Unkown" is intentionally misspelled to match the CRM
+template. Do NOT fix the typo.
+The CRM export should include only events where status is NEW or UPDATED
+and is_past is false; allow filtering by tier before export. Keep the
+existing full-column CSV export too (for analysis).
+2E. ADMIN — add an "Export Settings" section with:
+primaryGroup1Label (text, default "2026 Events")
+defaultMailingState (text, default "TX")
+╔══════════════════════════════════════════╗
+║  SECTION 3 — CRAWL OVERHAUL (completeness) ║
+╚══════════════════════════════════════════╝
+GOAL: every page of every site must be discovered and checked — never
+silently skipped. This is the top priority.
+3A. SWITCH TO FIRECRAWL /crawl WITH COMPLETENESS SETTINGS
+Replace the custom per-page BFS with Firecrawl's /crawl endpoint:
+crawlEntireDomain: true   // CRITICAL: default false skips sibling
+// sections like /events, /gala, /blog
+allowSubdomains: true     // catch give.org, events.org subdomains
+sitemap: "include"
+limit: 100                // per-site cap (raise if coverage shows sites
+// hitting it)
+maxDiscoveryDepth: 5      // generous, NOT shallow
+scrapeOptions: { formats: ["markdown","links"], onlyMainContent: false,
+waitFor: 3000 }
+excludePaths: ["/wp-json","/wp-admin","/cart","/checkout","/login",
+"/account","\.(pdf|jpg|png|gif|css|js|zip)$"]
+Use a webhook to receive each finished page and write it to the DB
+immediately (Replit has only 2 GiB RAM — don't hold everything in memory).
+NOTE: onlyMainContent:false is required here so navigation links aren't
+stripped (stripping them causes missed pages).
+3B. CAPTURE CRAWL ERRORS
+Firecrawl's success result EXCLUDES failed pages. After each crawl, call
+the crawl-errors endpoint and record every failed/blocked/timed-out URL.
+A crawl with unhandled errors is NOT complete.
+3C. COVERAGE RECONCILIATION (prove completeness)
+For each site, gather URLs from THREE sources and reconcile:
+robots.txt — parse every "Sitemap:" line (sitemaps often aren't at
+/sitemap.xml)
+sitemaps — fetch each; if it's a <sitemapindex>, recursively resolve
+all child sitemaps; also probe /sitemap.xml, /sitemap_index.xml
+Firecrawl crawl — URLs actually discovered + crawled
+Compute per site: pages_discovered (union), pages_crawled, pages_missed
+(discovered but not crawled). If pages_missed > 0, flag the site INCOMPLETE
+and queue the missed URLs for a direct /scrape retry.
+3D. PAGINATION
+Follow rel="next", numbered pagination (?page=2, /events/page/2), and
+"Load More"/infinite scroll (use a browser action to click before capture,
+or scrape numbered pages directly).
+3E. LOW-CONFIDENCE FALLBACK
+Keep got+cheerio only as a last resort. cheerio can't see JS-rendered
+content, so mark any fallback page low_confidence = true and queue a
+rendered retry. Never treat a fallback page as a complete read.
+3F. KEYWORD FILTER TUNED FOR RECALL (before AI)
+Run keyword detection on cleaned markdown to decide which pages get AI
+extraction. Tune for RECALL — a wasted cheap call is fine, a missed event
+is not. Broad dictionary with stems/synonyms: silent/live/online/virtual
+auction, gala, raffle, drawing, 50/50, benefit dinner, fundrais*, charity,
+"save the date", tickets, sponsorship, RSVP, "table of", paddle raise,
+"in-kind", "gift certificate", honoree, luncheon + date regex + price
+regex. Keep the "silent auction" override (always extract). Pages with
+zero signal are skipped.
+3G. STRICT STRUCTURED OUTPUTS
+Keep using your own OpenAI extraction (do NOT switch to Firecrawl's JSON
+extract — it costs ~5x). Upgrade the call to use Structured Outputs:
+response_format type "json_schema", strict: true, additionalProperties:
+false on every object. This guarantees valid JSON for the CRM fields.
+Since strict mode doesn't enforce string patterns, validate emails/phones/
+dates in code after parsing; reject unparseable dates (don't guess). Add
+to the prompt: "If a field is not present, return null. Do NOT infer or
+fabricate."
+3H. VISION / FLYERS
+Only run vision when the page passed the keyword filter AND has a candidate
+flyer image. Select flyers by large dimensions (>400px), poster aspect
+ratio, filename/alt-text signals (flyer, gala, auction, event, year, date),
+and position in event-content. Exclude logos/icons/SVGs. For mostly-flyer
+pages, send one full-page screenshot. Keep gpt-4o for vision (do NOT use
+gpt-4o-mini for images — it uses ~33x the image tokens). Merge image data
+into the same schema (text wins, image fills gaps); dedupe by event name +
+date + venue; store provenance.
+3I. COVERAGE REPORTING & MONITORING
+Add per-run metrics (on crawl_runs or a run_coverage table): sites_total,
+sites_complete, sites_incomplete, pages_discovered, pages_crawled,
+pages_missed, pages_keyword_matched, pages_sent_to_ai, events_extracted,
+vision_calls, fetch_errors, fallback_pages. On the Run Detail page, show a
+"Crawl Coverage" panel highlighting any INCOMPLETE site in red, with a
+drill-down to the exact missed URLs and why. After scheduled runs, flag in
+the digest any site whose page/event count dropped sharply vs last run, or
+any run with pages_missed > 0.
+3J. DIFF CRAWLING + DEDUP (efficiency, don't sacrifice completeness)
+Store a content hash of each page's cleaned markdown. On later runs, still
+CRAWL every page (to find new ones) but only send NEW or CHANGED pages to
+AI extraction (unchanged pages keep their prior event). Dedupe events on
+normalized name + date + org/venue; keep the most complete record.
+╔══════════════════════════════════════════╗
+║  IMPLEMENTATION ORDER                      ║
+╚══════════════════════════════════════════╝
+Section 1 bug fixes (quick, foundational — especially the NEW/UPDATED
+diff logic and the scheduler).
+Section 3A only: set crawlEntireDomain:true, allowSubdomains:true,
+onlyMainContent:false. Test on 5 known sites and CONFIRM /events and
+/gala pages now appear. Show me a coverage report before continuing.
+Section 3B + 3C: crawl error capture + coverage reconciliation + the
+coverage metrics/dashboard (3I).
+Section 2: the new DB columns, expanded extraction, results table
+columns, and the 30-column CRM export.
+Section 3F + 3G: recall-tuned keyword filter + strict Structured Outputs.
+Section 3H: flyer/vision hardening.
+Section 3J + 3I anomaly alerts: diff crawling, dedup, monitoring.
+After step 2, pause and show me the coverage report (discovered vs crawled
+vs missed) on a few test sites so I can verify nothing is being missed
+before we build the rest.

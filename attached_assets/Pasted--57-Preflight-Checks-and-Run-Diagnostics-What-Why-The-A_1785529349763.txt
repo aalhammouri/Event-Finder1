@@ -1,0 +1,124 @@
+#57 — Preflight Checks and Run Diagnostics
+What & Why
+The ANTHROPIC_API_KEY guard added in the Claude migration is the right pattern: a misconfiguration now fails immediately with a reason instead of producing a run that reports COMPLETED while doing nothing useful. Run 5 burned 117 minutes and 2,445 page fetches in exactly that failure mode.
+
+That was not the only silent failure in this app — it was the one we happened to catch. This ticket generalizes the pattern: every condition that can quietly produce empty or wrong results should either block the run with an actionable message or be counted and surfaced, never both silent and consequential.
+
+Two rules throughout:
+
+FATAL = the run cannot produce correct results → refuse to start, explain why.
+WARN = the run will work but behave in a way the operator may not expect → proceed, but record it and show it on the run.
+Do not make WARN conditions fatal. A missing Firecrawl key, for example, is a legitimate degraded mode (BFS fallback), not a failure.
+
+Part A — Startup preflight
+On server boot, after the DB connection is established, run a configuration check and log a single readable report. This runs once and costs nothing.
+
+Check and report:
+
+Check	Level if failing	Notes
+ANTHROPIC_API_KEY present	FATAL	Already guarded per-run; report at boot too
+DATABASE_URL present	FATAL	
+JWT_SECRET present	FATAL	
+FIRECRAWL_API_KEY present	WARN	Absent = BFS-only crawling, materially lower yield
+organizations table exists	WARN	Absent = CRM export cannot join org data
+events.organization_id column exists	WARN	Same
+admin_settings.avoid_keywords is empty	WARN	Non-empty = pages are being discarded; list the terms
+admin_settings.geographic_states is empty	WARN	Non-empty = out-of-state events discarded; list the states
+admin_settings.tiers is a non-empty array	FATAL	A non-array here crashes every scoring call
+Legacy tier values present (tier IN ('A','B','C'))	WARN	Report the row count — means the tier migration SQL never ran
+deploymentTarget is not autoscale	WARN	Log that background crawls may be killed and the cron may not fire
+Log it as one block, not scattered lines — something an operator can screenshot:
+
+=== Event Finder preflight ===
+  OK    ANTHROPIC_API_KEY        configured
+  OK    DATABASE_URL             configured
+  WARN  FIRECRAWL_API_KEY        not set — crawling will use BFS fallback only
+  WARN  avoid_keywords           3 terms active: bingo, wine, arts
+                                 → pages containing these may be discarded
+  WARN  legacy tier values       412 events still use 'A'/'B'/'C'
+                                 → run: UPDATE events SET tier = 'Tier ' || tier ...
+  OK    organizations table      present
+=== 4 OK, 3 warnings, 0 fatal ===
+On any FATAL, log the report and exit non-zero rather than starting in a state that cannot work.
+
+Part B — Pre-run preflight
+Extend the existing check in routes/urlLists.ts (currently AI-only) into a shared preflightForRun() used by all run entry points: POST /url-lists/:id/run, /crawl-runs/:id/rerun, /crawl-runs/:id/retry-urls, /crawl-runs/:id/resume, and the scheduler's runScheduledJob().
+
+FATAL (return 400 with the reason; scheduler logs and skips):
+
+AI not configured
+tiers not a usable array
+URL list is empty
+WARN (proceed, but attach to the run's debug log as its first entries so they appear at the top of the Activity Log):
+
+Firecrawl not configured
+avoid_keywords non-empty — list them
+geographic_states non-empty — list them
+minEventScore > 0 — state that score-0 events will not be stored
+imageReadingEnabled is true but image fetching is failing (see Part E)
+The point is that an operator reading the Activity Log sees, before any page is crawled, exactly which filters are about to shape the results.
+
+Part C — Run audit endpoint
+Add GET /api/crawl-runs/:id/audit returning a JSON summary. Most of these counters already exist on crawl_runs; they are simply never surfaced.
+
+{
+  "funnel": {
+    "sitesAttempted": 87,
+    "pagesDiscovered": 3120,
+    "pagesCrawled": 2445,
+    "pagesKeywordMatched": 610,
+    "pagesSentToAi": 588,
+    "eventsExtracted": 74,
+    "eventsStored": 37
+  },
+  "dropOffs": {
+    "keyword_gate_no_signal": 1610,
+    "keyword_gate_excluded": 225,
+    "archive_path": 90,
+    "no_event_name": 22,
+    "out_of_geography": 0,
+    "below_min_score": 15,
+    "duplicate": 12,
+    "fetch_failed": 18
+  },
+  "config": { "aiConfigured": true, "firecrawlConfigured": true,
+              "avoidKeywords": [], "geographicStates": [], "minEventScore": 1 },
+  "warnings": ["..."]
+}
+dropOffs is a histogram of the reason field already carried on skipped progress events, plus the three filters that currently drop events without emitting one (below_min_score, duplicate, no_event_name).
+
+Render it on the run detail page as a simple funnel. An operator should be able to answer "why did this run find only 4 events?" in one glance — the shape of that funnel distinguishes "nothing matched" from "everything was filtered" from "the AI rejected it all."
+
+Part D — Precise skip reasons
+services/gate.ts already computes a specific reason (no_signal, excluded_weak_page, strong_signal, override_keyword, weak_signal_with_date_price) via evaluateKeywordGate(), but crawler.ts calls the boolean wrapper and logs a generic "keyword_gate".
+
+Switch processPage to evaluateKeywordGate() and emit the precise reason. no_signal (the page had no fundraising content) and excluded_weak_page (the admin avoid-list rejected it) are opposite problems with opposite fixes, and right now they are indistinguishable in the log.
+
+Part E — Detect self-disabling subsystems
+Some features can be enabled in settings while being completely non-functional. Detect and report rather than failing silently:
+
+Image reading: if imageReadingEnabled is true and every fetchImageAsBase64 call in a run returns null, emit one WARN to the run log: "Image reading enabled but 0 of N image fetches succeeded — check SSRF/host resolution". (Note: there is a live bug here — extractor.ts passes a full URL to resolveHostIsSafe(), which expects a hostname, so every image fetch currently fails. Fix that too: const { hostname } = new URL(url); if (!(await resolveHostIsSafe(hostname))) return null; and change hooks: { beforeRedirect: [ssrfRedirectHook as any] } to hooks: ssrfRedirectHook to match the other five call sites.)
+Enrichment: if ticket-platform links were found but zero enrichments succeeded across a run, WARN once.
+Scheduler: on boot, log the resolved cron expression, timezone, and the next fire time. "Scheduler initialized" without a next-fire time is not verifiable.
+Done looks like
+Booting with a missing ANTHROPIC_API_KEY prints the preflight report and exits non-zero — it does not start and then fail per-request.
+Booting with avoid_keywords or geographic_states populated prints a WARN naming the exact terms.
+Starting a run through any entry point (manual, rerun, retry, resume, scheduled) performs the same preflight.
+The Activity Log's first entries state which filters are active for that run.
+GET /api/crawl-runs/:id/audit returns the funnel and drop-off histogram, and the run detail page renders it.
+A page rejected by the avoid-list logs excluded_weak_page, not keyword_gate.
+A run where image reading is on but non-functional says so.
+Out of scope
+Changing any filtering behavior — this ticket makes existing behavior visible, it does not alter what gets kept or dropped. The one exception is the image-fetch bug fix in Part E, which restores intended behavior.
+New scoring, tier, or extraction logic.
+Retroactively backfilling audit data for past runs.
+Relevant files
+artifacts/api-server/src/index.ts — boot sequence, add Part A
+artifacts/api-server/src/routes/urlLists.ts:~209 — existing AI guard to generalize
+artifacts/api-server/src/routes/crawlRuns.ts — run entry points, counters, new audit route
+artifacts/api-server/src/services/scheduler.ts — scheduler entry point + boot log
+artifacts/api-server/src/services/gate.ts — evaluateKeywordGate() already returns the reason
+artifacts/api-server/src/services/crawler.ts — processPage, skip events
+artifacts/api-server/src/services/extractor.ts — fetchImageAsBase64 bug (Part E)
+artifacts/api-server/src/routes/admin.ts:~395 — mirror the ai-status pattern
+artifacts/event-finder/src/pages/runs/detail.tsx — render the funnel

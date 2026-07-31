@@ -1,0 +1,9 @@
+---
+name: Admin lockout recovery
+description: Why Event Finder can lock every user out of mutating features, and how the zero-admin state self-heals
+---
+- **The lockout:** all mutating routes (create/rename/delete URL lists, run/pause/resume/stop crawls, admin settings) are gated by `requireAdmin`. If the DB has zero `admin` users, every mutation returns 403 and the app looks broken (e.g. "New List" does nothing). A freshly-published app launches with its own empty DB, so prod routinely starts with zero admins even when dev is fine.
+- **Self-heal:** a startup bootstrap promotes the first *activated* user to `admin` on server boot, and the login/activate path does the same. Use the Drizzle **query builder** (`.select` / `.update().returning()`) for this, not raw `db.execute(sql\`...RETURNING\`)` — the query builder's result shape is unambiguous and the code is easier to trust.
+- **Why:** viewer/admin split + empty prod DB = guaranteed first-boot lockout with no way in. Auto-promoting the first activated user is a deliberate, logged recovery mechanism appropriate for this small private internal app (accepts a benign concurrent-first-login race that could promote two users).
+- **How to apply:** if a user reports mutating features silently failing in the *published* app, first check prod roles (`executeSql` env `production`, read-only). If everyone is `viewer`, the fix is code + **republish** — you cannot flip roles via SQL from here. The bootstrap only fires on the *new* deployment, and the user must log out/in afterward to mint a fresh JWT carrying `role: admin` (the old token still says viewer).
+- **Frontend corollary:** requireAdmin 403s fail *silently* unless the mutation has an `onError` handler. Every mutation that can hit an admin-gated route must surface the error (toast via `getErrorMessage`), or viewers get a dead button with no feedback.

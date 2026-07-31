@@ -1,0 +1,19 @@
+- [CRM export format](crm-export.md) — 30-column ACT CRM CSV at /events/export/crm; "Unkown" (intentional typo) for null booleans
+- [Cross-run event dedupe](event-dedupe.md) — dedupeKey/contentHash classify NEW/UPDATED/DUPLICATE against all prior events; DUPLICATEs never inserted
+- [Crawl run pause/resume](pause-resume-runs.md) — resume from seedUrls−completedUrls, 409 while logBuffers.has(id); boot marks interrupted runs paused
+- [Scheduler design](scheduler-design.md) — dynamic cron via reloadScheduler() called on PATCH /admin/settings; scheduleFrequency daily/weekly/monthly
+- [Configurable tiers system](configurable-tiers.md) — tiers stored as JSONB ScoringTier[] in adminSettings; scored by highest minScore match; CrawledEvent.tier is string not enum
+- [Firecrawl SDK v4 casting](firecrawl-sdk-casting.md) — crawl methods cast as `any`; see topic file for actual return shapes
+- [OpenAI structured outputs nullable](openai-structured-outputs-nullable.md) — strict:true schema rules for nullable fields; see topic file
+- [crawlSite contract](crawlsite-contract.md) — crawlSite(url, config, onProgress, isStopped?) returns { events, coverage: SiteCoverage }; isStopped is 4th param injected by crawlRuns.ts
+- [jsdom esbuild bundling](jsdom-esbuild-bundling.md) — jsdom must stay in build.mjs `external` or the server crashes loading its data files.
+- [Event crawler JSON-LD first](event-extraction-jsonld-first.md) — parse schema.org JSON-LD (from Firecrawl rawHtml) before AI; Readability-clean before AI; name/org never null.
+- [DB drift reconcile](db-drift-reconcile.md) — drizzle-kit push needs a TTY (fails here); reconcile committed-schema vs dev-DB drift with targeted ALTER + row data migration, not drop/recreate.
+- [Resend email delivery](resend-email-delivery.md) — no verified Resend domain = silent failures; app now surfaces share-links, email-status, and admin bootstrap as fallbacks.
+- [Private deployment shield](private-deployment-shield.md) — "Network error" in live app + zero deployment logs = Replit private-visibility 307 __replshield wall, not an app bug.
+- [Admin lockout recovery](admin-lockout-recovery.md) — mutating routes are requireAdmin; empty prod DB = zero admins = silent 403s. Startup bootstrap auto-promotes first activated user; needs republish + re-login.
+- [Deployment target VM switch](deployment-target-vm.md) — task agents cannot change deploymentTarget; .replit edits blocked + no deployConfig callback; user does it in Publishing UI.
+- [URL ingress normalization](url-ingress-normalization.md) — normalize pasted URLs before the SSRF check on every ingress route; 400s must name the bad lines.
+- [API server test setup](api-server-tests.md) — node:test via `tsx` + `--conditions workspace`; route tests hit the dev DB and must clean up and `pool.end()`.
+- [lib-db build order](lib-db-build-order.md) — new lib/db schema files need `pnpm run typecheck:libs` before api-server typecheck; project refs read dist/ not src/.
+- [Anthropic schema union limit](anthropic-schema-union-limit.md) — output_config json_schema rejects >16 nullable/anyOf fields; use effort-only for large schemas, json_schema only for small ones.

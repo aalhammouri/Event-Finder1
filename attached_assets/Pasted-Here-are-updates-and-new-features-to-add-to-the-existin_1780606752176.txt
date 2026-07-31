@@ -1,0 +1,139 @@
+Here are updates and new features to add to the existing Event Finder app. Do not rebuild what already works — only modify and add what is described below.
+══════════════════════════════════════════
+UPDATE 1 — FIX CONTENT EXTRACTION (critical)
+══════════════════════════════════════════
+The current approach sends raw document.body.innerText to the AI. This is why extraction quality is poor — the AI receives nav menus, breadcrumbs, cookie banners, footers, and sidebar junk mixed with actual content, producing "Unnamed event" and empty fields.
+REPLACE innerText extraction with this:
+a) Install @mozilla/readability and jsdom. After Puppeteer loads a page, get the full HTML, run Readability on it. This isolates the main content and strips boilerplate. Convert to clean text that preserves headings, links with URLs, lists, tables, and paragraph structure. If Readability fails, fall back to the page's <main> or <article> element, never full body.
+b) Take a FULL-PAGE SCREENSHOT with Puppeteer on every page that triggers AI processing. Many orgs post events as flyer images, not text. The screenshot captures everything a human sees. The AI vision model reads dates, venues, prices, and dress codes baked into flyer graphics.
+c) Extract all images from the page that are at least 200x200 pixels and in the main content area. Get each image's absolute URL and alt text.
+d) Separately extract footer HTML and /contact page content through Readability for business info (org name, address, phone, email, hours).
+e) Send ALL of the above to the AI in ONE call with labeled sections:
+"""
+PAGE URL: [exact URL]
+MAIN CONTENT:
+[Readability-cleaned text with links preserved]
+IMAGES FOUND ON PAGE:
+[List of image URLs with alt text]
+BUSINESS INFO SOURCE (footer + contact page):
+[Footer text + contact page cleaned text]
+"""
+Plus attach the screenshot and any flyer-sized images as vision inputs.
+══════════════════════════════════════════
+UPDATE 2 — THREE-TRIGGER SYSTEM FOR AI CALLS
+══════════════════════════════════════════
+Currently the keyword gate is the only trigger. Add two more. The AI runs when ANY of these is true:
+a) Page text contains at least one search keyword (existing behavior), OR
+b) Page URL path contains an event word: /event, /gala, /auction, /fundraiser, /calendar, /benefit, /banquet, OR
+c) Page has thin text (under 200 characters visible) BUT contains at least one image larger than 300x300 pixels — this catches pages that are just a flyer/poster with no surrounding text.
+If NONE fire, skip the page. No AI call, no credits spent.
+OVERRIDE RULE: If page text contains "silent auction", ALWAYS send to AI regardless of any avoid keywords. Silent auctions must never be skipped.
+══════════════════════════════════════════
+UPDATE 3 — SKIP PAST/ARCHIVE PAGES
+══════════════════════════════════════════
+Before sending any page to the AI, check if the page URL or heading text contains: "past", "archive", "previous", "recap", "gallery", "highlights", "2020", "2021", "2022", "2023", "2024". If yes, skip that page entirely.
+Also update the AI extraction prompt: "ONLY extract events with dates in the FUTURE. If the event date is clearly in the past, return event_found: false."
+══════════════════════════════════════════
+UPDATE 4 — STRICTER AI EXTRACTION PROMPT
+══════════════════════════════════════════
+Update the prompt sent to the AI:
+"You MUST populate every field you can find. Do NOT return 'Unnamed event' — if you cannot find an explicit event name, use the page title or the first heading on the page. For event_name, NEVER return null or empty string.
+Required fields — try hard before returning null:
+
+event_name (use page title if nothing else)
+event_date (look in text AND in images/screenshots)
+venue name and address
+organization name (check footer, header logo alt text, about page)
+at least one contact method (email or phone)
+
+If a field genuinely does not exist anywhere on the page or screenshot, return null — but exhaust all sources first."
+══════════════════════════════════════════
+UPDATE 5 — DEDUPLICATE EVENTS PER SITE
+══════════════════════════════════════════
+The same event often appears on multiple pages (/events, /gala-2026, /auction, homepage banner). After extracting events from all pages of one site, deduplicate by matching event name + date. Keep the version with the most populated fields. Do not show duplicate rows in results.
+══════════════════════════════════════════
+UPDATE 6 — STOP / KILL BUTTON
+══════════════════════════════════════════
+When a run is in progress, show a prominent STOP button on the dashboard and the live progress view.
+
+STOP: finishes the current URL being processed, saves all results collected so far, then stops the run. No data lost. Run status becomes "Stopped".
+Show a confirmation dialog before stopping.
+After stopping, the partial results must still be visible in the results dashboard — do not discard them.
+The run appears in Run History with status "Stopped" and shows how many URLs were completed out of the total.
+
+══════════════════════════════════════════
+UPDATE 7 — RESULTS ORGANIZED BY RUN
+══════════════════════════════════════════
+CURRENT PROBLEM: All results from all runs are shown in one giant combined table. This is unusable.
+CHANGE TO: The Results page shows a list of completed runs as cards or rows, each showing:
+
+Run name (auto-generated: "{list name} — {date} {time}")
+Date/time started and finished
+Total URLs processed
+Events found
+Top score
+Status (completed / stopped / scheduled)
+
+Clicking a run name opens THAT RUN's dedicated results table. Each run has its own independent dashboard. Do not combine results across runs.
+══════════════════════════════════════════
+UPDATE 8 — TIMESTAMPS ON EVERY RESULT
+══════════════════════════════════════════
+Add a "Found at" column to the results table. Every result row must record the exact date and time it was scraped. Every run must record start time and finish time. Show both in the run card and the results table.
+Also track on each URL entry: when it was last scraped and what the outcome was (matched/unmatched/error).
+══════════════════════════════════════════
+UPDATE 9 — RUN HISTORY ACTIONS
+══════════════════════════════════════════
+Add action buttons to each run in Run History:
+
+VIEW — opens that run's results dashboard
+RE-RUN — triggers a new run using the same URL list. Creates a NEW run entry. Does not overwrite the old run.
+ARCHIVE — hides the run from the main list. Show archived runs with a "Show archived" toggle. Archived data is preserved, not deleted.
+DELETE — permanently deletes the run and all its results. Confirmation dialog: "This will permanently delete this run and all its results. This cannot be undone."
+
+══════════════════════════════════════════
+UPDATE 10 — AUTOMATION TAB (new page)
+══════════════════════════════════════════
+Add a new "Automation" page to the sidebar navigation, between Run History and Admin Panel.
+This page shows all saved URL lists. For each list:
+
+Toggle automation ON / OFF
+Set frequency: daily, weekly, biweekly, monthly
+Set day of week (for weekly/biweekly)
+Set time of day (in Central Time, America/Chicago)
+Default schedule: weekly, Monday, 6:00 AM Central
+Show "Next scheduled run" date/time
+Show "Last run" date/time and event count
+"Run now" button for immediate manual trigger outside the schedule
+
+Each list is scheduled independently. Example: "Houston nonprofits" runs weekly Monday 6 AM, "Dallas orgs" runs biweekly Wednesday 8 AM.
+At the top of the page: a global "Pause all automation" toggle that suspends all scheduled runs without changing individual settings.
+When a scheduled run fires:
+
+Process that list's URLs
+Compare against previous run, flag NEW / UPDATED / UNCHANGED
+Email all active recipients with NEW and UPDATED events above the minimum score threshold
+Email is clean HTML grouped by Tier with event name, date, venue, score, and clickable event link
+
+══════════════════════════════════════════
+UPDATE 11 — SCORING UI IN ADMIN PANEL
+══════════════════════════════════════════
+In the Admin Panel's scoring section, add:
+
+Display each scoring factor with its current point value AND a plain-English description of what it means and why it matters. Example: "Has silent or live auction: +30 — This is the core requirement. No auction means no table to place a gift certificate on."
+Number input next to each factor so I can change the point value.
+Tier threshold inputs (default A = 70, B = 45) so I can adjust what qualifies as each tier.
+Minimum score for email notifications (default: 45 = Tier A and B).
+LIVE PREVIEW: show a sample event card that updates its score in real time as I adjust the weights. So I can see "if I change auction from +30 to +40, this sample event goes from 65 to 75 and moves from Tier B to Tier A."
+"Reset to defaults" button that restores all weights and thresholds to original values with one click.
+
+══════════════════════════════════════════
+UPDATE 12 — SIDEBAR NAVIGATION
+══════════════════════════════════════════
+Update the sidebar to have these pages in this order:
+
+Dashboard (overview)
+URL Lists
+Results (list of runs → click to view run's results)
+Run History (with view/re-run/archive/delete actions)
+Automation (per-list scheduling)
+Admin Panel (keywords, scoring, crawl, emails, blacklist)

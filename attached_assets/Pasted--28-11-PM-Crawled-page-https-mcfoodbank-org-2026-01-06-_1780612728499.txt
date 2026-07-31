@@ -1,0 +1,112 @@
+:28:11 PM
+Crawled page: https://mcfoodbank.org/2026/01/06/
+05:28:14 PM
+Found event: "Unknown"score 0
+05:28:14 PM
+Crawled page: https://mcfoodbank.org/events/gala/
+05:28:16 PM
+Found event: "Unknown"score 0
+05:28:16 PM
+Finished: https://mcfoodbank.org/
+05:28:16 PM
+Starting crawl of http://WWW.HEART4CHILDREN.COM
+05:28:16 PM
+Crawled page: https://www.heart4children.com/heart4children-events
+05:28:18 PM
+Found event: "Unknown"score 40
+05:28:18 PM
+Crawled page: https://www.heart4children.com/heart4children-events/2025/11/18/heart4children-dripping-springs-fundraiser
+05:28:20 PM
+Found event: "Unknown"score 0
+05:28:20 PM
+Crawled page: https://www.heart4children.com/heart4children-events/fourthannualgolftournament
+05:28:23 PM
+Found event: "Unknown"score 40
+05:28:23 PM
+Crawled page: https://www.heart4children.com/student-gallery
+05:28:25 PM
+Error on unknown: Skipped: archive/past page
+05:28:25 PM
+Crawled page: https://www.heart4children.com/michaels-story-video
+05:28:26 PM
+Error on unknown: Skipped: archive/past page
+05:28:26 PM
+Crawled page: https://www.heart4children.com/home-page-gallery
+05:28:27 PM
+Error on unknown: Skipped: archive/past page
+05:28:27 PM
+Crawled page: https://www.heart4children.com/contactold
+05:28:29 PM
+Crawled page: https://www.heart4children.com/our-inspiration
+05:28:32 PM
+Crawled page: https://www.heart4children.com/the-school
+05:28:33 PM
+Error on unknown: Skipped: archive/past page
+05:28:33 PM
+Crawled page: https://www.heart4children.com/home-1
+05:28:35 PM
+Crawled page: https://www.heart4children.com/about
+05:28:36 PM
+Crawled page: https://www.heart4children.com/h4cprojects
+05:28:37 PM
+Crawled page: https://www.heart4children.com/family-clinic-old
+05:28:38 PM
+Crawled page: https://www.heart4children.com/home
+05:28:40 PM
+Error on unknown: Skipped: archive/past page
+05:28:40 PM
+Crawled page: https://www.heart4children.com/stories
+05:28:42 PM
+Error on unknown: Skipped: archive/past page
+05:28:42 PM
+Crawled page: https://www.heart4children.com/communityschool
+05:28:43 PM
+Crawled page: https://www.heart4children.com/contact
+05:28:46 PM
+Crawled page: https://www.heart4children.com/the-boys-home
+05:28:47 PM
+Crawled page: https://www.heart4children.com/family-clinic
+05:28:49 PM
+Error on unknown: Skipped: archive/past page
+05:28:49 PM
+Crawled page: https://www.heart4children.com/h4cnewsandupdates
+05:28:50 PM
+Error on unknown: Skipped: archive/past page
+05:28:50 PM
+Finished: http://WWW.HEART4CHILDREN.COM
+05:28:50 PM
+Starting crawl of http://www.BehindTheBadgeCharities.org
+05:28:51 PM
+Crawled page: http://www.BehindTheBadgeCharities.org
+05:28:52 PM
+Error on unknown: Skipped: archive/past page
+05:28:52 PM
+Crawled page: https://www.behindthebadgecharities.org/need-help/
+05:28:55 PM
+Crawled page: https://www.behindthebadgecharities.org/our-work/scholarships/
+05:28:56 PM
+Error on unknown: Skipped: archive/past page
+05:28:56 PM
+Crawled page: https://www.behindthebadgecharities.org/wp-content/uploads/2025/11/Scholarship-application-College-2026-fillable.pdf
+05:28:58 PM
+Error on unknown: Skipped: archive/past page
+05:28:58 PM
+Crawled page: https://www.behindthebadgecharities.org/wp-content/uploads/2025/11/Scholarship-application-High-School-2026-fillable.pdf
+05:29:00 PM
+Crawled page: https://www.behindthebadgecharities.org/
+05:29:00 PM
+Error on unknown: Skipped: archive/past page
+05:29:00 PM
+Crawled page: https://www.behindthebadgecharities.org/how-you-can-help/joinus/
+05:29:23 PM
+Error on unknown: Skipped: archive/past page
+05:29:23 PM
+Crawled page: https://www.behindthebadgecharities.org/wp-content/uploads/2025/03/2025.png
+05:29:24 PM
+Crawled page: https://www.behindthebadgecharities.org/how-you-can-help/
+05:29:25 PM
+Crawled page: https://www.behindthebadgecharities.org/how-you-can-help/boots-and-badges-gala/
+05:29:26 PM
+Error on unknown: Skipped: archive/past page
+05:29:26 PM
+Finished: http://www.BehindTheBadgeCharities.org

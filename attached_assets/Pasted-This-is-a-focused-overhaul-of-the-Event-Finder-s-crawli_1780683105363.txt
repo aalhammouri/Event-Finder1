@@ -1,0 +1,251 @@
+This is a focused overhaul of the Event Finder's crawling and extraction 
+engine. The #1 goal is COMPLETE crawling — every page of every site must 
+be discovered and checked, never silently skipped. Accurate extraction 
+(text + images) is the second goal. Do not rebuild the UI, scoring, auth, 
+automation, or CRM export — only the crawl/extraction pipeline described 
+below.
+
+══════════════════════════════════════════
+PART A — CRAWL COMPLETENESS (highest priority)
+══════════════════════════════════════════
+
+PROBLEM: The current crawler rolls its own BFS and calls Firecrawl 
+/scrape per page. This silently misses pages — especially JS-rendered 
+navigation links, sibling sections, and subdomains. We are switching 
+to Firecrawl's /crawl endpoint configured for maximum completeness, 
+plus a verification layer that proves we didn't miss anything.
+
+A1. SWITCH TO FIRECRAWL /crawl WITH COMPLETENESS SETTINGS
+
+Replace the custom per-page BFS with Firecrawl's /crawl endpoint. For 
+each site, start an async crawl job with these exact settings:
+
+  crawlEntireDomain: true     // CRITICAL — default false only follows 
+                              // child paths and skips /events, /gala, 
+                              // /blog siblings. This is the #1 fix.
+  allowSubdomains: true       // catch events on give.org, events.org, etc.
+  sitemap: "include"          // merge sitemap discovery + link following
+  limit: 100                  // per-site page cap (sized above the ~30 
+                              // we expect; raise if coverage reports show 
+                              // sites hitting the cap)
+  maxDiscoveryDepth: 5        // generous — do NOT use a shallow depth
+  scrapeOptions: {
+    formats: ["markdown", "links"],
+    onlyMainContent: false,   // IMPORTANT — true strips nav/footer, which 
+                              // hides internal navigation links and causes 
+                              // missed pages. Keep false for the link graph.
+    waitFor: 3000             // let JS render before capture
+  }
+  excludePaths: [             // skip credit-wasting paths (be conservative)
+    "/wp-json", "/wp-admin", "/cart", "/checkout", "/login", 
+    "/account", "/donate/process", "\\.(pdf|jpg|png|gif|css|js|zip)$"
+  ]
+
+Use the Firecrawl SDK's async crawl + webhook OR polling. Prefer a 
+webhook: register an endpoint that receives each finished page and 
+writes it to the DB immediately, so we never hold thousands of pages 
+in memory (Replit has only 2 GiB RAM).
+
+A2. CAPTURE CRAWL ERRORS EXPLICITLY
+
+Firecrawl's success result array EXCLUDES failed pages. After each 
+crawl job completes, call the crawl-errors endpoint (getCrawlErrors) 
+and record every failed/blocked/timed-out URL. A crawl is NOT complete 
+if there are unhandled errors. Store these per run.
+
+A3. COVERAGE RECONCILIATION LAYER (this is how we prove completeness)
+
+Build a module that, for each site, gathers URLs from THREE sources 
+and reconciles them:
+
+  Source 1 — robots.txt: fetch /robots.txt, parse every "Sitemap:" 
+    line (sitemaps are often NOT at /sitemap.xml).
+  Source 2 — sitemaps: fetch each sitemap. If it's a <sitemapindex>, 
+    recursively resolve every child sitemap. Also probe /sitemap.xml, 
+    /sitemap_index.xml, /sitemap-index.xml as fallbacks. Collect all 
+    <loc> URLs.
+  Source 3 — Firecrawl crawl: the URLs Firecrawl actually discovered 
+    and crawled.
+
+Then compute per site:
+  - pages_discovered = union of all three sources
+  - pages_crawled = pages Firecrawl successfully fetched
+  - pages_missed = discovered but NOT crawled
+
+If pages_missed > 0, the crawl is flagged INCOMPLETE for that site, 
+and the missed URLs are queued for a direct /scrape retry. Store all 
+these counts on the run record (see Part D).
+
+A4. PAGINATION
+
+Detect and follow pagination so archive/event-list pages don't cut off:
+  - rel="next" links
+  - numbered pagination (?page=2, /events/page/2)
+  - "Load More" / infinite scroll — these need a browser action; use 
+    Firecrawl's interaction/actions to click "Load More" before capture, 
+    or scrape each numbered page URL directly.
+
+A5. FLAG LOW-CONFIDENCE FALLBACKS
+
+Keep got+cheerio ONLY as a last resort when Firecrawl fails entirely. 
+cheerio cannot see JavaScript-rendered content, so any page fetched 
+via the fallback must be marked low_confidence = true and queued for 
+a rendered retry. Never treat a cheerio-fallback page as a complete read.
+
+══════════════════════════════════════════
+PART B — EXTRACTION HARDENING
+══════════════════════════════════════════
+
+B1. KEYWORD PRE-FILTER TUNED FOR RECALL (before AI, never miss)
+
+Run keyword detection on each page's cleaned markdown to decide which 
+pages get expensive AI extraction. Tune this for RECALL, not precision — 
+a wasted cheap AI call is fine; a missed event is not. Use a broad 
+literal + regex dictionary including stems and synonyms:
+
+  silent auction, live auction, online auction, virtual auction, 
+  gala, raffle, drawing, 50/50, benefit dinner, benefit concert, 
+  fundrais* (fundraiser/fundraising), charity, "save the date", 
+  tickets, sponsorship, sponsor levels, RSVP, "table of", 
+  paddle raise, "in-kind", "gift certificate", honoree, luncheon, 
+  + date regex (month names, MM/DD/YYYY) + price regex ($\d+)
+
+Any page matching ANY signal goes to AI. Pages with zero signal are 
+skipped to save cost. KEEP the existing "silent auction" override 
+(always extract, ignore avoid keywords).
+
+B2. STRICT STRUCTURED OUTPUTS (guarantee valid CRM data)
+
+The app already does its own OpenAI extraction (good — do NOT switch 
+to Firecrawl's JSON extract, it costs 5x). Upgrade the extraction call 
+to use OpenAI Structured Outputs: response_format with type "json_schema" 
+and strict: true. Define the full event + org + contact schema (all CRM 
+fields) with additionalProperties: false on every object. This guarantees 
+the model cannot emit malformed JSON.
+
+Because strict mode does NOT enforce string patterns, validate AFTER 
+parsing, in code:
+  - emails match an email regex
+  - phones normalized to digits
+  - dates parsed to real Date objects (reject unparseable, don't guess)
+Handle the OpenAI "refusal" field as an explicit error case.
+
+Add an explicit instruction to the prompt: "If a field is not present 
+on the page, return null. Do NOT infer or fabricate any value."
+
+B3. LONG PAGES
+
+Most event pages fit in context. For long archive/calendar pages: chunk 
+on headings, extract per chunk, then merge and dedupe the resulting 
+events. Prefer trimming to the keyword-relevant section over blind 
+truncation (truncation silently drops events).
+
+══════════════════════════════════════════
+PART C — IMAGE / FLYER EXTRACTION
+══════════════════════════════════════════
+
+C1. GATE VISION (cost control)
+
+Only run vision when BOTH are true: (a) the page passed the keyword 
+filter or sits in an event-content context, AND (b) the page has a 
+candidate flyer image. Never run vision on every image.
+
+C2. IDENTIFY FLYERS vs LOGOS/DECORATION
+
+Select candidate flyer images by: large dimensions (> ~400px), 
+portrait-ish or poster aspect ratio, filename/alt-text signals 
+(flyer, gala, auction, event, benefit, a year like 2026, date 
+patterns), and position inside the main event-content DOM region. 
+Exclude tiny images, icons, SVGs, and anything with "logo", "header", 
+"avatar" in the name. For a page that is MOSTLY a flyer with little 
+text, send one full-page screenshot instead of hunting individual images.
+
+C3. MODEL CHOICE FOR VISION
+
+Keep using gpt-4o for vision (correct choice). Do NOT use gpt-4o-mini 
+for images — it uses ~33x the image tokens, erasing its price advantage. 
+(If cost becomes an issue later, Gemini 2.5 Flash is the cheaper vision 
+option at a flat ~258 tokens/image.)
+
+C4. MERGE IMAGE + TEXT DATA
+
+Extract image data into the SAME schema as text. Merge with first-write-
+wins where text is present, image fills gaps. Deduplicate events at the 
+event level (normalized event name + date + venue). Store provenance 
+per field (text vs image) for QA.
+
+══════════════════════════════════════════
+PART D — COVERAGE REPORTING & MONITORING
+══════════════════════════════════════════
+
+D1. PER-RUN COVERAGE METRICS
+
+Add columns to the crawl_runs table (or a new run_coverage table) and 
+populate them per run:
+  - sites_total, sites_complete, sites_incomplete
+  - pages_discovered, pages_crawled, pages_missed
+  - pages_keyword_matched, pages_sent_to_ai
+  - events_extracted, vision_calls_made
+  - fetch_errors (count), fallback_pages (cheerio count)
+
+D2. COVERAGE DASHBOARD
+
+On the Run Detail page, show a "Crawl Coverage" panel: for each site, 
+display discovered vs crawled vs missed, and highlight in red any site 
+flagged INCOMPLETE. Let me click a site to see exactly which URLs were 
+missed and why (error, timeout, blocked).
+
+D3. ANOMALY ALERTS
+
+When a scheduled run finishes, flag (and include in the email digest) 
+any site whose page count or event count dropped sharply versus the 
+previous run — that usually means a broken crawl, not a real change. 
+Also flag any run where pages_missed > 0 or fetch_errors spiked.
+
+══════════════════════════════════════════
+PART E — EFFICIENCY (do not sacrifice completeness)
+══════════════════════════════════════════
+
+E1. DIFF / INCREMENTAL CRAWLING
+
+Store a content hash of each page's cleaned markdown plus the sitemap 
+lastmod date. On subsequent runs, only send NEW or CHANGED pages to AI 
+extraction (unchanged pages keep their prior extracted event). This is 
+the biggest recurring cost saver after the first full crawl. Still 
+CRAWL every page every run (to detect new pages) — just skip re-
+extracting unchanged ones.
+
+E2. EVENT DEDUPLICATION
+
+Events recur across pages (homepage teaser + event page + PDF). Dedupe 
+on a normalized key (event name + date + org/venue). Keep the most 
+complete record; preserve provenance.
+
+══════════════════════════════════════════
+WHAT NOT TO CHANGE
+══════════════════════════════════════════
+
+- Scoring logic (0–100, tiers A/B/C, weights) — unchanged.
+- Auth, user management, automation tab, run controls — unchanged.
+- The 30-column CRM export — unchanged (it consumes the extracted fields).
+- Keep your own OpenAI extraction calls — do NOT switch to Firecrawl's 
+  JSON/extract feature (it costs ~5x and we want schema control).
+- Keep gpt-4o-mini for text extraction and gpt-4o for vision.
+
+══════════════════════════════════════════
+IMPLEMENTATION ORDER
+══════════════════════════════════════════
+
+1. FIRST: set crawlEntireDomain: true, allowSubdomains: true, and 
+   onlyMainContent: false. This alone recovers most currently-missed 
+   pages. Test on 5 known sites and confirm /events, /gala pages appear.
+2. Add crawl-error capture (A2) and the coverage reconciliation module (A3).
+3. Add per-run coverage metrics + dashboard (D1, D2).
+4. Upgrade extraction to strict Structured Outputs + post-parse 
+   validation (B2) and the recall-tuned keyword filter (B1).
+5. Harden the flyer/vision pipeline (Part C).
+6. Add diff crawling + dedup (Part E) and anomaly alerts (D3).
+
+After step 1, run a crawl on a few sites and show me the coverage 
+report (discovered vs crawled vs missed) so I can verify completeness 
+before we continue.

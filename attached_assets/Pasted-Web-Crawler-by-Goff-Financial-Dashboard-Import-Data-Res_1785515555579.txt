@@ -1,0 +1,5412 @@
+Web Crawler
+
+by Goff Financial
+
+Dashboard
+Import Data
+Results
+Past Events
+Automation
+Admin Panel
+A
+
+Aalhammouri
+
+aalhammouri@gofffinancial.com
+
+
+
+Test Run #10
+Manual run · Started 7/31/2026, 11:15:59 AM
+
+RUNNING
+Pause
+Stop
+Crawling: https://www.ktcm.org
+22 / 88 sites
+25% complete
+
+Pages Crawled
+
+1844
+
+Events Found
+
+731
+
+Errors
+
+0
+
+Duration
+
+—
+
+Speed
+
+0.0s
+
+avg / page
+
+Activity Log
+1280
+11:15:59 AM
+Crawl run started
+11:15:59 AM
+Starting crawl of https://www.kingwoodwomensclub.org
+11:15:59 AM
+Starting crawl of https://www.pearlmfa.org
+11:15:59 AM
+Starting crawl of https://www.thebroachfoundation.org
+11:15:59 AM
+Starting crawl of https://www.habitatmctx.org
+11:15:59 AM
+Starting crawl of https://www.lonestar.edu/giving
+11:16:00 AM
+Skipped: https://www.pearlmfa.org (keyword_gate)
+0.1s
+11:16:00 AM
+Crawled: https://www.pearlmfa.org (17252 chars)
+0.1s
+11:16:00 AM
+Skipped: https://pearlmfa.org/events/2026-expressions-of-gratitude-fall-luncheon (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/events/2026-expressions-of-gratitude-fall-luncheon (8506 chars)
+0.0s
+11:16:00 AM
+Skipped: https://pearlmfa.org/events (keyword_gate)
+0.1s
+11:16:00 AM
+Crawled: https://pearlmfa.org/events (31195 chars)
+0.1s
+11:16:00 AM
+Skipped: https://pearlmfa.org/events/w7-duo-concert-feat-christoph-wagner-ben-sieben (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/events/w7-duo-concert-feat-christoph-wagner-ben-sieben (8808 chars)
+0.0s
+11:16:00 AM
+Skipped: https://pearlmfa.org/events/author-talk-with-steven-weinberg (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/events/author-talk-with-steven-weinberg (8787 chars)
+0.0s
+11:16:00 AM
+Skipped: https://pearlmfa.org/events/back-to-school-bash-family-day (keyword_gate)
+0.1s
+11:16:00 AM
+Crawled: https://pearlmfa.org/events/back-to-school-bash-family-day (8665 chars)
+0.1s
+11:16:00 AM
+Skipped: https://pearlmfa.org/events/elegant-ladies-expo-with-the-conservatory-at-champion-forest (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/events/elegant-ladies-expo-with-the-conservatory-at-champion-forest (8850 chars)
+0.0s
+11:16:00 AM
+Skipped: https://pearlmfa.org/events/don-irwin-piano-concert (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/events/don-irwin-piano-concert (8623 chars)
+0.0s
+11:16:00 AM
+Skipped: https://pearlmfa.org/events/youth-art-councils-kaleidoscopes-kickoff (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/events/youth-art-councils-kaleidoscopes-kickoff (8964 chars)
+0.0s
+11:16:00 AM
+Skipped: https://pearlmfa.org/events/2026-youth-art-exhibition-kaleidoscopes-unique-voices-in-the-modern-world (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/events/2026-youth-art-exhibition-kaleidoscopes-unique-voices-in-the-modern-world (8653 chars)
+0.0s
+11:16:00 AM
+Skipped: https://pearlmfa.org/events/student-art-contest-awards-ceremony (keyword_gate)
+0.1s
+11:16:00 AM
+Crawled: https://pearlmfa.org/events/student-art-contest-awards-ceremony (9358 chars)
+0.1s
+11:16:00 AM
+Skipped: https://pearlmfa.org/events/star-wars-lego-event (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/events/star-wars-lego-event (8775 chars)
+0.0s
+11:16:00 AM
+Skipped: https://pearlmfa.org/events/2026-pearls-of-art-gala (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/events/2026-pearls-of-art-gala (10042 chars)
+0.0s
+11:16:00 AM
+Skipped: https://pearlmfa.org/events/taft-mcwhorter-reception (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/events/taft-mcwhorter-reception (8395 chars)
+0.0s
+11:16:00 AM
+Skipped: https://pearlmfa.org/events/earth-day-family-day (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/events/earth-day-family-day (8622 chars)
+0.0s
+11:16:00 AM
+Skipped: https://pearlmfa.org/events/student-art-contest (keyword_gate)
+0.1s
+11:16:00 AM
+Crawled: https://pearlmfa.org/events/student-art-contest (8750 chars)
+0.1s
+11:16:00 AM
+Skipped: https://pearlmfa.org/events/the-business-of-the-art-business (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/events/the-business-of-the-art-business (8754 chars)
+0.0s
+11:16:00 AM
+Skipped: https://pearlmfa.org/events/floral-pop-up-exhibit (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/events/floral-pop-up-exhibit (8494 chars)
+0.0s
+11:16:00 AM
+Skipped: https://pearlmfa.org/events/taft-mcwhorter-pop-up-exhibit (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/events/taft-mcwhorter-pop-up-exhibit (8880 chars)
+0.0s
+11:16:00 AM
+Skipped: https://pearlmfa.org/events/designer-handbag-bingo (keyword_gate)
+0.1s
+11:16:00 AM
+Crawled: https://pearlmfa.org/events/designer-handbag-bingo (9344 chars)
+0.1s
+11:16:00 AM
+Skipped: https://pearlmfa.org/art-workshops (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/art-workshops (10184 chars)
+0.0s
+11:16:00 AM
+Skipped: https://pearlmfa.org/art-workshops/the-business-of-the-art-business (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/art-workshops/the-business-of-the-art-business (8658 chars)
+0.0s
+11:16:00 AM
+Skipped: https://pearlmfa.org/our-story (keyword_gate)
+0.1s
+11:16:00 AM
+Crawled: https://pearlmfa.org/our-story (9713 chars)
+0.1s
+11:16:00 AM
+Skipped: https://pearlmfa.org/faculty-staff (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/faculty-staff (20207 chars)
+0.0s
+11:16:00 AM
+Skipped: https://pearlmfa.org/art-classes (keyword_gate)
+0.1s
+11:16:00 AM
+Crawled: https://pearlmfa.org/art-classes (22458 chars)
+0.1s
+11:16:00 AM
+Skipped: https://pearlmfa.org/art-workshops/investigating-art (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/art-workshops/investigating-art (8738 chars)
+0.0s
+11:16:00 AM
+Skipped: https://pearlmfa.org/docent-guided-tours (keyword_gate)
+0.1s
+11:16:00 AM
+Crawled: https://pearlmfa.org/docent-guided-tours (14971 chars)
+0.1s
+11:16:00 AM
+Skipped: https://pearlmfa.org/home (keyword_gate)
+0.1s
+11:16:00 AM
+Crawled: https://pearlmfa.org/home (17256 chars)
+0.1s
+11:16:00 AM
+Skipped: https://pearlmfa.org/art-start (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/art-start (11470 chars)
+0.0s
+11:16:00 AM
+Skipped: https://pearlmfa.org/location (keyword_gate)
+0.0s
+11:16:00 AM
+Crawled: https://pearlmfa.org/location (8816 chars)
+0.0s
+11:16:04 AM
+Finished: https://www.pearlmfa.org
+11:16:04 AM
+Starting crawl of https://www.angletonrotary.com/fundraiser/
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://www.habitatmctx.org (30006 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/who-we-are/mission.html (22382 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/news-events/building-hope-gala.html (27956 chars)
+0.0s
+11:16:14 AM
+Skipped: https://habitatmctx.org/programs-and-initiatives/homeownership.html (keyword_gate)
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/programs-and-initiatives/homeownership.html (27166 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.1s
+11:16:14 AM
+Crawled: https://habitatmctx.org/together-we-build/donations.html (27324 chars)
+0.1s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/programs-and-initiatives/ (21778 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/connect-with-us/locations.html (21478 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/connect-with-us/contact.html (21921 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/who-we-are/ (22346 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/who-we-are/board-advisory-council.html (24444 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/news-events/events.html (21587 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/programs-and-initiatives/home-repair.html (25991 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/together-we-build/volunteers.html (30834 chars)
+0.0s
+11:16:14 AM
+Skipped: https://habitatmctx.org/together-we-build/donate-a-car.html (keyword_gate)
+0.1s
+11:16:14 AM
+Crawled: https://habitatmctx.org/together-we-build/donate-a-car.html (28165 chars)
+0.1s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/together-we-build/home-sponsorships.html (28630 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/connect-with-us/careers.html (21173 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/who-we-are/financials.html (22418 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/connect-with-us/frequent-questions.html (24243 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/news-events/ (27841 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/together-we-build/in-kind-donations.html (22773 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/together-we-build/real-estate-gifts.html (22847 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/connect-with-us/ (21885 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/programs-and-initiatives/aging-in-place-initiative.html (22348 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/together-we-build/other-ways-to-give.html (24769 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/news-events/join-our-mailing-list.html (21914 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.2s
+11:16:14 AM
+Crawled: https://habitatmctx.org/together-we-build/ (27282 chars)
+0.2s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/news-events/blog.html (25074 chars)
+0.0s
+11:16:14 AM
+Skipped: https://habitatmctx.org/programs-and-initiatives/home-repair-pre-qualification-form.html (keyword_gate)
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/programs-and-initiatives/home-repair-pre-qualification-form.html (24937 chars)
+0.0s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.1s
+11:16:14 AM
+Crawled: https://habitatmctx.org/programs-and-initiatives/initiatives.html (28463 chars)
+0.1s
+11:16:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:14 AM
+Crawled: https://habitatmctx.org/programs-and-initiatives/2025-rock-the-block-survey.html (27088 chars)
+0.0s
+11:16:16 AM
+Skipped: https://www.kingwoodwomensclub.org (keyword_gate)
+0.0s
+11:16:16 AM
+Crawled: https://www.kingwoodwomensclub.org (6678 chars)
+0.0s
+11:16:16 AM
+Skipped: https://www.kingwoodwomensclub.org/members (keyword_gate)
+0.0s
+11:16:16 AM
+Crawled: https://www.kingwoodwomensclub.org/members (48 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 40
+0.0s
+11:16:16 AM
+Crawled: https://www.kingwoodwomensclub.org/holiday-marketplace (3057 chars)
+0.0s
+11:16:16 AM
+Crawled: https://www.kingwoodwomensclub.org/general-9 (3630 chars)
+0.1s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.kingwoodwomensclub.org/philanthropy (8060 chars)
+0.0s
+11:16:16 AM
+Skipped: https://www.kingwoodwomensclub.org/contact-us (keyword_gate)
+0.1s
+11:16:16 AM
+Crawled: https://www.kingwoodwomensclub.org/contact-us (2294 chars)
+0.1s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.1s
+11:16:16 AM
+Crawled: https://www.kingwoodwomensclub.org/signup-gienus (7506 chars)
+0.1s
+11:16:16 AM
+Crawled: https://www.kingwoodwomensclub.org/volunteer-projects (6355 chars)
+0.2s
+11:16:16 AM
+Skipped: https://www.kingwoodwomensclub.org/vendors (keyword_gate)
+0.0s
+11:16:16 AM
+Crawled: https://www.kingwoodwomensclub.org/vendors (4313 chars)
+0.0s
+11:16:16 AM
+Skipped: https://www.kingwoodwomensclub.org/about (keyword_gate)
+0.1s
+11:16:16 AM
+Crawled: https://www.kingwoodwomensclub.org/about (3100 chars)
+0.1s
+11:16:16 AM
+Skipped: https://www.kingwoodwomensclub.org/privacy-policy (keyword_gate)
+0.0s
+11:16:16 AM
+Crawled: https://www.kingwoodwomensclub.org/privacy-policy (3878 chars)
+0.0s
+11:16:16 AM
+Skipped: https://www.kingwoodwomensclub.org/single-project (keyword_gate)
+0.1s
+11:16:16 AM
+Crawled: https://www.kingwoodwomensclub.org/single-project (3611 chars)
+0.1s
+11:16:16 AM
+Crawled: https://www.kingwoodwomensclub.org/copy-of-mardi-gras-ball (2800 chars)
+0.0s
+11:16:16 AM
+Skipped: https://www.kingwoodwomensclub.org/sponsors (keyword_gate)
+0.1s
+11:16:16 AM
+Crawled: https://www.kingwoodwomensclub.org/sponsors (5261 chars)
+0.1s
+11:16:16 AM
+Crawled: https://www.kingwoodwomensclub.org/donate (4186 chars)
+0.1s
+11:16:16 AM
+Skipped: https://www.kingwoodwomensclub.org/membership (keyword_gate)
+0.0s
+11:16:16 AM
+Crawled: https://www.kingwoodwomensclub.org/membership (4430 chars)
+0.0s
+11:16:16 AM
+Skipped: https://www.kingwoodwomensclub.org/copy-of-mardi-gras-ball-2 (keyword_gate)
+0.0s
+11:16:16 AM
+Crawled: https://www.kingwoodwomensclub.org/copy-of-mardi-gras-ball-2 (2569 chars)
+0.0s
+11:16:16 AM
+Skipped: https://www.kingwoodwomensclub.org/shop (keyword_gate)
+0.1s
+11:16:16 AM
+Crawled: https://www.kingwoodwomensclub.org/shop (2041 chars)
+0.1s
+11:16:16 AM
+Skipped: https://www.kingwoodwomensclub.org/mardi-gras-ball (keyword_gate)
+0.1s
+11:16:16 AM
+Crawled: https://www.kingwoodwomensclub.org/mardi-gras-ball (2549 chars)
+0.1s
+11:16:16 AM
+Skipped: https://www.lonestar.edu/giving (keyword_gate)
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving (10575 chars)
+0.0s
+11:16:16 AM
+Skipped: https://www.lonestar.edu/ (keyword_gate)
+0.1s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/ (35195 chars)
+0.1s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/golf2025.htm (10191 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/collegeprograms.htm (11969 chars)
+0.0s
+11:16:16 AM
+Skipped: https://www.lonestar.edu/giving/donorprofiles.htm (keyword_gate)
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/donorprofiles.htm (22341 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/donors.htm (5881 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/about.htm (9091 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/Golf2025.htm (10191 chars)
+0.0s
+11:16:16 AM
+Skipped: https://www.lonestar.edu/giving/StarGala2026.htm (keyword_gate)
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/StarGala2026.htm (11460 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu//giving/373.htm (5525 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/Scholarships.htm (7866 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/ways-of-giving.htm (8141 chars)
+0.0s
+11:16:16 AM
+Skipped: https://www.lonestar.edu/giving/endowments.htm (keyword_gate)
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/endowments.htm (21233 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/our-team.htm (6763 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/CelebrationCircle.htm (7738 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/impact.htm (11125 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/EGP.htm (6005 chars)
+0.0s
+11:16:16 AM
+Skipped: https://www.lonestar.edu/giving/donate.htm (keyword_gate)
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/donate.htm (9239 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/donate-general-donation.htm (8784 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/contact.htm (5981 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/769.htm (8627 chars)
+0.0s
+11:16:16 AM
+Skipped: https://www.lonestar.edu/giving/best-seat.htm (keyword_gate)
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/best-seat.htm (8777 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/766.htm (9376 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/773.htm (6498 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/testimonials.htm (23505 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu//giving/764 (8361 chars)
+0.0s
+11:16:16 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/ApplyScholarships.htm (7935 chars)
+0.0s
+11:16:16 AM
+Skipped: https://www.lonestar.edu/giving/news.htm (keyword_gate)
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/news.htm (18632 chars)
+0.0s
+11:16:16 AM
+Skipped: https://www.lonestar.edu/giving/donate-collegeprograms.htm (keyword_gate)
+0.0s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/giving/donate-collegeprograms.htm (10100 chars)
+0.0s
+11:16:16 AM
+Skipped: https://www.lonestar.edu/emi.htm (keyword_gate)
+0.1s
+11:16:16 AM
+Crawled: https://www.lonestar.edu/emi.htm (37416 chars)
+0.1s
+11:16:17 AM
+Skipped: https://www.thebroachfoundation.org (keyword_gate)
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org (4531 chars)
+0.0s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/news/blog-post-two-8tstx (7345 chars)
+0.0s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/tickets (2569 chars)
+0.0s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/impact (5477 chars)
+0.0s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/news (4136 chars)
+0.0s
+11:16:17 AM
+Skipped: https://www.thebroachfoundation.org/home (keyword_gate)
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/home (4535 chars)
+0.0s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/gala-sponsorships-tickets/p/25000-diamond-sponsorship-2gf5b-l8j4a-ctwr9 (3018 chars)
+0.0s
+11:16:17 AM
+Skipped: https://www.thebroachfoundation.org/sponsors (keyword_gate)
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/sponsors (4780 chars)
+0.0s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/gala (9752 chars)
+0.0s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/gala-sponsorships-tickets/p/25000-diamond-sponsorship (3135 chars)
+0.0s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/news/blog-post-three-ngwwl (7243 chars)
+0.0s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.1s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/donate (4353 chars)
+0.1s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/gala-sponsorships-tickets/p/25000-diamond-sponsorship-ntkn3 (3081 chars)
+0.0s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/shop (3552 chars)
+0.0s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/gala-sponsorships-tickets/p/25000-diamond-sponsorship-2gf5b (3022 chars)
+0.0s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/gala-sponsorships-tickets/p/25000-diamond-sponsorship-d9b97 (3054 chars)
+0.0s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/shop/p/conference-ticket-c8bt8 (3684 chars)
+0.0s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/gala-sponsorships-tickets/p/25000-diamond-sponsorship-zmyf4 (3026 chars)
+0.0s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.1s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/shop/p/conference-ticket-party-zl227 (3712 chars)
+0.1s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/gala-sponsorships-tickets (4059 chars)
+0.0s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/news/blog-post-one-22abz (7234 chars)
+0.0s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.1s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/leadership (3793 chars)
+0.1s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/gala-sponsorships-tickets/p/25000-diamond-sponsorship-2gf5b-l8j4a (3024 chars)
+0.0s
+11:16:17 AM
+Found event: "Unknown"score 0
+0.8s
+11:16:17 AM
+Crawled: https://www.thebroachfoundation.org/about (12096 chars)
+0.8s
+11:16:20 AM
+Finished: https://www.lonestar.edu/giving
+11:16:20 AM
+Starting crawl of https://www.kelseyresearch.com
+11:16:20 AM
+Finished: https://www.kingwoodwomensclub.org
+11:16:21 AM
+Starting crawl of https://www.twca.net
+11:16:21 AM
+Finished: https://www.habitatmctx.org
+11:16:21 AM
+Starting crawl of https://mcfoodbank.org
+11:16:21 AM
+Finished: https://www.thebroachfoundation.org
+11:16:21 AM
+Starting crawl of https://www.heart4children.com
+11:16:29 AM
+Skipped: https://www.angletonrotary.com/author/angletonrotary_1vpngi/ (keyword_gate)
+0.0s
+11:16:29 AM
+Crawled: https://www.angletonrotary.com/author/angletonrotary_1vpngi/ (1619 chars)
+0.0s
+11:16:29 AM
+Found event: "Unknown"score 40
+0.0s
+11:16:29 AM
+Crawled: https://www.angletonrotary.com/fundraiser/ (10819 chars)
+0.0s
+11:16:29 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:29 AM
+Crawled: https://www.angletonrotary.com/ (14820 chars)
+0.0s
+11:16:29 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:29 AM
+Crawled: https://www.angletonrotary.com/about-rotary/ (5092 chars)
+0.0s
+11:16:29 AM
+Skipped: https://www.angletonrotary.com/rotary-causes/ (keyword_gate)
+0.0s
+11:16:29 AM
+Crawled: https://www.angletonrotary.com/rotary-causes/ (5006 chars)
+0.0s
+11:16:29 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:29 AM
+Crawled: https://www.angletonrotary.com/qrcode/ (1681 chars)
+0.0s
+11:16:29 AM
+Skipped: https://www.angletonrotary.com/privacy-policy/ (keyword_gate)
+0.0s
+11:16:29 AM
+Crawled: https://www.angletonrotary.com/privacy-policy/ (15157 chars)
+0.0s
+11:16:29 AM
+Found event: "Unknown"score 0
+0.1s
+11:16:29 AM
+Crawled: https://www.angletonrotary.com/contact/ (5622 chars)
+0.1s
+11:16:29 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:29 AM
+Crawled: https://www.angletonrotary.com/grants/ (6237 chars)
+0.0s
+11:16:34 AM
+Finished: https://www.angletonrotary.com/fundraiser/
+11:16:34 AM
+Starting crawl of https://www.behindthebadgecharities.org
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com (7488 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/blog (4867 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/publications (36022 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/home-old (17932 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/about-kelsey-research-foundation (8273 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/bob-and-vivian-smith-epilepsy-education-and-research-program (6922 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/joe-and-jessie-crump-cancer-center-1 (6744 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/active-living-after-cancer (8101 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/awardslectureships (9321 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/privacy-policy-terms-of-service (19986 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/krf-uthealth-centerformicrobiomeresearch (9456 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/contact (5329 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/obstetrical-outcomes-program (6095 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/participate-in-research (7136 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/gift (11822 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/blog-1 (5320 chars)
+0.0s
+11:16:44 AM
+Skipped: https://www.kelseyresearch.com/sponsorship-opportunities (keyword_gate)
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/sponsorship-opportunities (9454 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/krf-partners-1 (5509 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/golf-pictures (34799 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.1s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/new-page (6456 chars)
+0.1s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/live-oak-legacy-dinner-1 (18039 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/in-the-news (13364 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.1s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/grandprizeraffle (6285 chars)
+0.1s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/past-lectures (8079 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/careers (4871 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.1s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/newsletter (9148 chars)
+0.1s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/25th-annual-golf-tournament-photo-album (38409 chars)
+0.0s
+11:16:44 AM
+Skipped: https://www.kelseyresearch.com/upcoming-classes (keyword_gate)
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/upcoming-classes (6244 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/krf-partners (5046 chars)
+0.0s
+11:16:44 AM
+Found event: "Unknown"score 0
+0.0s
+11:16:44 AM
+Crawled: https://www.kelseyresearch.com/blog-archive (5086 chars)
+0.0s
+11:16:48 AM
+Finished: https://www.kelseyresearch.com
+11:16:48 AM
+Starting crawl of https://www.ingramleefoundation.org
+11:16:59 AM
+Skipped: https://www.heart4children.com (keyword_gate)
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com (7745 chars)
+0.0s
+11:16:59 AM
+Skipped: https://www.heart4children.com/home-1 (keyword_gate)
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/home-1 (4063 chars)
+0.0s
+11:16:59 AM
+Skipped: https://www.heart4children.com/student-gallery (keyword_gate)
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/student-gallery (11662 chars)
+0.0s
+11:16:59 AM
+Skipped: https://www.heart4children.com/the-school (keyword_gate)
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/the-school (4680 chars)
+0.0s
+11:16:59 AM
+Skipped: https://www.heart4children.com/michaels-story-video (keyword_gate)
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/michaels-story-video (1614 chars)
+0.0s
+11:16:59 AM
+Skipped: https://www.heart4children.com/contactold (keyword_gate)
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/contactold (2019 chars)
+0.0s
+11:16:59 AM
+Skipped: https://www.heart4children.com/home-page-gallery (keyword_gate)
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/home-page-gallery (10092 chars)
+0.0s
+11:16:59 AM
+Found event: "Heart4Children's Fourth Annual Golf Classic — Heart4Children"score 10
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/heart4children-events/fourthannualgolftournament (4096 chars)
+0.0s
+11:16:59 AM
+Found event: "Unknown"score 40
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/heart4children-events (8674 chars)
+0.0s
+11:16:59 AM
+Found event: "Heart4Children Vision Fundraiser - Dripping Springs — Heart4Children"score 0
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/heart4children-events/2025/11/18/heart4children-dripping-springs-fundraiser (4065 chars)
+0.0s
+11:16:59 AM
+Skipped: https://www.heart4children.com/family-clinic-old (keyword_gate)
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/family-clinic-old (1622 chars)
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/our-inspiration (6936 chars)
+0.0s
+11:16:59 AM
+Skipped: https://www.heart4children.com/contact (keyword_gate)
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/contact (2285 chars)
+0.0s
+11:16:59 AM
+Skipped: https://www.heart4children.com/about (keyword_gate)
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/about (5497 chars)
+0.0s
+11:16:59 AM
+Skipped: https://www.heart4children.com/home (keyword_gate)
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/home (7749 chars)
+0.0s
+11:16:59 AM
+Skipped: https://www.heart4children.com/h4cprojects (keyword_gate)
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/h4cprojects (3127 chars)
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/family-clinic (3287 chars)
+0.0s
+11:16:59 AM
+Skipped: https://www.heart4children.com/stories (keyword_gate)
+0.1s
+11:16:59 AM
+Crawled: https://www.heart4children.com/stories (3925 chars)
+0.1s
+11:16:59 AM
+Crawled: https://www.heart4children.com/the-boys-home (5775 chars)
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/communityschool (9841 chars)
+0.0s
+11:16:59 AM
+Skipped: https://www.heart4children.com/heart4children-events/2026/9/12/heart4children-houston-fundraiser (keyword_gate)
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/heart4children-events/2026/9/12/heart4children-houston-fundraiser (3753 chars)
+0.0s
+11:16:59 AM
+Skipped: https://www.heart4children.com/h4cnewsandupdates (keyword_gate)
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/h4cnewsandupdates (2383 chars)
+0.0s
+11:16:59 AM
+Skipped: https://www.heart4children.com/jairo (keyword_gate)
+0.0s
+11:16:59 AM
+Crawled: https://www.heart4children.com/jairo (2016 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/admissions/new-family-faq (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/admissions/new-family-faq (24083 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net (31637 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/about/faqs (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/about/faqs (28271 chars)
+0.0s
+11:17:00 AM
+Skipped: https://visit.twca.net/parent-info-packet/organic/8-21/inquire/ (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://visit.twca.net/parent-info-packet/organic/8-21/inquire/ (5111 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/about (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/about (16587 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/admissions/tuition (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/admissions/tuition (23304 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/admissions/visit-us (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/admissions/visit-us (13149 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/about/mission-vision-core-values (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/about/mission-vision-core-values (17706 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/warrior-life/calendar (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/warrior-life/calendar (19328 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/about/faculty-and-staff-directory (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/about/faculty-and-staff-directory (18931 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/student-portal (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/student-portal (12691 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/faculty-portal (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/faculty-portal (12691 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/directory (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/directory (33300 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/quicklinks (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/quicklinks (13765 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/academics (keyword_gate)
+0.1s
+11:17:00 AM
+Crawled: https://www.twca.net/academics (21846 chars)
+0.1s
+11:17:00 AM
+Skipped: https://www.twca.net/about/meet-the-head-of-school (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/about/meet-the-head-of-school (15787 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/warrior-life/online-payment (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/warrior-life/online-payment (13324 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/about/employment (keyword_gate)
+0.1s
+11:17:00 AM
+Crawled: https://www.twca.net/about/employment (50319 chars)
+0.1s
+11:17:00 AM
+Skipped: https://www.twca.net/academics/lower-school-prek-4th (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/academics/lower-school-prek-4th (23518 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/about/statement-of-faith (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/about/statement-of-faith (16746 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/about/the-six-pursuits (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/about/the-six-pursuits (23605 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/academics/kindergarten (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/academics/kindergarten (21786 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/admissions (keyword_gate)
+0.1s
+11:17:00 AM
+Crawled: https://www.twca.net/admissions (30800 chars)
+0.1s
+11:17:00 AM
+Skipped: https://www.twca.net/academics/philosophy-of-education (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/academics/philosophy-of-education (24233 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/admissions/new-families (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/admissions/new-families (25544 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/news (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/news (55874 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/admissions/portrait-of-a-partnership (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/admissions/portrait-of-a-partnership (20400 chars)
+0.0s
+11:17:00 AM
+Skipped: https://www.twca.net/about/our-campus (keyword_gate)
+0.1s
+11:17:00 AM
+Crawled: https://www.twca.net/about/our-campus (39941 chars)
+0.1s
+11:17:00 AM
+Skipped: https://www.twca.net/academics/pre-kindergarten (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://www.twca.net/academics/pre-kindergarten (20103 chars)
+0.0s
+11:17:00 AM
+Skipped: https://visit.twca.net/parent-info-packet/organic/8-21/inquire/clkn/tel/9362092598 (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://visit.twca.net/parent-info-packet/organic/8-21/inquire/clkn/tel/9362092598 (69 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org (19371 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/donate/ (20447 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/nutrition-services/nutrition-resources/ (18351 chars)
+0.0s
+11:17:00 AM
+Skipped: https://mcfoodbank.org/volunteer-with-us-conroe-tx/ (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/volunteer-with-us-conroe-tx/ (26239 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/events/gala/ (22498 chars)
+0.0s
+11:17:00 AM
+Skipped: https://mcfoodbank.org/events/holidayhelpings/ (keyword_gate)
+0.1s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/events/holidayhelpings/ (42303 chars)
+0.1s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/find-food-map/ (47834 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/partner-portal-conroe-tx/ (14635 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/find-a-food-pantry-partner-agencies-conroe-tx/ (48314 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/board-portal/ (14469 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/montgomery-county-food-bank-programs-conroe-tx/community-assistance/ (21450 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/mission-purpose-community-conroe-tx/hurricane-disaster-relief-efforts/ (18032 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/sustainability/ (25588 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/mission-purpose-community-conroe-tx/careers-conroe-tx/ (20616 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/mission-purpose-community-conroe-tx/our-impact/ (19498 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/blog/ (19741 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/montgomery-county-food-bank-programs-conroe-tx/ (17236 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/get-involved/ (16300 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/donate/tax-efficient-giving/ (16729 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/premier-giving-opportunites/hunger-heroes/ (18953 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/premier-giving-opportunites/orchard-society/ (16579 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/donate/purpose-planters/ (17722 chars)
+0.1s
+11:17:00 AM
+Skipped: https://mcfoodbank.org/events/ (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/events/ (15725 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/privacy-policy/ (15571 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/donate/host-a-fundraiser-food-drive/ (18781 chars)
+0.1s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/mission-purpose-community-conroe-tx/ (17821 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/community-unites-to-help-montgomery-county-food-bank-prepare-for-hurricane-season/ (20283 chars)
+0.0s
+11:17:00 AM
+Skipped: https://mcfoodbank.org/mcfb-provides-disaster-relief-to-thousands-in-need/ (keyword_gate)
+0.0s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/mcfb-provides-disaster-relief-to-thousands-in-need/ (21365 chars)
+0.0s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/montgomery-county-food-bank-a-pillar-of-strength-and-hope-in-the-aftermath-of-hurricane-beryl/ (24511 chars)
+0.1s
+11:17:00 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:00 AM
+Crawled: https://mcfoodbank.org/contact-us/ (28688 chars)
+0.1s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/our-work/ (4959 chars)
+0.1s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.2s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org (11270 chars)
+0.2s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/about-us/ (7356 chars)
+0.1s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/how-you-can-help/donate/ (5153 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 40
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/boots-badges-2024/ (5639 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/pagelayout/landing/ (9765 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/author/butlerscy/ (4681 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/our-work/scholarships/ (6699 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/how-you-can-help/ (4975 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 40
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/boots-badges-2023/ (5436 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/how-you-can-help/volunteer/ (4995 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/our-work/first-responder-assistance/ (5322 chars)
+0.0s
+11:17:01 AM
+Skipped: https://www.behindthebadgecharities.org/team/basketball-varsity-boys/ (keyword_gate)
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/team/basketball-varsity-boys/ (5792 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/how-you-can-help/sponsor/ (6668 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/privacy/ (5554 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/how-you-can-help/boots-and-badges-gala-2025/ (4196 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/sponsors/ (6517 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/need-help/ (5977 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/about-us/new-events/ (4358 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/about-us/board-of-directors/ (4841 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/educationalgrants/ (5204 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/how-you-can-help/2024-boots-and-badges-gala/ (7176 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/how-you-can-help/joinus/ (4851 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/how-you-can-help/boots-and-badges-gala/ (7524 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/how-you-can-help/sponsors/ (6452 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/how-you-can-help/2026-boots-and-badges-gala/ (4409 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/how-you-can-help/2025-boots-and-badges-gala/ (4404 chars)
+0.1s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/category/press-release/ (4695 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/pagelayout/landing/page/2/ (9866 chars)
+0.0s
+11:17:01 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:01 AM
+Crawled: https://www.behindthebadgecharities.org/how-you-can-help/boots-and-badges-gala-2026-sponsors/ (7163 chars)
+0.0s
+11:17:03 AM
+Finished: https://www.heart4children.com
+11:17:03 AM
+Starting crawl of https://santafetxedfoundation.org
+11:17:04 AM
+Finished: https://www.twca.net
+11:17:05 AM
+Starting crawl of https://www.rmhg.org
+11:17:05 AM
+Finished: https://mcfoodbank.org
+11:17:05 AM
+Starting crawl of https://www.catholiccharities.org
+11:17:05 AM
+Finished: https://www.behindthebadgecharities.org
+11:17:06 AM
+Starting crawl of https://www.texashearing.org
+11:17:14 AM
+Skipped: https://www.ingramleefoundation.org (keyword_gate)
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org (18909 chars)
+0.0s
+11:17:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/press (3501 chars)
+0.0s
+11:17:14 AM
+Skipped: https://www.ingramleefoundation.org/events (keyword_gate)
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/events (3543 chars)
+0.0s
+11:17:14 AM
+Skipped: https://www.ingramleefoundation.org/news (keyword_gate)
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/news (6500 chars)
+0.0s
+11:17:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/register (3374 chars)
+0.0s
+11:17:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/thank-you (3590 chars)
+0.0s
+11:17:14 AM
+Skipped: https://www.ingramleefoundation.org/about-ingram-lee-foundation (keyword_gate)
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/about-ingram-lee-foundation (16996 chars)
+0.0s
+11:17:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/board-of-directors (5689 chars)
+0.0s
+11:17:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/gallery/2020-golf-tournament (3652 chars)
+0.0s
+11:17:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/gallery/2019-golf-tournament (3329 chars)
+0.0s
+11:17:14 AM
+Skipped: https://www.ingramleefoundation.org/partners (keyword_gate)
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/partners (10986 chars)
+0.0s
+11:17:14 AM
+Skipped: https://www.ingramleefoundation.org/ingram-lee-foundation-sponsors (keyword_gate)
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/ingram-lee-foundation-sponsors (14225 chars)
+0.0s
+11:17:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/scholarships (8246 chars)
+0.0s
+11:17:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/sitemap (3718 chars)
+0.0s
+11:17:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/thank-you-for-donating (3486 chars)
+0.0s
+11:17:14 AM
+Skipped: https://www.ingramleefoundation.org/test-heading (keyword_gate)
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/test-heading (16823 chars)
+0.0s
+11:17:14 AM
+Skipped: https://www.ingramleefoundation.org/ingram-lee-foundation-scholarship-recipients (keyword_gate)
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/ingram-lee-foundation-scholarship-recipients (5666 chars)
+0.0s
+11:17:14 AM
+Skipped: https://www.ingramleefoundation.org/privacy-policy (keyword_gate)
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/privacy-policy (9104 chars)
+0.0s
+11:17:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/thank-you-for-contacting-the-ingram-lee-foundation (3749 chars)
+0.0s
+11:17:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/gallery (3252 chars)
+0.0s
+11:17:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/contact-us (21618 chars)
+0.0s
+11:17:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/partners/axelrod-energy-projects (4119 chars)
+0.0s
+11:17:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/partners/blessey-marine (4526 chars)
+0.0s
+11:17:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/partners/four-shamrocks-llc (3886 chars)
+0.0s
+11:17:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/partners/chemstar-inc (3710 chars)
+0.0s
+11:17:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/partners/buckeye-partners-lp (5862 chars)
+0.0s
+11:17:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/make-a-donation (6141 chars)
+0.0s
+11:17:14 AM
+Skipped: https://www.ingramleefoundation.org/scholarship-recipients (keyword_gate)
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/scholarship-recipients (12931 chars)
+0.0s
+11:17:14 AM
+Skipped: https://www.ingramleefoundation.org/partners/axelrod-energy-projects-1 (keyword_gate)
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/partners/axelrod-energy-projects-1 (4666 chars)
+0.0s
+11:17:14 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:14 AM
+Crawled: https://www.ingramleefoundation.org/events/chi-chi-miguel-throwdown-golf-event-at-burnt-pine-golf-club (3729 chars)
+0.0s
+11:17:18 AM
+Finished: https://www.ingramleefoundation.org
+11:17:18 AM
+Starting crawl of https://www.cy-hope.org
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/who-we-are/frequent-questions.html (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/who-we-are/frequent-questions.html (20122 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/who-we-are/financials.html (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/who-we-are/financials.html (16605 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/news-events/pulling-for-education.html (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/news-events/pulling-for-education.html (17052 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/news-events/ (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/news-events/ (17664 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/how-to-help/donate/ (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/how-to-help/donate/ (17118 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/how-to-help/ (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/how-to-help/ (17090 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/how-to-help/volunteer-with-us.html (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/how-to-help/volunteer-with-us.html (17594 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/what-we-do/classroom-wish-lists.html (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/what-we-do/classroom-wish-lists.html (17936 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/how-to-help/donate/brick-walkway.html (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/how-to-help/donate/brick-walkway.html (17841 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/news-events/galaroyale.html (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/news-events/galaroyale.html (17724 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/how-to-help/get-connected.html (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/how-to-help/get-connected.html (17077 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/who-we-are/ (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/who-we-are/ (18171 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/who-we-are/contact.html (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/who-we-are/contact.html (17137 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/news-events/past-events/end-of-year-awards-vendor-fair.html (archive_path)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/news-events/past-events/end-of-year-awards-vendor-fair.html (20820 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/what-we-do/givingtree-program.html (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/what-we-do/givingtree-program.html (19564 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org (43668 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/who-we-are/boardandstaff.html (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/who-we-are/boardandstaff.html (19044 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/news-events/event-calendar.html (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/news-events/event-calendar.html (18546 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/how-to-help/foundation-promo-items.html (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/how-to-help/foundation-promo-items.html (17743 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/news-events/past-events/2023-sfisd-convocation-vendor-fair.html (archive_path)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/news-events/past-events/2023-sfisd-convocation-vendor-fair.html (26428 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/what-we-do/illuminationawards.html (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/what-we-do/illuminationawards.html (26977 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/what-we-do/tribes-closet.html (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/what-we-do/tribes-closet.html (18761 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/what-we-do/ (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/what-we-do/ (26471 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/news-events/past-events/ (archive_path)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/news-events/past-events/ (25219 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/news-events/past-events/bookstembus.html (archive_path)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/news-events/past-events/bookstembus.html (17682 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/what-we-do/indianinnovationlab.html (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/what-we-do/indianinnovationlab.html (22977 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/news-events/past-events/together-again-a-night-of-inspiration.html (archive_path)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/news-events/past-events/together-again-a-night-of-inspiration.html (31669 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/who-we-are/mission.html (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/who-we-are/mission.html (18219 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/how-to-help/donate/overview.html (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/how-to-help/donate/overview.html (17170 chars)
+0.0s
+11:17:29 AM
+Skipped: https://santafetxedfoundation.org/news-events/newsroom.html (keyword_gate)
+0.0s
+11:17:29 AM
+Crawled: https://santafetxedfoundation.org/news-events/newsroom.html (26205 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org (23671 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:31 AM
+Crawled: https://www.texashearing.org/author/yrojas/ (38163 chars)
+0.1s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/category/communication-skills/ (26964 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/category/hearing-tests/ (29182 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/2021/10/01/lets-celebrate-its-national-audiology-awareness-month/ (30993 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/category/audiology/ (34667 chars)
+0.0s
+11:17:31 AM
+Skipped: https://www.texashearing.org/blog/ (keyword_gate)
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/blog/ (38137 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/author/opryor/ (28164 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/2022/02/11/goal-setting/ (28365 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/2022/03/02/lets-celebrate-world-hearing-day-2022/ (31349 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/category/early-learning-program/ (30389 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:31 AM
+Crawled: https://www.texashearing.org/category/world-hearing-day/ (29671 chars)
+0.1s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/2022/03/14/el-establecimiento-de-metas/ (30151 chars)
+0.0s
+11:17:31 AM
+Skipped: https://www.texashearing.org/category/general/ (keyword_gate)
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/category/general/ (38355 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/category/hearing-aid-treatment/ (30350 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/category/donor-engagement/ (27599 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/category/hearing-health/ (33595 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/author/kfulas/ (24037 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/2022/09/20/meet-our-educational-liaison/ (30355 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/category/teletherapy/ (25745 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:31 AM
+Crawled: https://www.texashearing.org/tag/childhood-education-services-in-texas/ (28005 chars)
+0.1s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/2022/10/08/what-to-expect-auditory-brainstem-response-tests-abrs/ (35064 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/2022/07/21/audiology-clinic-offers-redux-treatment-services/ (32551 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/author/gcastillano/ (28926 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:31 AM
+Crawled: https://www.texashearing.org/author/jkumar/ (33557 chars)
+0.1s
+11:17:31 AM
+Skipped: https://www.texashearing.org/author/mcummings/ (keyword_gate)
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/author/mcummings/ (1111 chars)
+0.0s
+11:17:31 AM
+Skipped: https://www.texashearing.org/2021/08/02/welcome-to-our-blog/ (keyword_gate)
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/2021/08/02/welcome-to-our-blog/ (1111 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:31 AM
+Crawled: https://www.texashearing.org/category/melinda-webb-school/ (29119 chars)
+0.1s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/2022/05/20/the-melinda-webb-school-early-learning-program-is-enrolling-for-2022/ (34319 chars)
+0.0s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:31 AM
+Crawled: https://www.texashearing.org/2022/06/17/swing-into-summer-activities/ (29786 chars)
+0.1s
+11:17:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:31 AM
+Crawled: https://www.texashearing.org/2022/05/12/alexs-journey-with-sports/ (30297 chars)
+0.0s
+11:17:32 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:32 AM
+Crawled: https://www.rmhg.org (5056 chars)
+0.0s
+11:17:32 AM
+Skipped: https://www.rmhg.org/copy-of-contact-us (keyword_gate)
+0.1s
+11:17:32 AM
+Crawled: https://www.rmhg.org/copy-of-contact-us (3730 chars)
+0.1s
+11:17:32 AM
+Skipped: https://www.rmhg.org/general-8 (keyword_gate)
+0.0s
+11:17:32 AM
+Crawled: https://www.rmhg.org/general-8 (4904 chars)
+0.0s
+11:17:32 AM
+Crawled: https://www.rmhg.org/guest-guidelines (4295 chars)
+0.1s
+11:17:32 AM
+Skipped: https://www.rmhg.org/what-we-do (keyword_gate)
+0.1s
+11:17:32 AM
+Crawled: https://www.rmhg.org/what-we-do (5572 chars)
+0.1s
+11:17:32 AM
+Skipped: https://www.rmhg.org/volunteer (keyword_gate)
+0.0s
+11:17:32 AM
+Crawled: https://www.rmhg.org/volunteer (4531 chars)
+0.0s
+11:17:32 AM
+Skipped: https://www.rmhg.org/copy-of-rmhg-board (keyword_gate)
+0.1s
+11:17:32 AM
+Crawled: https://www.rmhg.org/copy-of-rmhg-board (3743 chars)
+0.1s
+11:17:32 AM
+Skipped: https://www.rmhg.org/news-letters (keyword_gate)
+0.1s
+11:17:32 AM
+Crawled: https://www.rmhg.org/news-letters (5675 chars)
+0.1s
+11:17:32 AM
+Skipped: https://www.rmhg.org/termsconditions (keyword_gate)
+0.0s
+11:17:32 AM
+Crawled: https://www.rmhg.org/termsconditions (11112 chars)
+0.0s
+11:17:32 AM
+Skipped: https://www.rmhg.org/board-of-directors (keyword_gate)
+0.1s
+11:17:32 AM
+Crawled: https://www.rmhg.org/board-of-directors (4939 chars)
+0.1s
+11:17:32 AM
+Skipped: https://www.rmhg.org/annual-family-event (keyword_gate)
+0.1s
+11:17:32 AM
+Crawled: https://www.rmhg.org/annual-family-event (4368 chars)
+0.1s
+11:17:32 AM
+Skipped: https://www.rmhg.org/copy-of-home (keyword_gate)
+0.1s
+11:17:32 AM
+Crawled: https://www.rmhg.org/copy-of-home (5189 chars)
+0.1s
+11:17:32 AM
+Skipped: https://www.rmhg.org/copy-of-darlin-4th-of-july-event (keyword_gate)
+0.0s
+11:17:32 AM
+Crawled: https://www.rmhg.org/copy-of-darlin-4th-of-july-event (3643 chars)
+0.0s
+11:17:32 AM
+Skipped: https://www.rmhg.org/annual-reports (keyword_gate)
+0.1s
+11:17:32 AM
+Crawled: https://www.rmhg.org/annual-reports (3941 chars)
+0.1s
+11:17:32 AM
+Skipped: https://www.rmhg.org/other (keyword_gate)
+0.0s
+11:17:32 AM
+Crawled: https://www.rmhg.org/other (4628 chars)
+0.0s
+11:17:32 AM
+Skipped: https://www.rmhg.org/sudsrun (keyword_gate)
+0.1s
+11:17:32 AM
+Crawled: https://www.rmhg.org/sudsrun (3076 chars)
+0.1s
+11:17:32 AM
+Skipped: https://www.rmhg.org/pictures (keyword_gate)
+0.1s
+11:17:32 AM
+Crawled: https://www.rmhg.org/pictures (12487 chars)
+0.1s
+11:17:32 AM
+Skipped: https://www.rmhg.org/corporate-partners (keyword_gate)
+0.1s
+11:17:32 AM
+Crawled: https://www.rmhg.org/corporate-partners (3969 chars)
+0.1s
+11:17:32 AM
+Skipped: https://www.rmhg.org/stories (keyword_gate)
+0.0s
+11:17:32 AM
+Crawled: https://www.rmhg.org/stories (8789 chars)
+0.0s
+11:17:32 AM
+Skipped: https://www.rmhg.org/wish-lists (keyword_gate)
+0.2s
+11:17:32 AM
+Crawled: https://www.rmhg.org/wish-lists (5141 chars)
+0.2s
+11:17:32 AM
+Skipped: https://www.rmhg.org/contact-us (keyword_gate)
+0.1s
+11:17:32 AM
+Crawled: https://www.rmhg.org/contact-us (22559 chars)
+0.1s
+11:17:32 AM
+Crawled: https://www.rmhg.org/about-us (4141 chars)
+0.0s
+11:17:32 AM
+Skipped: https://www.rmhg.org/privacy-policy (keyword_gate)
+0.1s
+11:17:32 AM
+Crawled: https://www.rmhg.org/privacy-policy (7224 chars)
+0.1s
+11:17:32 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:32 AM
+Crawled: https://www.rmhg.org/donate (4935 chars)
+0.1s
+11:17:32 AM
+Skipped: https://www.rmhg.org/copy-of-donate (keyword_gate)
+0.0s
+11:17:32 AM
+Crawled: https://www.rmhg.org/copy-of-donate (3691 chars)
+0.0s
+11:17:32 AM
+Skipped: https://www.rmhg.org/event (keyword_gate)
+0.1s
+11:17:32 AM
+Crawled: https://www.rmhg.org/event (3575 chars)
+0.1s
+11:17:32 AM
+Crawled: https://www.rmhg.org/copy-of-events (3501 chars)
+0.1s
+11:17:32 AM
+Skipped: https://www.rmhg.org/board-retention-form (keyword_gate)
+0.0s
+11:17:32 AM
+Crawled: https://www.rmhg.org/board-retention-form (3469 chars)
+0.0s
+11:17:32 AM
+Skipped: https://www.rmhg.org/birthday-celebrations (keyword_gate)
+0.1s
+11:17:32 AM
+Crawled: https://www.rmhg.org/birthday-celebrations (7388 chars)
+0.1s
+11:17:32 AM
+Skipped: https://www.rmhg.org/how-you-can-help (keyword_gate)
+0.1s
+11:17:32 AM
+Crawled: https://www.rmhg.org/how-you-can-help (5915 chars)
+0.1s
+11:17:36 AM
+Finished: https://santafetxedfoundation.org
+11:17:36 AM
+Starting crawl of https://www.hopeforthree.org
+11:17:36 AM
+Finished: https://www.texashearing.org
+11:17:36 AM
+Starting crawl of https://www.norashome.org
+11:17:38 AM
+Finished: https://www.rmhg.org
+11:17:39 AM
+Starting crawl of https://www.kaileemillsfoundation.org
+11:17:45 AM
+Skipped: https://www.cy-hope.org (keyword_gate)
+0.0s
+11:17:45 AM
+Crawled: https://www.cy-hope.org (16425 chars)
+0.0s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/staff (13106 chars)
+0.1s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/bx7gxb1r341vo2k6w52lhjw7gz43ve (11273 chars)
+0.1s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/4-h-healthy-lifestyles-camp (11258 chars)
+0.0s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/big-feeling-studio-3rd-5th-grade-group-art-therapy (11199 chars)
+0.0s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/baseball-skills-camp-s9s8d (12462 chars)
+0.1s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/emotion-explorers-kindergarten-2nd-grade-group-counseling (11198 chars)
+0.0s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/baseball-skills-camp-s9s8d-2zh8y-5t726 (12391 chars)
+0.0s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/8er0n7z1d1c2d4f8tlms8901gmpto7 (10360 chars)
+0.0s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/larry-dierker-celebrity-golf-shootout-1 (9980 chars)
+0.0s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/baseball-skills-camp-s9s8d-2zh8y (12427 chars)
+0.1s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/presents-with-a-purpose (10257 chars)
+0.0s
+11:17:45 AM
+Found event: "Unknown"score 40
+0.1s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar (53553 chars)
+0.1s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/blaze-pizza-fundraiser (10703 chars)
+0.1s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/larry-dierker-celebrity-golf-shootout (10548 chars)
+0.0s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/bjs-fundraiser (10636 chars)
+0.0s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/all-in-for-hope-gala (13377 chars)
+0.0s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/cfisd-e-waste-drive (13451 chars)
+0.0s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/back-to-school-supply-drive-thru-1 (13543 chars)
+0.0s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/cy-hope-gala (10030 chars)
+0.0s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/spavia-giveback-event (10964 chars)
+0.0s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.2s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/a-taste-of-cy-fair (15519 chars)
+0.2s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/vibe-tribe-social-skills-middle-school-group-counseling (11476 chars)
+0.1s
+11:17:45 AM
+Skipped: https://www.cy-hope.org/event-calendar/sidewalk-sale-at-hope-chest-katy (keyword_gate)
+0.0s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/sidewalk-sale-at-hope-chest-katy (10283 chars)
+0.0s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/hope-for-the-holidays (10375 chars)
+0.0s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/back-to-school-supply-drive-thru (10238 chars)
+0.1s
+11:17:45 AM
+Skipped: https://www.cy-hope.org/event-calendar/lazy-dog-fundraiser (keyword_gate)
+0.1s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/lazy-dog-fundraiser (10751 chars)
+0.1s
+11:17:45 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/free-mobile-food-distribution (10040 chars)
+0.0s
+11:17:45 AM
+Skipped: https://www.cy-hope.org/event-calendar/kendra-scott-fundraiser (keyword_gate)
+0.0s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/kendra-scott-fundraiser (13988 chars)
+0.0s
+11:17:45 AM
+Skipped: https://www.cy-hope.org/event-calendar/summer-feeding-mobile-food-distribution (keyword_gate)
+0.1s
+11:17:45 AM
+Crawled: https://www.cy-hope.org/event-calendar/summer-feeding-mobile-food-distribution (13514 chars)
+0.1s
+11:17:46 AM
+Skipped: https://catholiccharities.org/your-support-ensured-a-woman-veteran-and-her-family-had-a-home-for-the-holidays/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/your-support-ensured-a-woman-veteran-and-her-family-had-a-home-for-the-holidays/ (15860 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/share-your-blessings-helps-family-of-nine-enjoy-christmas/ (keyword_gate)
+0.1s
+11:17:46 AM
+Crawled: https://catholiccharities.org/share-your-blessings-helps-family-of-nine-enjoy-christmas/ (15326 chars)
+0.1s
+11:17:46 AM
+Skipped: https://catholiccharities.org/a-decent-safe-and-affordable-home-ms-cs-story/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/a-decent-safe-and-affordable-home-ms-cs-story/ (16241 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/motivated-to-move-forward/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/motivated-to-move-forward/ (16486 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/vice-president-tapped-to-join-sheriffs-transition-team/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/vice-president-tapped-to-join-sheriffs-transition-team/ (12259 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/show-refugees-that-america-is-a-welcoming-country/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/show-refugees-that-america-is-a-welcoming-country/ (17458 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/exxonmobil-volunteers-log-nearly-150-hours-at-guadalupe-center/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/exxonmobil-volunteers-log-nearly-150-hours-at-guadalupe-center/ (15751 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/helpunitefamilies/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/helpunitefamilies/ (15258 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/2020census/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/2020census/ (14594 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/you-helped-a-single-mother-and-her-kids-get-back-on-their-feet/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/you-helped-a-single-mother-and-her-kids-get-back-on-their-feet/ (15479 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/safe-at-home-again/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/safe-at-home-again/ (15302 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/homesafe-not-homeless/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/homesafe-not-homeless/ (15589 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/catholic-charities-continues-to-serve-galveston-area-during-covid-19-pandemic/ (keyword_gate)
+0.1s
+11:17:46 AM
+Crawled: https://catholiccharities.org/catholic-charities-continues-to-serve-galveston-area-during-covid-19-pandemic/ (16962 chars)
+0.1s
+11:17:46 AM
+Skipped: https://catholiccharities.org/7-things-to-remember-to-practice-self-care-during-covid-19/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/7-things-to-remember-to-practice-self-care-during-covid-19/ (16941 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/schoolsupplies/ (keyword_gate)
+0.1s
+11:17:46 AM
+Crawled: https://catholiccharities.org/schoolsupplies/ (12734 chars)
+0.1s
+11:17:46 AM
+Skipped: https://catholiccharities.org/a-new-lease-on-life-gabrielas-story/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/a-new-lease-on-life-gabrielas-story/ (14669 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/standwithrefugees/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/standwithrefugees/ (19693 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/because-of-you-a-mother-was-better-prepared/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/because-of-you-a-mother-was-better-prepared/ (16025 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/2020missionoflove/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/2020missionoflove/ (18503 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/soc2021event/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/soc2021event/ (16847 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/because-of-your-help-mary-can-feed-her-family/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/because-of-your-help-mary-can-feed-her-family/ (15765 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/managing-the-holiday-blues-during-the-pandemic/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/managing-the-holiday-blues-during-the-pandemic/ (17009 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/honors-for-dr-thomas-e-randle-recently-retired-superintendent-of-lamar-consolidated-isd-at-fort-bends-mamie-george-community-center-gala/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/honors-for-dr-thomas-e-randle-recently-retired-superintendent-of-lamar-consolidated-isd-at-fort-bends-mamie-george-community-center-gala/ (17657 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/you-are-helping-a-father-support-his-family/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/you-are-helping-a-father-support-his-family/ (15477 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/fort-bends-mamie-george-community-center-mission-of-love-to-honor-dr-thomas-randle-recently-retired-superintendent-of-lamar-consolidated-isd/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/fort-bends-mamie-george-community-center-mission-of-love-to-honor-dr-thomas-randle-recently-retired-superintendent-of-lamar-consolidated-isd/ (18477 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/wine-and-dine-dinner-raises-nearly-500000-for-catholic-charities/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/wine-and-dine-dinner-raises-nearly-500000-for-catholic-charities/ (15688 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/you-helped-a-young-boy-cope-with-anxiety/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/you-helped-a-young-boy-cope-with-anxiety/ (16482 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/give-monthly/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/give-monthly/ (6835 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/order-of-malta-feeds-hungry-families-in-fort-bend/ (keyword_gate)
+0.0s
+11:17:46 AM
+Crawled: https://catholiccharities.org/order-of-malta-feeds-hungry-families-in-fort-bend/ (16019 chars)
+0.0s
+11:17:46 AM
+Skipped: https://catholiccharities.org/tenants/ (keyword_gate)
+0.1s
+11:17:46 AM
+Crawled: https://catholiccharities.org/tenants/ (20275 chars)
+0.1s
+11:17:51 AM
+Finished: https://www.cy-hope.org
+11:17:51 AM
+Starting crawl of https://tourettetexas.org
+11:17:51 AM
+Finished: https://www.catholiccharities.org
+11:17:51 AM
+Starting crawl of https://www.know-autism.org
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://www.norashome.org (9677 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/covid-19-response (8785 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/el-rio-amigos-2023 (8968 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/el-rio-amigos-2021 (9389 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/privacy-policy (13647 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/our-staff (8352 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/admission-criteria (10221 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 40
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/give (17279 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:59 AM
+Crawled: https://norashome.org/financials (7023 chars)
+0.1s
+11:17:59 AM
+Skipped: https://norashome.org/amenities (keyword_gate)
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/amenities (10785 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/el-rio-amigos-2024 (8544 chars)
+0.0s
+11:17:59 AM
+Skipped: https://norashome.org/faq (keyword_gate)
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/faq (10530 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/mission-vision-core-values (7688 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/our-impact (9291 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/our-partners (7530 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/careers (7163 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/board-of-directors (8546 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/el-rio-amigos-2022 (9121 chars)
+0.0s
+11:17:59 AM
+Skipped: https://norashome.org/volunteer (keyword_gate)
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/volunteer (13119 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/give/legacy-giving (11816 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/our-guests (9124 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/gala (11829 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/publications (10588 chars)
+0.0s
+11:17:59 AM
+Skipped: https://norashome.org/golf-classic (keyword_gate)
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/golf-classic (12047 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/our-story (13840 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.1s
+11:17:59 AM
+Crawled: https://norashome.org/test (25767 chars)
+0.1s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/give/give-now (7426 chars)
+0.0s
+11:17:59 AM
+Skipped: https://norashome.org/give/lifeline-giving (keyword_gate)
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/give/lifeline-giving (9368 chars)
+0.0s
+11:17:59 AM
+Skipped: https://norashome.org/give/whaf (keyword_gate)
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/give/whaf (11243 chars)
+0.0s
+11:17:59 AM
+Found event: "Unknown"score 0
+0.0s
+11:17:59 AM
+Crawled: https://norashome.org/give/leave-your-mark (7725 chars)
+0.0s
+11:18:00 AM
+Skipped: https://www.hopeforthree.org (keyword_gate)
+0.0s
+11:18:00 AM
+Crawled: https://www.hopeforthree.org (76042 chars)
+0.0s
+11:18:00 AM
+Skipped: https://hopeforthree.org/donate/ (keyword_gate)
+0.2s
+11:18:00 AM
+Crawled: https://hopeforthree.org/donate/ (77989 chars)
+0.2s
+11:18:00 AM
+Skipped: https://hopeforthree.org/board-of-directors/ (keyword_gate)
+0.1s
+11:18:00 AM
+Crawled: https://hopeforthree.org/board-of-directors/ (74648 chars)
+0.1s
+11:18:00 AM
+Skipped: https://hopeforthree.org/family-assistance/ (keyword_gate)
+0.0s
+11:18:00 AM
+Crawled: https://hopeforthree.org/family-assistance/ (74346 chars)
+0.0s
+11:18:00 AM
+Skipped: https://hopeforthree.org/resources/ (keyword_gate)
+0.0s
+11:18:00 AM
+Crawled: https://hopeforthree.org/resources/ (73109 chars)
+0.0s
+11:18:03 AM
+Finished: https://www.norashome.org
+11:18:04 AM
+Starting crawl of https://www.cfmhouston.org
+11:18:07 AM
+Crawled: https://www.kaileemillsfoundation.org (9588 chars)
+0.0s
+11:18:33 AM
+Skipped: https://www.kaileemillsfoundation.org/about-us/ (keyword_gate)
+0.0s
+11:18:33 AM
+Crawled: https://www.kaileemillsfoundation.org/about-us/ (10790 chars)
+0.0s
+11:18:33 AM
+Skipped: https://www.kaileemillsfoundation.org/videos/ (keyword_gate)
+0.0s
+11:18:33 AM
+Crawled: https://www.kaileemillsfoundation.org/videos/ (4419 chars)
+0.0s
+11:18:33 AM
+Skipped: https://www.kaileemillsfoundation.org/our-team/ (keyword_gate)
+0.0s
+11:18:33 AM
+Crawled: https://www.kaileemillsfoundation.org/our-team/ (10340 chars)
+0.0s
+11:18:33 AM
+Skipped: https://www.kaileemillsfoundation.org/blog/ (keyword_gate)
+0.0s
+11:18:33 AM
+Crawled: https://www.kaileemillsfoundation.org/blog/ (4960 chars)
+0.0s
+11:18:33 AM
+Crawled: https://www.kaileemillsfoundation.org/join-our-team/ (6904 chars)
+0.0s
+11:18:33 AM
+Skipped: https://www.kaileemillsfoundation.org/in-the-press/ (keyword_gate)
+0.1s
+11:18:33 AM
+Crawled: https://www.kaileemillsfoundation.org/in-the-press/ (5495 chars)
+0.1s
+11:18:33 AM
+Found event: "Unknown"score 0
+0.0s
+11:18:33 AM
+Crawled: https://www.kaileemillsfoundation.org/seat-belt-safety-awareness/ (11416 chars)
+0.0s
+11:18:33 AM
+Crawled: https://www.kaileemillsfoundation.org/family-assistance/ (7829 chars)
+0.0s
+11:18:33 AM
+Crawled: https://www.kaileemillsfoundation.org/scholarships/ (9664 chars)
+0.1s
+11:18:33 AM
+Found event: "Unknown"score 0
+0.0s
+11:18:33 AM
+Crawled: https://www.kaileemillsfoundation.org/events-page/ (7689 chars)
+0.0s
+11:18:33 AM
+Found event: "Unknown"score 0
+0.0s
+11:18:33 AM
+Crawled: https://www.kaileemillsfoundation.org/shop/ (8294 chars)
+0.0s
+11:18:33 AM
+Skipped: https://www.kaileemillsfoundation.org/buckle-up-pledge/ (keyword_gate)
+0.0s
+11:18:33 AM
+Crawled: https://www.kaileemillsfoundation.org/buckle-up-pledge/ (5570 chars)
+0.0s
+11:18:33 AM
+Skipped: https://www.kaileemillsfoundation.org/volunteer/ (keyword_gate)
+0.0s
+11:18:33 AM
+Crawled: https://www.kaileemillsfoundation.org/volunteer/ (5755 chars)
+0.0s
+11:18:33 AM
+Skipped: https://www.kaileemillsfoundation.org/volunteer-t-shirt-design-contest/ (keyword_gate)
+0.1s
+11:18:33 AM
+Crawled: https://www.kaileemillsfoundation.org/volunteer-t-shirt-design-contest/ (6023 chars)
+0.1s
+11:18:33 AM
+Crawled: https://www.kaileemillsfoundation.org/billboard-contest-design/ (5629 chars)
+0.1s
+11:18:33 AM
+Found event: "Unknown"score 0
+0.0s
+11:18:33 AM
+Crawled: https://www.kaileemillsfoundation.org/ways-to-give/ (5846 chars)
+0.0s
+11:18:33 AM
+Crawled: https://www.kaileemillsfoundation.org/seat-belt-safety/ (7665 chars)
+0.1s
+11:18:33 AM
+Skipped: https://www.kaileemillsfoundation.org/kailees-angels/ (keyword_gate)
+0.0s
+11:18:33 AM
+Crawled: https://www.kaileemillsfoundation.org/kailees-angels/ (36414 chars)
+0.0s
+11:18:40 AM
+Found event: "Unknown"score 0
+0.1s
+11:18:40 AM
+Crawled: https://www.know-autism.org (19931 chars)
+0.1s
+11:18:45 AM
+Skipped: https://tourettetexas.org (keyword_gate)
+0.0s
+11:18:45 AM
+Crawled: https://tourettetexas.org (13360 chars)
+0.0s
+11:18:45 AM
+Found event: "Unknown"score 40
+0.0s
+11:18:45 AM
+Crawled: https://tourettetexas.org/donations/ (15106 chars)
+0.0s
+11:18:45 AM
+Skipped: https://tourettetexas.org/tag/arlington-dallas-fort-worth/ (keyword_gate)
+0.0s
+11:18:45 AM
+Crawled: https://tourettetexas.org/tag/arlington-dallas-fort-worth/ (8558 chars)
+0.0s
+11:18:46 AM
+Skipped: https://hopeforthree.org/about-us/ (keyword_gate)
+0.0s
+11:18:46 AM
+Crawled: https://hopeforthree.org/about-us/ (72059 chars)
+0.0s
+11:19:03 AM
+Found event: "2026 Buckle Up Gala – Monte Carlo: Where Every Bet Saves Lives!"score 10
+0.0s
+11:19:03 AM
+Crawled: https://www.kaileemillsfoundation.org/events-calendar/ (5899 chars)
+0.0s
+11:19:03 AM
+Skipped: https://www.kaileemillsfoundation.org/angels/craig-coponen/ (keyword_gate)
+0.0s
+11:19:03 AM
+Crawled: https://www.kaileemillsfoundation.org/angels/craig-coponen/ (4860 chars)
+0.0s
+11:19:03 AM
+Skipped: https://www.kaileemillsfoundation.org/angels/garrett-spry/ (keyword_gate)
+0.0s
+11:19:03 AM
+Crawled: https://www.kaileemillsfoundation.org/angels/garrett-spry/ (5485 chars)
+0.0s
+11:19:03 AM
+Found event: "Unknown"score 0
+0.0s
+11:19:03 AM
+Crawled: https://www.kaileemillsfoundation.org/financials/ (5155 chars)
+0.0s
+11:19:03 AM
+Skipped: https://www.kaileemillsfoundation.org/angels/makayla-bonura/ (keyword_gate)
+0.0s
+11:19:03 AM
+Crawled: https://www.kaileemillsfoundation.org/angels/makayla-bonura/ (5183 chars)
+0.0s
+11:19:03 AM
+Skipped: https://www.kaileemillsfoundation.org/contact-us/ (keyword_gate)
+0.0s
+11:19:03 AM
+Crawled: https://www.kaileemillsfoundation.org/contact-us/ (4391 chars)
+0.0s
+11:19:03 AM
+Skipped: https://www.kaileemillsfoundation.org/donate/ (keyword_gate)
+0.0s
+11:19:03 AM
+Crawled: https://www.kaileemillsfoundation.org/donate/ (3749 chars)
+0.0s
+11:19:03 AM
+Found event: "Unknown"score 0
+0.0s
+11:19:03 AM
+Crawled: https://www.kaileemillsfoundation.org/product/kailee-mills-foundation-tee-navy/ (7726 chars)
+0.0s
+11:19:03 AM
+Found event: "Unknown"score 0
+0.0s
+11:19:03 AM
+Crawled: https://www.kaileemillsfoundation.org/product/kailee-mills-foundation-tee-jade/ (7835 chars)
+0.0s
+11:19:03 AM
+Found event: "Unknown"score 0
+0.0s
+11:19:03 AM
+Crawled: https://www.kaileemillsfoundation.org/product/kailee-mills-foundation-tee-royal/ (7924 chars)
+0.0s
+11:19:03 AM
+Skipped: https://www.kaileemillsfoundation.org/our-impact/ (keyword_gate)
+0.0s
+11:19:03 AM
+Crawled: https://www.kaileemillsfoundation.org/our-impact/ (5427 chars)
+0.0s
+11:19:31 AM
+Skipped: https://www.cfmhouston.org (keyword_gate)
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org (10184 chars)
+0.0s
+11:19:31 AM
+Skipped: https://www.cfmhouston.org/who-we-are (keyword_gate)
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/who-we-are (10194 chars)
+0.0s
+11:19:31 AM
+Skipped: https://www.cfmhouston.org/contact (keyword_gate)
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/contact (3279 chars)
+0.0s
+11:19:31 AM
+Skipped: https://www.cfmhouston.org/programs (keyword_gate)
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/programs (6515 chars)
+0.0s
+11:19:31 AM
+Skipped: https://www.cfmhouston.org/volunteer (keyword_gate)
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/volunteer (4579 chars)
+0.0s
+11:19:31 AM
+Skipped: https://www.cfmhouston.org/resource-center (keyword_gate)
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/resource-center (3670 chars)
+0.0s
+11:19:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/roaring-raise (1146 chars)
+0.0s
+11:19:31 AM
+Skipped: https://www.cfmhouston.org/fun-fridays (keyword_gate)
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/fun-fridays (3881 chars)
+0.0s
+11:19:31 AM
+Skipped: https://www.cfmhouston.org/micro-groups (keyword_gate)
+0.1s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/micro-groups (4109 chars)
+0.1s
+11:19:31 AM
+Skipped: https://www.cfmhouston.org/public-resources (keyword_gate)
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/public-resources (4234 chars)
+0.0s
+11:19:31 AM
+Skipped: https://www.cfmhouston.org/after-school-enrichment (keyword_gate)
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/after-school-enrichment (6654 chars)
+0.0s
+11:19:31 AM
+Skipped: https://www.cfmhouston.org/roaring-raise-reservation (keyword_gate)
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/roaring-raise-reservation (748 chars)
+0.0s
+11:19:31 AM
+Skipped: https://www.cfmhouston.org/scholarships (keyword_gate)
+0.1s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/scholarships (4644 chars)
+0.1s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/cornerstone-creators (5056 chars)
+0.0s
+11:19:31 AM
+Skipped: https://www.cfmhouston.org/summer-programming (keyword_gate)
+0.1s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/summer-programming (4531 chars)
+0.1s
+11:19:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/roaring-raise-1 (1085 chars)
+0.0s
+11:19:31 AM
+Skipped: https://www.cfmhouston.org/flight-25 (keyword_gate)
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/flight-25 (4633 chars)
+0.0s
+11:19:31 AM
+Skipped: https://www.cfmhouston.org/test (keyword_gate)
+0.2s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/test (5652 chars)
+0.2s
+11:19:31 AM
+Found event: "Unknown"score 40
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/spotlight-gala (6695 chars)
+0.0s
+11:19:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/get-involved (4757 chars)
+0.0s
+11:19:31 AM
+Skipped: https://www.cfmhouston.org/community-nights (keyword_gate)
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/community-nights (4362 chars)
+0.0s
+11:19:31 AM
+Skipped: https://www.cfmhouston.org/internships (keyword_gate)
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/internships (4634 chars)
+0.0s
+11:19:31 AM
+Found event: "Unknown"score 40
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/silent-auction-donation (3762 chars)
+0.0s
+11:19:31 AM
+Skipped: https://www.cfmhouston.org/christmas (keyword_gate)
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/christmas (4149 chars)
+0.0s
+11:19:31 AM
+Found event: "Unknown"score 40
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/spotlight-gala-program (5818 chars)
+0.0s
+11:19:31 AM
+Found event: "Unknown"score 0
+0.1s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/underwriting-sponsorship (3882 chars)
+0.1s
+11:19:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/handbid-instructions (3083 chars)
+0.0s
+11:19:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/table-sponsorship (3752 chars)
+0.0s
+11:19:31 AM
+Found event: "Unknown"score 0
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/cornerstone-classic (5113 chars)
+0.0s
+11:19:31 AM
+Skipped: https://www.cfmhouston.org/get-involved-2 (keyword_gate)
+0.0s
+11:19:31 AM
+Crawled: https://www.cfmhouston.org/get-involved-2 (3203 chars)
+0.0s
+11:19:35 AM
+Finished: https://www.cfmhouston.org
+11:19:35 AM
+Starting crawl of https://www.casaelbuen.org
+11:19:43 AM
+Finished: https://www.kaileemillsfoundation.org
+11:19:43 AM
+Starting crawl of https://www.hchdfoundation.org
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/que-es-el-sindrome-de-tourette/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/que-es-el-sindrome-de-tourette/ (8982 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/tourette-association-of-america-texas-chapter-services-programs/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/tourette-association-of-america-texas-chapter-services-programs/ (9419 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/physician-referral-san-antonio-corpus-christi-and-rio-grande-valley/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/physician-referral-san-antonio-corpus-christi-and-rio-grande-valley/ (9484 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/physician-referral-north-texas-dallas-fort-worth-plano-and-tyler/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/physician-referral-north-texas-dallas-fort-worth-plano-and-tyler/ (9437 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/dear-teacher/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/dear-teacher/ (8694 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/sample-child-letter-2-all-about-brian/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/sample-child-letter-2-all-about-brian/ (9062 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/sample-child-letter-1-all-about-bobby/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/sample-child-letter-1-all-about-bobby/ (9062 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/504-and-special-education-whats-the-difference/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/504-and-special-education-whats-the-difference/ (9187 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/general-education-recommendations/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/general-education-recommendations/ (9003 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/assistive-technology-handout-2/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/assistive-technology-handout-2/ (8976 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/back-to-school-preparation/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/back-to-school-preparation/ (8900 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/tag/austin/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/tag/austin/ (8264 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/tag/katy/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/tag/katy/ (8236 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/tag/new-braunfels/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/tag/new-braunfels/ (8362 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/tag/bryan-college-station/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/tag/bryan-college-station/ (8474 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/category/events/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/category/events/ (9374 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/category/uncategorized/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/category/uncategorized/ (13909 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/los-tics-son-solo-la-punta-del-iceberg/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/los-tics-son-solo-la-punta-del-iceberg/ (9071 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/sobrecarga-emocional-una-miranda-detallada-sobre-las-conductas-no-relacionadas-con-los-tics-en-el-sindrome-de-tourette/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/sobrecarga-emocional-una-miranda-detallada-sobre-las-conductas-no-relacionadas-con-los-tics-en-el-sindrome-de-tourette/ (10221 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/intervencion-global-de-comportamiento-para-tics/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/intervencion-global-de-comportamiento-para-tics/ (9214 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/modificaciones-acomodaciones-generales-academicas-y-del-comportamiento/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/modificaciones-acomodaciones-generales-academicas-y-del-comportamiento/ (9537 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/1112-2/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/1112-2/ (8706 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/facts-about-tourettes-syndrome/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/facts-about-tourettes-syndrome/ (8967 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/physician-referral-austin-tx/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/physician-referral-austin-tx/ (8933 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/emotional-overload-understanding-non-tic-related-behaviors/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/emotional-overload-understanding-non-tic-related-behaviors/ (9403 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/tourettes-syndrome-tics-are-just-the-tip-of-the-iceberg/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/tourettes-syndrome-tics-are-just-the-tip-of-the-iceberg/ (9303 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/what-is-tourette-syndrome/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/what-is-tourette-syndrome/ (8897 chars)
+0.0s
+11:19:45 AM
+Skipped: https://tourettetexas.org/resources/physician-referral-houston/ (keyword_gate)
+0.0s
+11:19:45 AM
+Crawled: https://tourettetexas.org/resources/physician-referral-houston/ (8652 chars)
+0.0s
+11:19:49 AM
+Finished: https://tourettetexas.org
+11:19:49 AM
+Starting crawl of https://www.childrens-fund.org
+11:20:18 AM
+Found event: "Unknown"score 0
+0.0s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org (6121 chars)
+0.0s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/blog (5431 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/service-page/flu-vaccine-cityrise (3913 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/service-page/fluvaccine-prestige-learning-institute (3723 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.2s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/service-page/segunda-dosis-de-vacuna-covid (4356 chars)
+0.2s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/service-page/casa-open-house-tours (3843 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/service-page/cpr-class (3601 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/service-page/formulario-de-solicitud-de-vacunaci%C3%B3n (4177 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/service-page/formulario-de-solicitud-de-vacunaci%C3%B3n-ii (4183 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/service-page/formulario-de-refuerzo-de-vacuna (4188 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/service-page/happy-feet (3792 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/service-page/cuerpo-sano-mas-energ%C3%ADa (3511 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/service-page/clase-de-nutricion (3616 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/service-page/casa-clinic-tour (3613 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/service-page/copy-of-flu-vaccine-casa-el-buen-samaritano (3757 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/service-page/calma-tu-mente-cuida-tu-coraz%C3%B3n-1 (3720 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/service-page/calma-tu-mente-cuida-tu-coraz%C3%B3n-junio (3736 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/service-page/educaci%C3%B3n-sobre-la-detecci%C3%B3n-del-c%C3%A1ncer (3661 chars)
+0.1s
+11:20:18 AM
+Skipped: https://www.casaelbuen.org/single-post/2018/03/12/mobilizing-medical-missions-conference-2018 (keyword_gate)
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/single-post/2018/03/12/mobilizing-medical-missions-conference-2018 (4622 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.2s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/single-post/2018/02/28/dr-spann-casas-co-founder-and-member-of-the-board-of-directors-named-founding-dean-of-the (5537 chars)
+0.2s
+11:20:18 AM
+Skipped: https://www.casaelbuen.org/single-post/women-finding-hope-and-connection-at-casa (keyword_gate)
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/single-post/women-finding-hope-and-connection-at-casa (5673 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.2s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/single-post/leading-with-compassion-dr-paul-lee-and-the-heart-of-casa-s-dental-program (6935 chars)
+0.2s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.0s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/service-page/happy-feet-casa-el-buen (3712 chars)
+0.0s
+11:20:18 AM
+Skipped: https://www.casaelbuen.org/single-post/saddle-up-for-love-a-night-of-celebration-generosity-and-faith-filled-healthcare (keyword_gate)
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/single-post/saddle-up-for-love-a-night-of-celebration-generosity-and-faith-filled-healthcare (5623 chars)
+0.1s
+11:20:18 AM
+Skipped: https://www.casaelbuen.org/single-post/a-nurse-making-a-difference-at-casa (keyword_gate)
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/single-post/a-nurse-making-a-difference-at-casa (6191 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/single-post/introducing-casa-s-new-nurse-practitioner (5833 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/single-post/houston-methodist-provides-100-000-in-lab-services-to-casa-el-buen-samaritano (5311 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/single-post/casa-partners-with-tiff-s-treats-for-cookies-for-community-campaign (4630 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/service-page/flu-vaccine-iglesia-reba%C3%B1o-de-vida (3719 chars)
+0.1s
+11:20:18 AM
+Found event: "Unknown"score 0
+0.1s
+11:20:18 AM
+Crawled: https://www.casaelbuen.org/single-post/a-student-s-journey-in-medication-management-at-casa-el-buen-samaritano (5462 chars)
+0.1s
+11:20:25 AM
+Finished: https://www.casaelbuen.org
+11:20:25 AM
+Starting crawl of https://www.ktcm.org
+Events Found
+307
+40
+Tier C
+Silent Auction
+Unnamed
+
+Open page
+40
+Tier C
+Silent Auction
+Live Auction
+Unnamed
+
+Open page
+40
+Tier C
+Silent Auction
+Live Auction
+Unnamed
+
+Open page
+40
+Tier C
+Silent Auction
+Unnamed
+
+Open page
+40
+Tier C
+Silent Auction
+Unnamed
+
+Open page
+40
+Tier C
+Silent Auction
+Unnamed
+
+Open page
+40
+Tier C
+Live Auction
+Unnamed
+
+Open page
+40
+Tier C
+Silent Auction
+Unnamed
+
+Open page
+40
+Tier C
+Live Auction
+Unnamed
+
+Open page
+40
+Tier C
+Silent Auction
+Unnamed
+
+Open page
+40
+Tier C
+Silent Auction
+Live Auction
+Unnamed
+
+Open page
+10
+Tier C
+Silent Auction
+Live Auction
+Heart4Children's Fourth Annual Golf Classic — Heart4Children
+
+2026-04-30 · High Meadow Ranch Golf Course
+
+Open page
+10
+Tier C
+2026 Buckle Up Gala – Monte Carlo: Where Every Bet Saves Lives!
+
+2026-10-24 · The Citadel Houston
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Heart4Children Vision Fundraiser - Dripping Springs — Heart4Children
+
+2026-05-02 · Hill Country Bible Church Dripping Springs.
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+0
+Tier C
+Unnamed
+
+Open page
+Error Summary
+keyword_gate: 294
+archive_path: 5
+Analyze Errors with AI
+Re-crawl 299 failed
+
+keyword_gate
+(294)
+
+archive_path
+(5)

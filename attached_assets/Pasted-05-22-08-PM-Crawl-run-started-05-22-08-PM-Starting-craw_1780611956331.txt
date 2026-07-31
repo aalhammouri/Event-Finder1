@@ -1,0 +1,280 @@
+05:22:08 PM
+Crawl run started
+05:22:08 PM
+Starting crawl of http://www.kingwoodwomensclub.org
+05:22:09 PM
+Crawled page: http://www.kingwoodwomensclub.org
+05:22:11 PM
+Error on unknown: Skipped: archive/past page
+05:22:11 PM
+Crawled page: https://www.kingwoodwomensclub.org/holiday-marketplace
+05:22:13 PM
+Crawled page: https://www.kingwoodwomensclub.org/vendors
+05:22:15 PM
+Crawled page: https://www.kingwoodwomensclub.org/sponsors
+05:22:16 PM
+Error on unknown: Skipped: archive/past page
+05:22:16 PM
+Crawled page: https://www.kingwoodwomensclub.org/_files/ugd/e604fe_19fe895f487d4ba7aa82c5e6eb56cbe1.docx?dn=Sponsor%20Form%202025-2.docx
+05:22:17 PM
+Found event: "Unknown"score 40
+05:22:17 PM
+Crawled page: https://www.kingwoodwomensclub.org/shop
+05:22:19 PM
+Crawled page: https://www.kingwoodwomensclub.org/volunteer-projects
+05:22:22 PM
+Error on unknown: Skipped: archive/past page
+05:22:22 PM
+Crawled page: https://www.kingwoodwomensclub.org/about
+05:22:25 PM
+Crawled page: https://www.kingwoodwomensclub.org/membership
+05:22:31 PM
+Finished: http://www.kingwoodwomensclub.org
+05:22:31 PM
+Starting crawl of http://www.pearlmfa.org
+05:22:31 PM
+Finished: http://www.pearlmfa.org
+05:22:31 PM
+Starting crawl of http://N/A
+05:22:35 PM
+Crawled page: http://N/A
+05:22:38 PM
+Error on unknown: Failed to fetch page
+05:22:38 PM
+Finished: http://N/A
+05:22:38 PM
+Starting crawl of http://www.thebroachfoundation.org
+05:22:38 PM
+Crawled page: https://www.thebroachfoundation.org/tickets
+05:22:40 PM
+Crawled page: https://www.thebroachfoundation.org/donate
+05:22:41 PM
+Error on unknown: Skipped: archive/past page
+05:22:41 PM
+Crawled page: https://www.thebroachfoundation.org/gala
+05:22:42 PM
+Found event: "Unknown"score 0
+05:22:42 PM
+Crawled page: https://www.thebroachfoundation.org/gala-sponsorships-tickets
+05:22:45 PM
+Found event: "Unknown"score 0
+05:22:45 PM
+Crawled page: https://www.thebroachfoundation.org/gala-sponsorships-tickets/p/25000-diamond-sponsorship
+05:22:48 PM
+Crawled page: https://www.thebroachfoundation.org/gala-sponsorships-tickets/p/25000-diamond-sponsorship-ntkn3
+05:22:52 PM
+Crawled page: https://www.thebroachfoundation.org/gala-sponsorships-tickets/p/25000-diamond-sponsorship-d9b97
+05:22:53 PM
+Crawled page: https://www.thebroachfoundation.org/gala-sponsorships-tickets/p/25000-diamond-sponsorship-zmyf4
+05:22:54 PM
+Crawled page: https://www.thebroachfoundation.org/gala-sponsorships-tickets/p/25000-diamond-sponsorship-2gf5b
+05:22:55 PM
+Crawled page: https://www.thebroachfoundation.org/gala-sponsorships-tickets/p/25000-diamond-sponsorship-2gf5b-l8j4a
+05:22:56 PM
+Crawled page: https://www.thebroachfoundation.org/gala-sponsorships-tickets/p/25000-diamond-sponsorship-2gf5b-l8j4a-ctwr9
+05:23:19 PM
+Crawled page: https://www.thebroachfoundation.org/news
+05:23:20 PM
+Crawled page: https://www.thebroachfoundation.org/news/blog-post-one-22abz
+05:23:21 PM
+Crawled page: https://www.thebroachfoundation.org/news/blog-post-two-8tstx
+05:23:22 PM
+Crawled page: https://www.thebroachfoundation.org/news/blog-post-three-ngwwl
+05:23:23 PM
+Crawled page: https://www.thebroachfoundation.org/about
+05:23:32 PM
+Error on unknown: Skipped: archive/past page
+05:23:32 PM
+Crawled page: https://www.thebroachfoundation.org/impact
+05:23:33 PM
+Crawled page: https://www.thebroachfoundation.org/leadership
+05:23:35 PM
+Error on unknown: Skipped: archive/past page
+05:23:35 PM
+Crawled page: https://www.thebroachfoundation.org/sponsors
+05:23:36 PM
+Crawled page: https://www.thebroachfoundation.org/home
+05:23:38 PM
+Error on unknown: Skipped: archive/past page
+05:23:38 PM
+Crawled page: https://www.thebroachfoundation.org/shop
+05:23:39 PM
+Crawled page: https://www.thebroachfoundation.org/shop/p/conference-ticket-party-zl227
+05:23:41 PM
+Crawled page: https://www.thebroachfoundation.org/shop/p/conference-ticket-c8bt8
+05:23:42 PM
+Finished: http://www.thebroachfoundation.org
+05:23:42 PM
+Starting crawl of http://www.habitatmctx.org
+05:23:43 PM
+Finished: http://www.habitatmctx.org
+05:23:43 PM
+Starting crawl of http://lonestar.edu/giving
+05:23:44 PM
+Finished: http://lonestar.edu/giving
+05:23:44 PM
+Starting crawl of https://www.angletonrotary.com/fundraiser/
+05:23:46 PM
+Crawled page: https://www.angletonrotary.com/fundraiser/
+05:23:48 PM
+Error on unknown: Skipped: archive/past page
+05:23:48 PM
+Crawled page: https://www.angletonrotary.com/privacy-policy/
+05:23:49 PM
+Crawled page: https://www.angletonrotary.com/
+05:23:51 PM
+Error on unknown: Skipped: archive/past page
+05:23:51 PM
+Finished: https://www.angletonrotary.com/fundraiser/
+05:23:51 PM
+Starting crawl of http://www.kelseyresearch.com
+05:23:52 PM
+Crawled page: https://www.kelseyresearch.com/krfgolfauction
+05:23:54 PM
+Crawled page: https://www.kelseyresearch.com/krfgolfauction/full-page-ad-in-monday-or-tuesday-edition
+05:23:56 PM
+Found event: "Unknown"score 0
+05:23:56 PM
+Crawled page: https://www.kelseyresearch.com/krfgolfauction/4-seats-at-astros-and-texans-games
+05:23:58 PM
+Error on unknown: Skipped: archive/past page
+05:23:58 PM
+Crawled page: https://www.kelseyresearch.com/krfgolfauction/tickets-to-astros-rockets-and-texans-games
+05:23:59 PM
+Error on unknown: Skipped: archive/past page
+05:23:59 PM
+Crawled page: https://www.kelseyresearch.com/krfgolfauction/private-wine-class
+05:24:00 PM
+Crawled page: https://www.kelseyresearch.com/krfgolfauction/play-at-six-flags-fiesta-texas
+05:24:01 PM
+Error on unknown: Skipped: archive/past page
+05:24:01 PM
+Crawled page: https://www.kelseyresearch.com/krfgolfauction/one-night-stay-with-dinner-at-lauberge
+05:24:04 PM
+Found event: "Unknown"score 0
+05:24:04 PM
+Crawled page: https://www.kelseyresearch.com/krfgolfauction/stay-in-a-drury-hotel
+05:24:05 PM
+Error on unknown: Skipped: archive/past page
+05:24:05 PM
+Crawled page: https://www.kelseyresearch.com/krfgolfauction/specs-gift-cards
+05:24:06 PM
+Found event: "Unknown"score 0
+05:24:06 PM
+Crawled page: https://www.kelseyresearch.com/krfgolfauction/houston-zoo-family-membership
+05:24:07 PM
+Error on unknown: Skipped: archive/past page
+05:24:07 PM
+Crawled page: https://www.kelseyresearch.com/krfgolfauction/panera-bread-bagels-for-a-year
+05:24:09 PM
+Error on unknown: Skipped: archive/past page
+05:24:09 PM
+Crawled page: https://www.kelseyresearch.com/krfgolfauction/perrys-steakhouse-amp-grill-gift-card
+05:24:10 PM
+Found event: "Unknown"score 0
+05:24:10 PM
+Crawled page: https://www.kelseyresearch.com/krfgolfauction/taste-of-texas-gift-card
+05:24:11 PM
+Found event: "Unknown"score 0
+05:24:11 PM
+Crawled page: https://www.kelseyresearch.com/blog
+05:24:12 PM
+Error on unknown: Skipped: archive/past page
+05:24:12 PM
+Crawled page: https://www.kelseyresearch.com/home-old
+05:24:15 PM
+Found event: "Unknown"score 0
+05:24:15 PM
+Crawled page: https://www.kelseyresearch.com/contact
+05:24:17 PM
+Crawled page: https://www.kelseyresearch.com/publications
+05:24:18 PM
+Found event: "Unknown"score 0
+05:24:18 PM
+Crawled page: https://www.kelseyresearch.com/about-kelsey-research-foundation
+05:24:20 PM
+Crawled page: https://www.kelseyresearch.com/joe-and-jessie-crump-cancer-center-1
+05:24:22 PM
+Crawled page: https://www.kelseyresearch.com/bob-and-vivian-smith-epilepsy-education-and-research-program
+05:24:23 PM
+Crawled page: https://www.kelseyresearch.com/obstetrical-outcomes-program
+05:24:27 PM
+Crawled page: https://www.kelseyresearch.com/awardslectureships
+05:24:30 PM
+Crawled page: https://www.kelseyresearch.com/privacy-policy-terms-of-service
+05:24:35 PM
+Crawled page: https://www.kelseyresearch.com/krf-uthealth-centerformicrobiomeresearch
+05:24:37 PM
+Crawled page: https://www.kelseyresearch.com/active-living-after-cancer
+05:24:39 PM
+Crawled page: https://www.kelseyresearch.com/participate-in-research
+05:24:42 PM
+Crawled page: https://www.kelseyresearch.com/gift
+05:24:46 PM
+Crawled page: https://www.kelseyresearch.com/blog-1
+05:24:47 PM
+Error on unknown: Skipped: archive/past page
+05:24:47 PM
+Crawled page: https://www.kelseyresearch.com/blog-archive
+05:24:49 PM
+Error on unknown: Skipped: archive/past page
+05:24:49 PM
+Crawled page: https://www.kelseyresearch.com/sponsorship-opportunities
+05:24:51 PM
+Finished: http://www.kelseyresearch.com
+05:24:51 PM
+Starting crawl of http://www.twca.net
+05:24:51 PM
+Crawled page: http://www.twca.net
+05:24:56 PM
+Crawled page: https://www.twca.net/
+05:24:56 PM
+Crawled page: https://www.twca.net/about/the-six-pursuits
+05:25:00 PM
+Crawled page: https://www.twca.net/admissions/visit-us
+05:25:03 PM
+Error on unknown: Skipped: archive/past page
+05:25:03 PM
+Crawled page: https://www.twca.net/academics/upper-school-9th-12th
+05:25:09 PM
+Crawled page: https://www.twca.net/fs/pages/1169
+05:25:13 PM
+Error on unknown: Skipped: archive/past page
+05:25:13 PM
+Crawled: https://www.twca.net/warrior-life/student-travel
+05:25:15 PM
+Error on unknown: Skipped: archive/past page
+05:25:15 PM
+Crawled: https://www.twca.net/fs/pages/1050
+05:25:19 PM
+Error on unknown: Skipped: archive/past page
+05:25:19 PM
+Crawled: https://www.twca.net/arts
+05:25:23 PM
+Error on unknown: Skipped: archive/past page
+05:25:23 PM
+Crawled: https://www.twca.net/fs/pages/1481
+05:25:26 PM
+Crawled: https://www.twca.net/fs/pages/1348
+05:25:29 PM
+Error on unknown: Skipped: archive/past page
+05:25:29 PM
+Crawled: https://www.twca.net/arts/fine-arts-events-programs
+05:25:33 PM
+Error on unknown: Skipped: archive/past page
+05:25:33 PM
+Crawled: https://www.twca.net/arts/programs/high-school-musical-on-stage
+05:25:37 PM
+Crawled: https://www.twca.net/fs/pages/1411
+05:25:43 PM
+Error on unknown: Skipped: archive/past page
+05:25:43 PM
+Crawled: https://www.twca.net/arts/programs/warrior-booster-sponsors
+05:25:46 PM
+Error on unknown: Skipped: archive/past page
+05:25:46 PM
+Crawled: https://www.twca.net/arts/programs/jungle-book
+05:25:50 PM
+Crawled: https://www.twca.net/arts/programs/annie
+05:25:54 PM
+Crawled: https://www.twca.net/arts/programs/aladdin

@@ -1,0 +1,1316 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: Event Finder API - discover charity galas, silent auctions, and fundraising events
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: url-lists
+    description: URL list management
+  - name: crawl-runs
+    description: Crawl run management
+  - name: events
+    description: Discovered events
+  - name: admin
+    description: Admin configuration
+  - name: dashboard
+    description: Dashboard summaries
+
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  # ─── URL Lists ───────────────────────────────────────────────────────────────
+  /url-lists:
+    get:
+      operationId: getUrlLists
+      tags: [url-lists]
+      summary: List all saved URL lists
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UrlList"
+    post:
+      operationId: createUrlList
+      tags: [url-lists]
+      summary: Create a new URL list
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UrlListInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UrlList"
+
+  /url-lists/{id}:
+    get:
+      operationId: getUrlList
+      tags: [url-lists]
+      summary: Get a URL list with its URLs
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UrlListDetail"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateUrlList
+      tags: [url-lists]
+      summary: Update a URL list
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UrlListUpdate"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UrlList"
+    delete:
+      operationId: deleteUrlList
+      tags: [url-lists]
+      summary: Delete a URL list
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /url-lists/{id}/run:
+    post:
+      operationId: runUrlList
+      tags: [url-lists]
+      summary: Start a crawl run for a URL list
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "202":
+          description: Run started
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CrawlRun"
+
+  # ─── Crawl Runs ───────────────────────────────────────────────────────────────
+  /crawl-runs:
+    get:
+      operationId: getCrawlRuns
+      tags: [crawl-runs]
+      summary: List all crawl runs
+      parameters:
+        - name: urlListId
+          in: query
+          schema:
+            type: ["integer", "null"]
+        - name: includeArchived
+          in: query
+          schema:
+            type: ["boolean", "null"]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CrawlRun"
+
+  /crawl-runs/{id}:
+    get:
+      operationId: getCrawlRun
+      tags: [crawl-runs]
+      summary: Get crawl run details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CrawlRunDetail"
+    patch:
+      operationId: updateCrawlRun
+      tags: [crawl-runs]
+      summary: Update a crawl run (archive/unarchive)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CrawlRunUpdate"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CrawlRun"
+    delete:
+      operationId: deleteCrawlRun
+      tags: [crawl-runs]
+      summary: Permanently delete a crawl run and all its events
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /crawl-runs/{id}/stop:
+    post:
+      operationId: stopCrawlRun
+      tags: [crawl-runs]
+      summary: Stop a running crawl run
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Stop signal sent
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+
+  /crawl-runs/{id}/pause:
+    post:
+      operationId: pauseCrawlRun
+      tags: [crawl-runs]
+      summary: Pause a running crawl run (resumable later)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Pause signal sent
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+
+  /crawl-runs/{id}/resume:
+    post:
+      operationId: resumeCrawlRun
+      tags: [crawl-runs]
+      summary: Resume a paused crawl run from where it left off
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "202":
+          description: Run resumed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CrawlRun"
+
+  /crawl-runs/{id}/rerun:
+    post:
+      operationId: rerunCrawlRun
+      tags: [crawl-runs]
+      summary: Start a new run using the same URL list
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "202":
+          description: New run started
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CrawlRun"
+
+  /crawl-runs/{id}/progress:
+    get:
+      operationId: getCrawlRunProgress
+      tags: [crawl-runs]
+      summary: SSE stream of live crawl progress
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: SSE stream
+          content:
+            text/event-stream:
+              schema:
+                type: string
+
+  # ─── Events ───────────────────────────────────────────────────────────────────
+  /events:
+    get:
+      operationId: getEvents
+      tags: [events]
+      summary: List discovered events with filtering
+      parameters:
+        - name: runId
+          in: query
+          schema:
+            type: ["integer", "null"]
+        - name: tier
+          in: query
+          schema:
+            type: ["string", "null"]
+        - name: auctionType
+          in: query
+          schema:
+            type: ["string", "null"]
+        - name: status
+          in: query
+          schema:
+            type: ["string", "null"]
+            enum: ["NEW", "UPDATED", "UNCHANGED", null]
+        - name: minScore
+          in: query
+          schema:
+            type: ["integer", "null"]
+        - name: maxScore
+          in: query
+          schema:
+            type: ["integer", "null"]
+        - name: search
+          in: query
+          schema:
+            type: ["string", "null"]
+        - name: sortBy
+          in: query
+          schema:
+            type: ["string", "null"]
+        - name: sortDir
+          in: query
+          schema:
+            type: ["string", "null"]
+            enum: ["asc", "desc", null]
+        - name: page
+          in: query
+          schema:
+            type: ["integer", "null"]
+        - name: limit
+          in: query
+          schema:
+            type: ["integer", "null"]
+        - name: hidePast
+          in: query
+          schema:
+            type: ["boolean", "null"]
+        - name: pastOnly
+          in: query
+          description: When true, return only past events (overrides hidePast).
+          schema:
+            type: ["boolean", "null"]
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventsPage"
+
+  /events/{id}:
+    get:
+      operationId: getEvent
+      tags: [events]
+      summary: Get a single event
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+
+  /events/export:
+    get:
+      operationId: exportEvents
+      tags: [events]
+      summary: Export events as CSV
+      parameters:
+        - name: runId
+          in: query
+          schema:
+            type: ["integer", "null"]
+        - name: tier
+          in: query
+          schema:
+            type: ["string", "null"]
+      responses:
+        "200":
+          description: CSV file
+          content:
+            text/csv:
+              schema:
+                type: string
+
+  # ─── Dashboard ────────────────────────────────────────────────────────────────
+  /dashboard/summary:
+    get:
+      operationId: getDashboardSummary
+      tags: [dashboard]
+      summary: Get dashboard summary stats
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSummary"
+
+  /dashboard/top-events:
+    get:
+      operationId: getTopEvents
+      tags: [dashboard]
+      summary: Get top scoring events from the latest run
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Event"
+
+  /dashboard/tier-breakdown:
+    get:
+      operationId: getTierBreakdown
+      tags: [dashboard]
+      summary: Get tier A/B/C breakdown counts for latest run
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TierCount"
+
+  # ─── Admin ────────────────────────────────────────────────────────────────────
+  /admin/settings:
+    get:
+      operationId: getAdminSettings
+      tags: [admin]
+      summary: Get all admin settings
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminSettings"
+    patch:
+      operationId: updateAdminSettings
+      tags: [admin]
+      summary: Update admin settings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminSettingsUpdate"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminSettings"
+
+  /admin/email-recipients:
+    get:
+      operationId: getEmailRecipients
+      tags: [admin]
+      summary: List email recipients
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmailRecipient"
+    post:
+      operationId: createEmailRecipient
+      tags: [admin]
+      summary: Add an email recipient
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmailRecipientInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmailRecipient"
+
+  /admin/email-recipients/{id}:
+    patch:
+      operationId: updateEmailRecipient
+      tags: [admin]
+      summary: Toggle active/inactive or update recipient
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmailRecipientUpdate"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmailRecipient"
+    delete:
+      operationId: deleteEmailRecipient
+      tags: [admin]
+      summary: Remove an email recipient
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /admin/domain-blacklist:
+    get:
+      operationId: getDomainBlacklist
+      tags: [admin]
+      summary: List blacklisted domains
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BlacklistedDomain"
+    post:
+      operationId: addDomainBlacklist
+      tags: [admin]
+      summary: Add a domain to the blacklist
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BlacklistedDomainInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlacklistedDomain"
+
+  /admin/domain-blacklist/{id}:
+    delete:
+      operationId: deleteDomainBlacklist
+      tags: [admin]
+      summary: Remove a domain from the blacklist
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  # ─── Admin Users ──────────────────────────────────────────────────────────────
+  /admin/users:
+    get:
+      operationId: getAdminUsers
+      tags: [admin]
+      summary: List all users
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AdminUser"
+    post:
+      operationId: createAdminUser
+      tags: [admin]
+      summary: Create a user and send activation email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminUserInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminUserCreated"
+
+  /admin/users/{id}:
+    patch:
+      operationId: updateAdminUser
+      tags: [admin]
+      summary: Update a user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminUserUpdate"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminUser"
+    delete:
+      operationId: deleteAdminUser
+      tags: [admin]
+      summary: Delete a user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /admin/users/{id}/resend-invite:
+    post:
+      operationId: resendAdminUserInvite
+      tags: [admin]
+      summary: Regenerate an activation link for a pending user (also attempts email)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InviteLinkResponse"
+
+  /admin/users/{id}/reset-link:
+    post:
+      operationId: createAdminUserResetLink
+      tags: [admin]
+      summary: Generate a password reset link for an activated user (share out-of-band)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResetLinkResponse"
+
+  /admin/email-status:
+    get:
+      operationId: getAdminEmailStatus
+      tags: [admin]
+      summary: Check whether outgoing email is actually deliverable
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmailStatus"
+
+  # ─── Auth ─────────────────────────────────────────────────────────────────────
+  /auth/register:
+    post:
+      operationId: authRegister
+      tags: [auth]
+      summary: Request access (gofffinancial.com emails only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthRegisterBody"
+      responses:
+        "200":
+          description: Email sent
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+
+  /auth/activate:
+    post:
+      operationId: authActivate
+      tags: [auth]
+      summary: Activate account and set password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthActivateBody"
+      responses:
+        "200":
+          description: Activated — returns JWT
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthToken"
+
+  /auth/login:
+    post:
+      operationId: authLogin
+      tags: [auth]
+      summary: Log in with email and password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthLoginBody"
+      responses:
+        "200":
+          description: OK — returns JWT
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthToken"
+
+  /auth/resend:
+    post:
+      operationId: authResend
+      tags: [auth]
+      summary: Resend activation email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthResendBody"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+
+  /auth/forgot-password:
+    post:
+      operationId: authForgotPassword
+      tags: [auth]
+      summary: Request a password reset email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthForgotPasswordBody"
+      responses:
+        "200":
+          description: OK (generic message — does not reveal whether the email exists)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MessageResponse"
+
+  /auth/reset-password:
+    post:
+      operationId: authResetPassword
+      tags: [auth]
+      summary: Set a new password using a reset token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthResetPasswordBody"
+      responses:
+        "200":
+          description: Password reset — returns JWT
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthToken"
+
+  /auth/me:
+    get:
+      operationId: authMe
+      tags: [auth]
+      summary: Get current user info
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+
+    # ─── URL Lists ───────────────────────────────────────────────────────────────
+    UrlList:
+      type: object
+      required: [id, name, urlCount, createdAt, updatedAt]
+      properties:
+        id:           { type: integer }
+        name:         { type: string }
+        urlCount:     { type: integer }
+        lastRunAt:    { type: ["string", "null"] }
+        createdAt:    { type: string }
+        updatedAt:    { type: string }
+
+    UrlListDetail:
+      type: object
+      required: [id, name, urls, createdAt, updatedAt]
+      properties:
+        id:           { type: integer }
+        name:         { type: string }
+        urls:
+          type: array
+          items: { type: string }
+        lastRunAt:    { type: ["string", "null"] }
+        createdAt:    { type: string }
+        updatedAt:    { type: string }
+
+    UrlListInput:
+      type: object
+      required: [name, urls]
+      properties:
+        name:
+          type: string
+          minLength: 1
+        urls:
+          type: array
+          items: { type: string }
+
+    UrlListUpdate:
+      type: object
+      properties:
+        name:  { type: string }
+        urls:
+          type: array
+          items: { type: string }
+
+    # ─── Crawl Runs ──────────────────────────────────────────────────────────────
+    CrawlRun:
+      type: object
+      required: [id, urlListId, urlListName, status, triggeredBy, totalUrls, pagesCrawled, eventsMatched, archived, createdAt]
+      properties:
+        id:             { type: integer }
+        urlListId:      { type: integer }
+        urlListName:    { type: string }
+        status:
+          type: string
+          enum: [pending, running, completed, failed, stopped, paused]
+        triggeredBy:
+          type: string
+          enum: [manual, scheduled]
+        totalUrls:      { type: integer }
+        pagesCrawled:   { type: integer }
+        eventsMatched:  { type: integer }
+        errorCount:     { type: integer }
+        newCount:            { type: integer }
+        updatedCount:        { type: integer }
+        duplicateCount:      { type: integer }
+        skippedByGeography:  { type: integer }
+        archived:            { type: boolean }
+        topScore:            { type: ["integer", "null"] }
+        createdAt:           { type: string }
+        completedAt:         { type: ["string", "null"] }
+
+    CrawlRunDetail:
+      type: object
+      required: [id, urlListId, urlListName, status, triggeredBy, totalUrls, pagesCrawled, eventsMatched, archived, createdAt, topEvents]
+      properties:
+        id:             { type: integer }
+        urlListId:      { type: integer }
+        urlListName:    { type: string }
+        status:
+          type: string
+          enum: [pending, running, completed, failed, stopped, paused]
+        triggeredBy:
+          type: string
+          enum: [manual, scheduled]
+        totalUrls:      { type: integer }
+        pagesCrawled:   { type: integer }
+        eventsMatched:  { type: integer }
+        errorCount:     { type: integer }
+        newCount:            { type: integer }
+        updatedCount:        { type: integer }
+        duplicateCount:      { type: integer }
+        skippedByGeography:  { type: integer }
+        archived:            { type: boolean }
+        topScore:            { type: ["integer", "null"] }
+        createdAt:           { type: string }
+        completedAt:         { type: ["string", "null"] }
+        tokenUsage:
+          nullable: true
+          type: object
+          properties:
+            inputTokens:          { type: integer }
+            outputTokens:         { type: integer }
+            cacheReadTokens:      { type: integer }
+            cacheCreationTokens:  { type: integer }
+        topEvents:
+          type: array
+          items:
+            $ref: "#/components/schemas/Event"
+
+    CrawlRunUpdate:
+      type: object
+      properties:
+        archived: { type: boolean }
+
+    # ─── Events ──────────────────────────────────────────────────────────────────
+    Event:
+      type: object
+      required: [id, runId, score, tier, status, createdAt]
+      properties:
+        id:                   { type: integer }
+        runId:                { type: integer }
+        score:                { type: integer }
+        tier:
+          type: string
+        status:
+          type: string
+          enum: [NEW, UPDATED, UNCHANGED]
+        eventName:            { type: ["string", "null"] }
+        eventDate:            { type: ["string", "null"] }
+        eventVenue:           { type: ["string", "null"] }
+        eventAddress:         { type: ["string", "null"] }
+        eventDescription:     { type: ["string", "null"] }
+        auctionType:          { type: ["string", "null"] }
+        hasSilentAuction:     { type: ["boolean", "null"] }
+        hasLiveAuction:       { type: ["boolean", "null"] }
+        ticketPrice:          { type: ["number", "null"] }
+        tablePrice:           { type: ["number", "null"] }
+        formality:            { type: ["string", "null"] }
+        rsvpLink:             { type: ["string", "null"] }
+        contactName:          { type: ["string", "null"] }
+        contactEmail:         { type: ["string", "null"] }
+        contactPhone:         { type: ["string", "null"] }
+        eventPageUrl:         { type: ["string", "null"] }
+        audienceNote:         { type: ["string", "null"] }
+        sponsorshipMentioned: { type: ["boolean", "null"] }
+        orgName:              { type: ["string", "null"] }
+        orgAddress:           { type: ["string", "null"] }
+        orgCity:              { type: ["string", "null"] }
+        orgPhone:             { type: ["string", "null"] }
+        orgEmail:             { type: ["string", "null"] }
+        orgWebsite:           { type: ["string", "null"] }
+        isPast:               { type: boolean }
+        errorMessage:         { type: ["string", "null"] }
+        runName:              { type: ["string", "null"] }
+        createdAt:            { type: string }
+
+    EventsPage:
+      type: object
+      required: [events, total, page, limit]
+      properties:
+        events:
+          type: array
+          items:
+            $ref: "#/components/schemas/Event"
+        total:  { type: integer }
+        page:   { type: integer }
+        limit:  { type: integer }
+
+    # ─── Dashboard ────────────────────────────────────────────────────────────────
+    DashboardSummary:
+      type: object
+      required: [totalLists, totalRuns, totalEvents, tierACount, tierBCount, tierCCount, lastRunAt]
+      properties:
+        totalLists:    { type: integer }
+        totalRuns:     { type: integer }
+        totalEvents:   { type: integer }
+        tierACount:    { type: integer }
+        tierBCount:    { type: integer }
+        tierCCount:    { type: integer }
+        newEvents:     { type: integer }
+        updatedEvents: { type: integer }
+        lastRunAt:     { type: ["string", "null"] }
+
+    TierCount:
+      type: object
+      required: [tier, count]
+      properties:
+        tier:  { type: string }
+        count: { type: integer }
+
+    # ─── Admin ────────────────────────────────────────────────────────────────────
+    AdminSettings:
+      type: object
+      required: [searchKeywords, avoidKeywords, overrideKeywords, maxPagesPerSite, timeoutPerPage, imageReadingEnabled, scoringWeights, tiers, minScoreForEmail]
+      properties:
+        searchKeywords:       { type: array, items: { type: string } }
+        avoidKeywords:        { type: array, items: { type: string } }
+        overrideKeywords:     { type: array, items: { type: string } }
+        maxPagesPerSite:      { type: integer }
+        timeoutPerPage:       { type: integer }
+        imageReadingEnabled:  { type: boolean }
+        scoringWeights:
+          $ref: "#/components/schemas/ScoringWeights"
+        tiers:
+          type: array
+          items:
+            $ref: "#/components/schemas/ScoringTier"
+        minScoreForEmail:     { type: integer }
+        scheduleEnabled:      { type: boolean }
+        scheduleDays:         { type: array, items: { type: string } }
+        scheduleTime:         { type: string }
+        scheduleTimezone:     { type: string }
+        scheduleUrlListId:    { type: integer, nullable: true }
+        primaryGroup1Label:   { type: string }
+        primaryGroup3Label:   { type: string }
+        defaultMailingState:  { type: string }
+        geographicStates:     { type: array, items: { type: string } }
+        maxConcurrentSites:   { type: integer }
+        perDomainDelayMs:     { type: integer }
+        maxRetries:           { type: integer }
+
+    AdminSettingsUpdate:
+      type: object
+      properties:
+        searchKeywords:       { type: array, items: { type: string } }
+        avoidKeywords:        { type: array, items: { type: string } }
+        overrideKeywords:     { type: array, items: { type: string } }
+        maxPagesPerSite:      { type: integer }
+        timeoutPerPage:       { type: integer }
+        imageReadingEnabled:  { type: boolean }
+        scoringWeights:
+          $ref: "#/components/schemas/ScoringWeights"
+        tiers:
+          type: array
+          items:
+            $ref: "#/components/schemas/ScoringTier"
+        minScoreForEmail:     { type: integer }
+        scheduleEnabled:      { type: boolean }
+        scheduleDays:         { type: array, items: { type: string } }
+        scheduleTime:         { type: string }
+        scheduleTimezone:     { type: string }
+        scheduleUrlListId:    { type: integer, nullable: true }
+        primaryGroup1Label:   { type: string }
+        primaryGroup3Label:   { type: string }
+        defaultMailingState:  { type: string }
+        geographicStates:     { type: array, items: { type: string } }
+        maxConcurrentSites:   { type: integer, minimum: 1, maximum: 50 }
+        perDomainDelayMs:     { type: integer, minimum: 0, maximum: 60000 }
+        maxRetries:           { type: integer, minimum: 0, maximum: 10 }
+
+    ScoringTier:
+      type: object
+      required: [id, name, description, minScore]
+      properties:
+        id:          { type: string }
+        name:        { type: string }
+        description: { type: string }
+        minScore:    { type: integer }
+
+    ScoringWeights:
+      type: object
+      required: [hasAuction, auctionTypeBonus, highTicketPrice, midTicketPrice, lowTicketPrice, formalityBonus, timingPrime, timingGood, timingPenalty, beneficiaryBonus]
+      properties:
+        hasAuction:       { type: integer }
+        auctionTypeBonus: { type: integer }
+        highTicketPrice:  { type: integer }
+        midTicketPrice:   { type: integer }
+        lowTicketPrice:   { type: integer }
+        formalityBonus:   { type: integer }
+        timingPrime:      { type: integer }
+        timingGood:       { type: integer }
+        timingPenalty:    { type: integer }
+        beneficiaryBonus: { type: integer }
+
+    EmailRecipient:
+      type: object
+      required: [id, email, active, createdAt]
+      properties:
+        id:        { type: integer }
+        email:     { type: string }
+        active:    { type: boolean }
+        createdAt: { type: string }
+
+    EmailRecipientInput:
+      type: object
+      required: [email]
+      properties:
+        email: { type: string }
+
+    EmailRecipientUpdate:
+      type: object
+      properties:
+        email:  { type: string }
+        active: { type: boolean }
+
+    BlacklistedDomain:
+      type: object
+      required: [id, domain, createdAt]
+      properties:
+        id:        { type: integer }
+        domain:    { type: string }
+        createdAt: { type: string }
+
+    BlacklistedDomainInput:
+      type: object
+      required: [domain]
+      properties:
+        domain: { type: string }
+
+    # ─── Auth ─────────────────────────────────────────────────────────────────────
+    AuthRegisterBody:
+      type: object
+      required: [email]
+      properties:
+        email: { type: string }
+
+    AuthActivateBody:
+      type: object
+      required: [token, password]
+      properties:
+        token:    { type: string }
+        password: { type: string }
+
+    AuthLoginBody:
+      type: object
+      required: [email, password]
+      properties:
+        email:    { type: string }
+        password: { type: string }
+
+    AuthResendBody:
+      type: object
+      required: [email]
+      properties:
+        email: { type: string }
+
+    AuthForgotPasswordBody:
+      type: object
+      required: [email]
+      properties:
+        email: { type: string }
+
+    AuthResetPasswordBody:
+      type: object
+      required: [token, password]
+      properties:
+        token:    { type: string }
+        password: { type: string }
+
+    UserProfile:
+      type: object
+      required: [id, email, name, role]
+      properties:
+        id:    { type: integer }
+        email: { type: string }
+        name:  { type: string }
+        role:  { type: string }
+
+    AuthToken:
+      type: object
+      required: [token, user]
+      properties:
+        token: { type: string }
+        user:
+          $ref: "#/components/schemas/UserProfile"
+
+    MessageResponse:
+      type: object
+      required: [message]
+      properties:
+        message: { type: string }
+
+    # ─── Admin Users ──────────────────────────────────────────────────────────────
+    AdminUser:
+      type: object
+      required: [id, name, email, role, createdAt]
+      properties:
+        id:          { type: integer }
+        name:        { type: string }
+        email:       { type: string }
+        role:        { type: string }
+        activatedAt: { type: ["string", "null"] }
+        createdAt:   { type: string }
+
+    AdminUserInput:
+      type: object
+      required: [name, email]
+      properties:
+        name:  { type: string }
+        email: { type: string }
+        role:  { type: string }
+
+    AdminUserUpdate:
+      type: object
+      properties:
+        name:  { type: string }
+        email: { type: string }
+        role:  { type: string }
+
+    AdminUserCreated:
+      type: object
+      required: [id, name, email, role, createdAt, activationUrl, emailSent]
+      properties:
+        id:            { type: integer }
+        name:          { type: string }
+        email:         { type: string }
+        role:          { type: string }
+        activatedAt:   { type: ["string", "null"] }
+        createdAt:     { type: string }
+        activationUrl: { type: string }
+        emailSent:     { type: boolean }
+
+    InviteLinkResponse:
+      type: object
+      required: [message, activationUrl, emailSent]
+      properties:
+        message:       { type: string }
+        activationUrl: { type: string }
+        emailSent:     { type: boolean }
+
+    ResetLinkResponse:
+      type: object
+      required: [resetUrl, expiresAt]
+      properties:
+        resetUrl:  { type: string }
+        expiresAt: { type: string }
+
+    EmailStatus:
+      type: object
+      required: [deliverable, reason, fromAddress]
+      properties:
+        deliverable: { type: boolean }
+        reason:      { type: string }
+        fromAddress: { type: string }

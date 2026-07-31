@@ -1,0 +1,157 @@
+I need you to optimize the Event Finder crawl speed. The current implementation processes
+everything sequentially — one URL at a time, one page at a time within each URL, one AI
+call at a time. This needs concurrent processing at every level.
+
+DO NOT change the database schema, the API routes, or the frontend. Only modify:
+- artifacts/api-server/src/services/crawler.ts
+- artifacts/api-server/src/services/extractor.ts
+- artifacts/api-server/src/routes/crawlRuns.ts
+
+=== LEVEL 1: Concurrent site crawling (crawlRuns.ts) ===
+
+Replace the sequential for-loop at line 108 with a concurrency-controlled batch processor.
+
+Implementation:
+- Add a SITE_CONCURRENCY constant = 5 (process 5 sites simultaneously)
+- Use a simple async semaphore pattern (no external library needed):
+
+  async function processWithConcurrency<T>(
+    items: T[],
+    concurrency: number,
+    fn: (item: T, index: number) => Promise<void>
+  ): Promise<void> {
+    let nextIndex = 0;
+    async function worker() {
+      while (nextIndex < items.length) {
+        const i = nextIndex++;
+        await fn(items[i], i);
+      }
+    }
+    await Promise.all(Array.from({ length: Math.min(concurrency, items.length) }, () => worker()));
+  }
+
+- Replace the for-loop with:
+  await processWithConcurrency(urls, SITE_CONCURRENCY, async (url, i) => {
+    if (stoppedRuns.has(runId)) return;
+    // ... existing crawl logic for one URL ...
+  });
+
+- IMPORTANT: The progress counters (pagesCrawled, eventsMatched, errorCount) are now
+  accessed concurrently. They're simple integers so JS single-threaded execution means
+  no data races, but be aware that progress.done and progress.total in SSE events will
+  no longer be strictly sequential. Update the "done" counter atomically after each URL
+  completes using a shared counter variable.
+
+- The DB insert for events (line 140-172) should use a batch insert instead of one-at-a-time:
+  Replace the for-loop over events with a single db.insert().values(events.map(...)) call.
+  This reduces DB round-trips from N to 1 per site.
+
+- The DB flush after each URL (line 180-183) should be debounced — with 5 concurrent sites
+  completing URLs rapidly, you don't need a DB write per URL completion. Keep the existing
+  5-second interval flush (line 77-84) and remove the per-URL flush. Only keep the
+  per-URL flush for error cases.
+
+=== LEVEL 2: Concurrent page fetching within a site (crawler.ts) ===
+
+Replace the sequential while-loop at line 312 with concurrent page processing.
+
+Implementation:
+- Add a PAGE_CONCURRENCY constant = 3 (fetch 3 pages simultaneously per site)
+- Change the while-loop to pull PAGE_CONCURRENCY URLs from toVisit at a time
+  and process them with Promise.all:
+
+  while (toVisit.length > 0 && visited.size < config.maxPagesPerSite) {
+    // Pull up to PAGE_CONCURRENCY URLs from the queue
+    const batch: string[] = [];
+    while (batch.length < PAGE_CONCURRENCY && toVisit.length > 0) {
+      const url = toVisit.shift()!;
+      if (visited.has(url) || getDomain(url) !== domain || isStaticAsset(url)) continue;
+      visited.add(url);
+      batch.push(url);
+    }
+    if (batch.length === 0) break;
+
+    // Process batch concurrently
+    const batchResults = await Promise.all(batch.map(async (url) => {
+      // ... existing per-page logic (fetch, keyword gate, extract) ...
+      // Return { events, newLinks } for each page
+    }));
+
+    // Merge new links into toVisit (event links first, others last)
+    for (const result of batchResults) {
+      if (result.newLinks) {
+        const eventLinks = result.newLinks.filter(isEventUrl);
+        const otherLinks = result.newLinks.filter(l => !isEventUrl(l));
+        for (const link of eventLinks) if (!visited.has(link)) toVisit.unshift(link);
+        for (const link of otherLinks) if (!visited.has(link)) toVisit.push(link);
+      }
+    }
+  }
+
+- IMPORTANT: The visited Set and toVisit array are shared across the concurrent batch.
+  Since we pre-pop URLs from the queue and mark them visited BEFORE awaiting, there are
+  no races. New links discovered during the batch are added AFTER the batch completes,
+  which is correct — they'll be picked up in the next iteration.
+
+=== LEVEL 3: Parallel AI + Image extraction (extractor.ts) ===
+
+When both text extraction AND image extraction are needed, run them in PARALLEL
+instead of sequentially.
+
+Current flow (sequential):
+  1. AI text extraction (Pass 1) → wait
+  2. AI text extraction (Pass 2) → wait
+  3. Image extraction → wait
+  4. Merge results
+
+New flow (parallel where possible):
+  1. AI Pass 1 (classification) → wait (need result to decide Pass 2)
+  2. IF relevant: run Pass 2 AND image extraction in PARALLEL:
+     const [pass2Result, imageResult] = await Promise.all([
+       extractPass2(client, pageText, pageUrl, pass1.eventName, pass1.eventDate, pageMeta),
+       imageReadingEnabled && pageHtml
+         ? extractFromImages(extractImageUrls(pageHtml, pageUrl), client)
+         : Promise.resolve({})
+     ]);
+  3. Merge: Pass 1 fields + Pass 2 fields + image fields
+
+This cuts the per-page AI time from ~3 sequential calls to ~2 sequential calls
+(Pass 1, then Pass 2 + images in parallel).
+
+=== LEVEL 4: Firecrawl batch API (crawler.ts) — optional optimization ===
+
+Firecrawl has a batch scrape API (fc.batchScrape) that accepts multiple URLs
+at once. Instead of calling fc.scrape() one page at a time, batch the page URLs.
+
+Check if the @mendable/firecrawl-js SDK supports batchScrape. If it does:
+- When processing a site's pages, collect up to PAGE_CONCURRENCY URLs
+- Send them as a single batchScrape call
+- Parse the batch results
+
+If batchScrape is not available in the SDK, skip this optimization — the
+Promise.all approach from Level 2 already gives us concurrent fetching.
+
+=== LEVEL 5: Early termination heuristics (crawler.ts) ===
+
+Add smart short-circuiting to avoid wasting time on sites that clearly have no events:
+
+1. If the FIRST 3 pages of a site all fail the keyword gate (no search keywords found
+   AND no override keywords found), skip the remaining pages for that site. Most charity
+   sites that have fundraising events mention them on the homepage or in top-level
+   navigation pages. If 3 pages deep there's no signal, it's almost certainly not there.
+
+2. If a site has already yielded 3+ events with score > 70 (Tier A), stop crawling
+   that site — you've found what you need. Don't waste time on deeper pages.
+
+3. If sitemap URLs exceed 200, only process the first 100 event-path URLs and first
+   50 non-event URLs. Large sitemaps are usually blog-heavy sites where most pages
+   are irrelevant.
+
+=== EXPECTED SPEEDUP ===
+
+Current: 500 URLs × ~2min/URL average = ~16 hours
+After:
+- 5 concurrent sites × 3 concurrent pages = 15x parallelism
+- Early termination saves ~30% of page fetches
+- Parallel AI+image saves ~30% of extraction time per page
+- Estimated: 500 URLs in ~1.5–2 hours (8-10x faster)

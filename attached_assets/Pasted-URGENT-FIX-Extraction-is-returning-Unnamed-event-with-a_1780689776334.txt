@@ -1,0 +1,162 @@
+URGENT FIX — Extraction is returning "Unnamed event" with all empty 
+fields for every result. This is the only priority. Fix it NOW.
+
+The problem is that the content sent to the AI is dirty — it contains 
+navigation links, breadcrumbs, and markdown formatting like 
+"[Home](https://luxgive.com/) [Sign in](https://luxgive.com/sign-in)" 
+instead of actual event content. The AI reads this junk and produces 
+empty results.
+
+THREE CHANGES, do them all:
+
+═══════════════════════════
+FIX 1 — PARSE JSON-LD FIRST (before any AI call)
+═══════════════════════════
+
+Many event pages embed structured data in <script type="application/ld+json"> 
+tags. This is machine-readable event data — name, date, venue, address, 
+ticket prices — that requires ZERO AI to extract.
+
+After fetching any page (whether via Firecrawl or got), BEFORE sending 
+to the AI:
+
+1. Search the raw HTML for all <script type="application/ld+json"> blocks
+2. Parse each as JSON
+3. Look for any object (or nested object in @graph arrays) with 
+   "@type": "Event"
+4. If found, extract directly:
+   - name → eventName
+   - startDate → eventDate (parse to ISO)
+   - location.name → eventVenue
+   - location.address.streetAddress → eventAddress
+   - location.address.addressLocality → orgCity
+   - location.address.addressRegion → orgState  
+   - location.address.postalCode → orgZip
+   - description → eventDescription (also scan for "silent auction", 
+     "live auction", "raffle", "donate" keywords to set boolean flags)
+   - offers[0].price or offers.lowPrice → ticketPrice
+   - organizer.name → orgName
+   - url → eventPageUrl
+   
+5. If JSON-LD gives a COMPLETE event (name + date + venue at minimum), 
+   SKIP the AI call — use the structured data directly. This is free, 
+   instant, and perfectly accurate.
+
+6. Only call the AI if JSON-LD is missing or incomplete.
+
+TEST THIS: crawl https://allevents.in/houston/cheers-for-charity-2026/100001980710186487
+It has perfect JSON-LD with @type Event, full venue address, ticket 
+prices, and description mentioning "Silent Auction, Live Auction, Raffle."
+The result should be:
+  Event: Cheers for Charity 2026
+  Date: 2026-08-15
+  Venue: Red Oak Ballroom at Norris Conference Centers
+  Address: 816 Town and Country Boulevard, Houston, TX 77024
+  Ticket: $55-$135
+  Silent Auction: Yes, Live Auction: Yes, Raffle: Yes
+  Org: Second Chances
+
+═══════════════════════════
+FIX 2 — CLEAN CONTENT BEFORE AI (when AI IS needed)
+═══════════════════════════
+
+When there's no JSON-LD and you need to call the AI, DO NOT send the 
+raw markdown from Firecrawl or cheerio. It includes nav menus, footer 
+links, breadcrumbs, and sidebar content that confuses the model.
+
+Install @mozilla/readability and jsdom. Before sending to the AI:
+
+1. Load the HTML into jsdom
+2. Run new Readability(document).parse()
+3. Use the .textContent output (clean main content, no nav/footer)
+4. If Readability fails or returns empty, fall back to extracting 
+   only the content inside <main>, <article>, or role="main" elements
+5. NEVER send raw document.body.innerText or unfiltered markdown
+
+═══════════════════════════
+FIX 3 — BETTER AI PROMPT (when AI IS needed)  
+═══════════════════════════
+
+Update the system prompt sent to the AI. The current prompt is too 
+loose — it allows "Unnamed event" and empty fields. Replace with:
+
+SYSTEM PROMPT:
+"You are extracting fundraising event details from a web page. You 
+MUST extract every field you can find. NEVER return 'Unnamed event' — 
+use the page title, first heading, or any event name visible on the 
+page. NEVER return null for a field if the information exists anywhere 
+on the page.
+
+Return a JSON object with these fields:
+{
+  eventName: string (REQUIRED — never null or 'Unnamed event'),
+  eventDate: string (ISO YYYY-MM-DD),
+  eventTime: string,
+  eventVenue: string,
+  eventAddress: string (full street address),
+  eventDescription: string (1-2 sentences),
+  hasSilentAuction: boolean,
+  hasLiveAuction: boolean,
+  hasOnlineAuction: boolean,
+  hasRaffle: boolean,
+  hasDonationRequest: boolean,
+  auctionType: 'silent' | 'live' | 'online' | 'none' | 'unknown',
+  ticketPrice: number | null,
+  tablePrice: number | null,
+  formality: 'black-tie' | 'gala' | 'cocktail' | 'casual' | 'unknown',
+  rsvpLink: string | null,
+  contactFirstName: string | null,
+  contactLastName: string | null,
+  contactTitle: string | null,
+  contactEmail: string | null,
+  contactPhone: string | null,
+  orgName: string (REQUIRED — check footer, header, about page),
+  orgAddress: string | null,
+  orgCity: string | null,
+  orgState: string | null (2-letter, e.g. 'TX'),
+  orgZip: string | null,
+  orgPhone: string | null,
+  orgEmail: string | null,
+  orgWebsite: string | null,
+  audienceNote: string (one phrase — why audience is/isn't wealthy),
+  sponsorshipMentioned: boolean
+}
+
+Rules:
+- eventName is REQUIRED. If you cannot find an explicit name, use the 
+  page title or first <h1> heading. NEVER return null.
+- orgName is REQUIRED. Check the page footer, header logo, or site 
+  title. NEVER return null.
+- If a field is genuinely not on the page, return null — but TRY HARD 
+  before giving up.
+- Do NOT fabricate data. Only extract what is actually on the page.
+- Return ONLY the JSON object. No markdown, no commentary."
+
+USER PROMPT:
+"Extract event details from this page.
+
+Page URL: {url}
+
+Page content:
+{cleaned text from Readability}
+"
+
+═══════════════════════════
+AFTER THESE 3 FIXES — TEST IMMEDIATELY
+═══════════════════════════
+
+Run a crawl on a list with JUST these 5 URLs and show me the results:
+
+https://allevents.in/houston/cheers-for-charity-2026/100001980710186487
+https://allevents.in/houston/rose-for-rescues/200030109480640
+https://allevents.in/houston/3rd-annual-black-gala-award-show-and-ceremony/100001986959846388
+https://allevents.in/houston/justice-for-families-the-foster-care-advocacy-center-benefit/100001987354344342
+https://allevents.in/houston/rooted-and-rising-fundraiser-luncheon/100001988452847996
+
+Expected: each should return a REAL event name, date, venue with 
+address, ticket price, and auction flags — NOT "Unnamed event" with 
+dashes. The first URL (Cheers for Charity) has JSON-LD so it should 
+extract perfectly without even calling the AI.
+
+Do NOT move on to anything else until these 5 URLs produce correct, 
+complete results.

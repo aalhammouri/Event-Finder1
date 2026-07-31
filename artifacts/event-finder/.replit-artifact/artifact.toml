@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Event Finder"
+version = "1.0.0"
+id = "artifacts/event-finder"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23774
+
+[services.development]
+run = "pnpm --filter @workspace/event-finder run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/event-finder", "run", "build" ]
+publicDir = "artifacts/event-finder/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23774"
+BASE_PATH = "/"

@@ -187,10 +187,14 @@ const STATIC_ASSET_EXTENSIONS = [
 ];
 const STATIC_PATH_SEGMENTS = ["/wp-content/uploads/", "/wp-json/", "/feed/", "/.well-known/", "/sitemap"];
 
-function isStaticAsset(url: string): boolean {
+// allowPdf: Firecrawl-backed paths parse PDFs to markdown (parsers: ["pdf"]) and
+// should not skip them here; the plain got+cheerio fallback can't parse PDF
+// binaries at all, so it always excludes them (allowPdf defaults to false).
+function isStaticAsset(url: string, allowPdf = false): boolean {
   try {
     const pathname = new URL(url).pathname.toLowerCase();
-    if (STATIC_ASSET_EXTENSIONS.some((ext) => pathname.endsWith(ext))) return true;
+    const extensions = allowPdf ? STATIC_ASSET_EXTENSIONS.filter((ext) => ext !== ".pdf") : STATIC_ASSET_EXTENSIONS;
+    if (extensions.some((ext) => pathname.endsWith(ext))) return true;
     if (STATIC_PATH_SEGMENTS.some((seg) => pathname.includes(seg))) return true;
   } catch {}
   return false;
@@ -456,10 +460,14 @@ async function processPage(
 }
 
 // ── A1: Firecrawl /crawl endpoint ─────────────────────────────────────────────
+// PDF deliberately excluded here — event flyers are often published as PDFs and
+// Firecrawl parses them to markdown (with OCR for scanned pages) when
+// `parsers: ["pdf"]` is set on scrapeOptions below, so they flow through the
+// same extraction pipeline as any other page.
 const CRAWL_EXCLUDE_PATHS = [
   "/wp-json", "/wp-admin", "/cart", "/checkout", "/login",
   "/account", "/donate/process",
-  "\\.(pdf|jpg|jpeg|png|gif|css|js|zip|svg|woff|ttf|xml|rss|atom)$",
+  "\\.(jpg|jpeg|png|gif|css|js|zip|svg|woff|ttf|xml|rss|atom)$",
 ];
 
 async function crawlSiteWithFirecrawl(
@@ -487,6 +495,7 @@ async function crawlSiteWithFirecrawl(
         excludePaths: CRAWL_EXCLUDE_PATHS,
         scrapeOptions: {
           formats: ["markdown", "links", "images", "rawHtml"] as any,
+          parsers: ["pdf"] as any,
           onlyMainContent: false,
           waitFor: 3000,
         },
@@ -527,7 +536,7 @@ async function crawlSiteWithFirecrawl(
     for (const page of pages) {
       const url: string = page.metadata?.sourceURL ?? page.metadata?.url ?? "";
       if (!url || processedUrls.has(url)) continue;
-      if (isStaticAsset(url)) continue;
+      if (isStaticAsset(url, true)) continue;
       processedUrls.add(url);
       processedOut.add(url);
       coverage.pagesCrawled++;
@@ -566,7 +575,7 @@ async function crawlSiteWithFirecrawl(
       for (const page of (morePagesData.data ?? []) as any[]) {
         const pageUrl: string = page.metadata?.sourceURL ?? page.metadata?.url ?? "";
         if (!pageUrl || processedUrls.has(pageUrl)) continue;
-        if (isStaticAsset(pageUrl)) continue;
+        if (isStaticAsset(pageUrl, true)) continue;
         processedUrls.add(pageUrl);
         processedOut.add(pageUrl);
         coverage.pagesCrawled++;
@@ -619,6 +628,7 @@ async function fetchPageFirecrawl(
   try {
     const scrapePromise = fc.scrape(url, {
       formats: ["markdown", "rawHtml", "links"] as any,
+      parsers: ["pdf"] as any,
       onlyMainContent: false,
     } as any);
 
@@ -635,7 +645,7 @@ async function fetchPageFirecrawl(
     const rawLinks: string[] = result.links ?? [];
     const links = rawLinks
       .map((href) => normalizeUrl(url, href))
-      .filter((u): u is string => !!u && getDomain(u) === domain && !isStaticAsset(u));
+      .filter((u): u is string => !!u && getDomain(u) === domain && !isStaticAsset(u, true));
 
     return { text, html, links };
   } catch (err) {

@@ -534,6 +534,19 @@ export default function Results() {
                 onClick={() => {
                   if (!token) return;
                   window.open(
+                    `/api/events/export/crm/xlsx?runId=${selectedRunId}&token=${encodeURIComponent(token)}`,
+                    "_blank",
+                  );
+                }}
+              >
+                <Download className="w-4 h-4 mr-2" /> Export Excel
+              </Button>
+              <Button
+                variant="outline"
+                disabled={!token}
+                onClick={() => {
+                  if (!token) return;
+                  window.open(
                     `/api/events/export?runId=${selectedRunId}&token=${encodeURIComponent(token)}`,
                     "_blank",
                   );

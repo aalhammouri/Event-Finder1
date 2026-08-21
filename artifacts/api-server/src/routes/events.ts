@@ -1,4 +1,5 @@
-import { Router } from "express";
+import { Router, type Request } from "express";
+import ExcelJS from "exceljs";
 import { db } from "@workspace/db";
 import { eventsTable, crawlRunsTable, urlListsTable, adminSettingsTable, organizationsTable } from "@workspace/db";
 import { eq, and, gte, lte, ilike, or, sql, ne } from "drizzle-orm";
@@ -149,7 +150,8 @@ router.get("/events/export", async (req, res) => {
   res.send(csvRows.join("\n"));
 });
 
-// GET /events/export/crm — ACT CRM import format
+// Shared builder for the ACT CRM import format, used by both the CSV and
+// xlsx export routes below.
 //
 // Reproduces the "Ready for Import" sheet from the manual workflow EXACTLY:
 // 30 columns, A..AD, including the deliberately blank spacer column F that sits
@@ -163,7 +165,11 @@ router.get("/events/export", async (req, res) => {
 //   - ORANGE events table (scraped): event name, date, auction flags, event
 //            page, and any contact details found on the page.
 // Scraped values win when present; org data fills the gaps.
-router.get("/events/export/crm", async (req, res) => {
+//
+// Cell values here are plain, unescaped strings — CSV-specific escaping
+// (quoting, formula-injection prefixing) is applied only at CSV-serialization
+// time, in the /events/export/crm route below.
+async function buildCrmExportData(req: Request) {
   const conditions = [];
   if (req.query.runId) conditions.push(eq(eventsTable.runId, Number(req.query.runId)));
   if (req.query.tier) conditions.push(eq(eventsTable.tier, req.query.tier as string));
@@ -231,61 +237,93 @@ router.get("/events/export/crm", async (req, res) => {
     "Company",                           // AD
   ];
 
-  const csvRows = [
-    headers.map(csvEscape).join(","),
-    ...rows.map(({ event: e, org }) => {
-      // Split a person's name when the page only yielded a combined one.
-      const nameParts = (e.contactName ?? org?.primaryContactName ?? "").trim().split(/\s+/);
-      const firstName = pick(e.contactFirstName, nameParts.length > 1 ? nameParts[0] : "");
-      const lastName = pick(e.contactLastName, nameParts.length > 1 ? nameParts.slice(1).join(" ") : "");
-      const contactFull = pick(
-        [e.contactFirstName, e.contactLastName].filter(Boolean).join(" "),
-        e.contactName,
-        org?.primaryContactName
-      );
+  const dataRows: string[][] = rows.map(({ event: e, org }) => {
+    // Split a person's name when the page only yielded a combined one.
+    const nameParts = (e.contactName ?? org?.primaryContactName ?? "").trim().split(/\s+/);
+    const firstName = pick(e.contactFirstName, nameParts.length > 1 ? nameParts[0] : "");
+    const lastName = pick(e.contactLastName, nameParts.length > 1 ? nameParts.slice(1).join(" ") : "");
+    const contactFull = pick(
+      [e.contactFirstName, e.contactLastName].filter(Boolean).join(" "),
+      e.contactName,
+      org?.primaryContactName
+    );
 
-      return [
-        boolToCrm(e.hasDonationRequest),                          // A
-        boolToCrm(e.hasOnlineAuction),                            // B
-        boolToCrm(e.hasLiveAuction),                              // C
-        boolToCrm(e.hasSilentAuction),                            // D
-        boolToCrm(e.hasRaffle),                                   // E
-        "",                                                       // F blank spacer
-        csvEscape(e.eventPageUrl),                                // G
-        "",                                                       // H Organization ID — assigned inside ACT
-        csvEscape(formatDate(e.eventDate)),                       // I
-        csvEscape(pick(e.orgName, org?.orgName)),                 // J Beneficiary
-        csvEscape(e.eventName),                                   // K
-        csvEscape(firstName),                                     // L
-        csvEscape(lastName),                                      // M
-        "",                                                       // N Salutation
-        csvEscape(pick(e.contactTitle, org?.primaryContactTitle)),// O
-        csvEscape(pick(org?.orgName, e.orgName)),                 // P Mailing Address 1 = ORG NAME
-        csvEscape(pick(e.orgAddress, org?.addressLine1)),         // Q Mailing Address 2 = street
-        csvEscape(pick(e.orgCity, org?.city)),                    // R
-        csvEscape(pick(e.orgState, org?.state, defaultState)),    // S
-        csvEscape(pick(e.orgZip, org?.zip)),                      // T
-        csvEscape(pick(e.orgPhone, org?.orgPhone)),               // U
-        csvEscape(pick(e.contactEmail, e.orgEmail, org?.primaryContactEmail)), // V
-        "Pending",                                                // W
-        csvEscape(primaryGroup1),                                 // X
-        "Charity",                                                // Y
-        csvEscape(pick(e.orgWebsite, org?.webAddress)),           // Z
-        "",                                                       // AA
-        "",                                                       // AB
-        csvEscape(contactFull),                                   // AC
-        csvEscape(pick(org?.legalName, e.orgName)),               // AD Company = GuideStar legal name
-      ].join(",");
-    }),
-  ];
+    return [
+      boolToCrm(e.hasDonationRequest),                          // A
+      boolToCrm(e.hasOnlineAuction),                            // B
+      boolToCrm(e.hasLiveAuction),                              // C
+      boolToCrm(e.hasSilentAuction),                            // D
+      boolToCrm(e.hasRaffle),                                   // E
+      "",                                                       // F blank spacer
+      e.eventPageUrl ?? "",                                     // G
+      "",                                                       // H Organization ID — assigned inside ACT
+      formatDate(e.eventDate),                                  // I
+      pick(e.orgName, org?.orgName),                            // J Beneficiary
+      e.eventName ?? "",                                        // K
+      firstName,                                                // L
+      lastName,                                                 // M
+      "",                                                       // N Salutation
+      pick(e.contactTitle, org?.primaryContactTitle),           // O
+      pick(org?.orgName, e.orgName),                            // P Mailing Address 1 = ORG NAME
+      pick(e.orgAddress, org?.addressLine1),                    // Q Mailing Address 2 = street
+      pick(e.orgCity, org?.city),                               // R
+      pick(e.orgState, org?.state, defaultState),               // S
+      pick(e.orgZip, org?.zip),                                 // T
+      pick(e.orgPhone, org?.orgPhone),                          // U
+      pick(e.contactEmail, e.orgEmail, org?.primaryContactEmail), // V
+      "Pending",                                                // W
+      primaryGroup1,                                            // X
+      "Charity",                                                // Y
+      pick(e.orgWebsite, org?.webAddress),                      // Z
+      "",                                                       // AA
+      "",                                                       // AB
+      contactFull,                                              // AC
+      pick(org?.legalName, e.orgName),                          // AD Company = GuideStar legal name
+    ];
+  });
 
   const runLabel = req.query.runId ? `run-${req.query.runId}` : "all";
+  return { headers, dataRows, runLabel };
+}
+
+// GET /events/export/crm — ACT CRM import format (CSV)
+router.get("/events/export/crm", async (req, res) => {
+  const { headers, dataRows, runLabel } = await buildCrmExportData(req);
+
+  const csvRows = [
+    headers.map(csvEscape).join(","),
+    ...dataRows.map((row) => row.map(csvEscape).join(",")),
+  ];
+
   res.setHeader("Content-Type", "text/csv; charset=utf-8");
   res.setHeader(
     "Content-Disposition",
     `attachment; filename="ACT_CRM_Export_${runLabel}_${new Date().toISOString().slice(0, 10)}.csv"`,
   );
   res.send(csvRows.join("\n"));
+});
+
+// GET /events/export/crm/xlsx — same "Ready for Import" layout as a real
+// Excel workbook, for staff who want to open/edit it directly rather than
+// import a CSV.
+router.get("/events/export/crm/xlsx", async (req, res) => {
+  const { headers, dataRows, runLabel } = await buildCrmExportData(req);
+
+  const workbook = new ExcelJS.Workbook();
+  const sheet = workbook.addWorksheet("Ready for Import");
+  sheet.addRow(headers);
+  for (const row of dataRows) sheet.addRow(row);
+
+  res.setHeader(
+    "Content-Type",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  );
+  res.setHeader(
+    "Content-Disposition",
+    `attachment; filename="ACT_CRM_Export_${runLabel}_${new Date().toISOString().slice(0, 10)}.xlsx"`,
+  );
+  await workbook.xlsx.write(res);
+  res.end();
 });
 
 // GET /events/:id

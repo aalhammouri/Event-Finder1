@@ -1,0 +1,908 @@
+<title>GCP Package Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Mono:wght@500&display=swap">
+<style>
+/* Layout: app bar, package queue on the left, the selected event lead on the right (header, stage path, quick actions, tabbed cards). */
+:root {
+  --primary: #214292; --primary-2: #264BA7; --primary-fg: #ffffff;
+  --link: #214292; --orange: #F5A01E; --orange-ink: #7a4a00; --orange-soft: #fff3dc;
+  --bg: #eef1f7; --surface: #ffffff; --surface-2: #f5f7fc; --line: #dce2ee; --line-strong: #c4cde0;
+  --fg: #18223d; --muted: #5a6480; --faint: #8a93ab;
+  --band: #1b3577; --band-2: #214292; --band-fg: #ffffff; --band-muted: #c9d4f2;
+  --crit: #b8321f; --crit-bg: #fdeceb; --warn: #8f5600; --warn-bg: #fff3dc;
+  --ok: #1b7046; --ok-bg: #e5f3eb; --info: #264BA7; --info-bg: #e9eefb;
+  --shadow: 0 1px 2px rgba(20, 39, 90, .06), 0 4px 14px rgba(20, 39, 90, .05);
+  --f-ui: "Noto Sans", "Segoe UI", system-ui, sans-serif;
+  --f-display: "Cormorant Garamond", "Georgia", "Times New Roman", serif;
+  --f-mono: "Noto Sans Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --primary: #3460cf; --primary-2: #3d6ad8; --primary-fg: #ffffff;
+  --link: #a3b8f3; --orange: #F5A01E; --orange-ink: #ffc56b; --orange-soft: #3a2a0e;
+  --bg: #0d1322; --surface: #151d31; --surface-2: #1b253d; --line: #28334f; --line-strong: #37446a;
+  --fg: #e6ebf7; --muted: #a0aac4; --faint: #76809c;
+  --band: #182b5e; --band-2: #1f3878; --band-fg: #ffffff; --band-muted: #b9c7ee;
+  --crit: #ff8c7c; --crit-bg: #3b1916; --warn: #f6bb55; --warn-bg: #36280d;
+  --ok: #6fd19c; --ok-bg: #11301f; --info: #a3b8f3; --info-bg: #1a2850;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.25);
+  color-scheme: dark;
+} }
+:root[data-theme="dark"] {
+  --primary: #3460cf; --primary-2: #3d6ad8; --primary-fg: #ffffff;
+  --link: #a3b8f3; --orange: #F5A01E; --orange-ink: #ffc56b; --orange-soft: #3a2a0e;
+  --bg: #0d1322; --surface: #151d31; --surface-2: #1b253d; --line: #28334f; --line-strong: #37446a;
+  --fg: #e6ebf7; --muted: #a0aac4; --faint: #76809c;
+  --band: #182b5e; --band-2: #1f3878; --band-fg: #ffffff; --band-muted: #b9c7ee;
+  --crit: #ff8c7c; --crit-bg: #3b1916; --warn: #f6bb55; --warn-bg: #36280d;
+  --ok: #6fd19c; --ok-bg: #11301f; --info: #a3b8f3; --info-bg: #1a2850;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.25);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--fg); font: 14px/1.5 var(--f-ui); margin: 0; }
+button, input, select, textarea { font: inherit; color: inherit; }
+a { color: var(--link); }
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+.num { font-variant-numeric: tabular-nums; }
+.mono { font-family: var(--f-mono); font-size: 12.5px; }
+.ico { width: 16px; height: 16px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* App bar */
+.appbar { display: flex; align-items: center; gap: 16px; padding: 10px 20px; background: var(--surface); border-bottom: 1px solid var(--line); position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; }
+.logo-plate { display: flex; align-items: center; background: #ffffff; border-radius: 8px; padding: 4px 8px; }
+.logo-plate img { height: 40px; width: auto; display: block; }
+.appbar .divider { width: 1px; align-self: stretch; background: var(--line); }
+.app-name { display: flex; flex-direction: column; line-height: 1.2; min-width: 0; }
+.app-name b { font-size: 15px; color: var(--fg); }
+.app-name span { font-size: 12px; color: var(--muted); }
+.appbar .spacer { flex: 1; }
+.env-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--orange-ink); background: var(--orange-soft); border: 1px solid color-mix(in srgb, var(--orange) 45%, transparent); padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+.avatar { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--primary); color: var(--primary-fg); font-weight: 600; font-size: 13px; flex: none; }
+
+/* Shell */
+.shell { display: grid; grid-template-columns: 320px minmax(0, 1fr); min-height: calc(100% - 61px); }
+.queue { background: var(--surface); border-right: 1px solid var(--line); display: flex; flex-direction: column; min-width: 0; }
+.queue-head { padding: 16px 16px 10px; display: grid; gap: 10px; border-bottom: 1px solid var(--line); }
+.queue-head h2 { margin: 0; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; }
+.search { display: flex; align-items: center; gap: 8px; border: 1px solid var(--line-strong); border-radius: 8px; padding: 6px 10px; background: var(--surface-2); color: var(--muted); }
+.search input { border: 0; background: transparent; outline: none; width: 100%; color: var(--fg); }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg button { border: 1px solid var(--line-strong); background: var(--surface); border-radius: 999px; padding: 3px 10px; font-size: 12px; cursor: pointer; color: var(--muted); }
+.seg button[aria-pressed="true"] { background: var(--primary); border-color: var(--primary); color: var(--primary-fg); }
+.queue-list { list-style: none; margin: 0; padding: 6px; overflow-y: auto; flex: 1; }
+.q-item { display: grid; grid-template-columns: 4px minmax(0,1fr) auto; gap: 10px; padding: 10px 10px 10px 0; border-radius: 8px; cursor: pointer; border: 1px solid transparent; }
+.q-item:hover { background: var(--surface-2); }
+.q-item[aria-current="true"] { background: var(--info-bg); border-color: color-mix(in srgb, var(--primary) 30%, transparent); }
+.q-item .stripe { border-radius: 4px; background: var(--line); }
+.q-item.crit .stripe { background: var(--crit); }
+.q-item.warn .stripe { background: var(--orange); }
+.q-item.closed { opacity: .55; }
+.q-title { font-weight: 600; font-size: 13px; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.q-org { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.q-meta { display: flex; gap: 6px; align-items: center; margin-top: 4px; flex-wrap: wrap; }
+.q-right { text-align: right; font-size: 12px; color: var(--muted); white-space: nowrap; }
+.q-empty { padding: 24px 16px; color: var(--muted); font-size: 13px; }
+
+/* Chips */
+.chip { display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--surface-2); color: var(--muted); border: 1px solid var(--line); white-space: nowrap; }
+.chip.crit { background: var(--crit-bg); color: var(--crit); border-color: transparent; }
+.chip.warn { background: var(--warn-bg); color: var(--warn); border-color: transparent; }
+.chip.ok { background: var(--ok-bg); color: var(--ok); border-color: transparent; }
+.chip.info { background: var(--info-bg); color: var(--info); border-color: transparent; }
+
+/* Record */
+.record { padding: 20px 24px 40px; display: grid; gap: 16px; min-width: 0; align-content: start; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); box-shadow: var(--shadow); min-width: 0; }
+.rec-head { padding: 18px 20px 14px; display: grid; gap: 14px; }
+.rec-top { display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
+.venue-badge { width: 56px; height: 56px; border-radius: 50%; background: var(--band); color: var(--orange); display: grid; place-items: center; flex: none; }
+.venue-badge .ico { width: 26px; height: 26px; stroke-width: 1.6; }
+.rec-title { flex: 1; min-width: 240px; }
+.rec-title h1 { font-family: var(--f-display); font-weight: 700; font-size: 30px; line-height: 1.1; margin: 0 0 4px; text-wrap: balance; }
+.rec-sub { color: var(--muted); font-size: 13px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.kpis { display: flex; gap: 8px; flex-wrap: wrap; }
+.kpi { border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; min-width: 104px; background: var(--surface-2); }
+.kpi b { display: block; font-size: 20px; line-height: 1.15; }
+.kpi span { font-size: 11.5px; color: var(--muted); }
+.kpi.crit { background: var(--crit-bg); border-color: transparent; } .kpi.crit b { color: var(--crit); }
+.kpi.warn { background: var(--warn-bg); border-color: transparent; } .kpi.warn b { color: var(--warn); }
+.meta-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px 20px; padding-top: 12px; border-top: 1px solid var(--line); }
+.meta-row div { min-width: 0; }
+.meta-row label { display: block; font-size: 11.5px; color: var(--muted); letter-spacing: .02em; }
+.meta-row span { font-weight: 500; display: flex; gap: 6px; align-items: center; overflow-wrap: anywhere; }
+
+/* Stage path */
+.path { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0; background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.step { position: relative; padding: 10px 8px 10px 22px; font-size: 12px; color: var(--muted); line-height: 1.25; min-height: 52px; display: flex; flex-direction: column; justify-content: center; }
+.step b { font-weight: 600; color: inherit; }
+.step::after { content: ""; position: absolute; right: -9px; top: 50%; width: 16px; height: 16px; transform: translateY(-50%) rotate(45deg); border-top: 1px solid var(--line-strong); border-right: 1px solid var(--line-strong); background: inherit; z-index: 1; }
+.step:last-child::after { display: none; }
+.step.done { background: color-mix(in srgb, var(--primary) 12%, var(--surface-2)); color: var(--fg); }
+.step.done b::before { content: "✓ "; color: var(--ok); }
+.step.current { background: var(--band); color: var(--band-fg); }
+.step.current::after { border-color: var(--band); }
+.step.current small { color: var(--band-muted); }
+.step small { font-size: 11px; }
+
+/* Command bar */
+.cmdbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; padding: 10px 12px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line-strong); background: var(--surface); padding: 7px 12px; border-radius: 8px; cursor: pointer; font-weight: 500; font-size: 13px; color: var(--fg); text-decoration: none; white-space: nowrap; }
+.btn:hover { background: var(--surface-2); }
+.btn.primary { background: var(--primary); border-color: var(--primary); color: var(--primary-fg); }
+.btn.primary:hover { background: var(--primary-2); }
+.btn.accent { background: var(--orange); border-color: var(--orange); color: #241500; }
+.btn.danger { color: var(--crit); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn.sm { padding: 4px 9px; font-size: 12px; }
+.cmdbar .sep { width: 1px; height: 24px; background: var(--line); }
+.menu-wrap { position: relative; }
+.menu { position: absolute; top: calc(100% + 4px); left: 0; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 10px; box-shadow: var(--shadow); padding: 4px; min-width: 240px; z-index: 30; }
+.menu button { display: block; width: 100%; text-align: left; border: 0; background: transparent; padding: 8px 10px; border-radius: 6px; cursor: pointer; }
+.menu button:hover { background: var(--surface-2); }
+.menu small { display: block; color: var(--muted); font-size: 11.5px; }
+
+/* Tabs */
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); overflow-x: auto; }
+.tabs button { border: 0; background: transparent; padding: 10px 14px; cursor: pointer; color: var(--muted); font-weight: 500; border-bottom: 3px solid transparent; white-space: nowrap; display: inline-flex; gap: 6px; align-items: center; }
+.tabs button[aria-selected="true"] { color: var(--fg); border-bottom-color: var(--orange); font-weight: 600; }
+.tabs .count { background: var(--crit-bg); color: var(--crit); border-radius: 999px; font-size: 11px; padding: 0 7px; font-weight: 700; }
+
+.grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.col { display: grid; gap: 16px; min-width: 0; }
+.card-h { display: flex; align-items: center; gap: 10px; padding: 14px 16px 0; }
+.card-h h3 { margin: 0; font-size: 15px; font-weight: 600; flex: 1; }
+.card-b { padding: 12px 16px 16px; }
+.hint { color: var(--muted); font-size: 12.5px; }
+
+/* Event band */
+.band { background: linear-gradient(135deg, var(--band) 0%, var(--band-2) 100%); color: var(--band-fg); border-radius: var(--r); padding: 18px 20px; display: grid; gap: 12px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+.band::after { content: ""; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px; border-radius: 50%; border: 28px solid color-mix(in srgb, var(--orange) 22%, transparent); pointer-events: none; }
+.band .eyebrow { font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--orange); font-weight: 700; }
+.band h2 { font-family: var(--f-display); font-size: 26px; margin: 0; line-height: 1.15; text-wrap: balance; position: relative; z-index: 1; }
+.band-meta { display: flex; gap: 18px; flex-wrap: wrap; color: var(--band-muted); font-size: 13px; position: relative; z-index: 1; }
+.band-meta span { display: inline-flex; gap: 6px; align-items: center; }
+.auction-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; position: relative; z-index: 1; }
+.au { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16); border-radius: 8px; padding: 8px 10px; }
+.au label { display: block; font-size: 11px; color: var(--band-muted); }
+.au b { font-size: 14px; }
+.au.yes b { color: #9ef0bf; } .au.no b { color: #ffb3a8; } .au.unclear b { color: #ffd38a; }
+.band-foot { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; position: relative; z-index: 1; }
+.band .btn { background: transparent; color: var(--band-fg); border-color: rgba(255,255,255,.4); }
+.band .btn:hover { background: rgba(255,255,255,.1); }
+.evid { font-size: 12px; padding: 3px 10px; border-radius: 999px; font-weight: 600; }
+.evid.Confirmed { background: #d8f5e4; color: #11532f; } .evid.Assumed { background: #ffe9c2; color: #6b4000; } .evid.Unverified { background: #ffd9d3; color: #7a1e12; }
+
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; }
+.tile { padding: 12px 14px; border-right: 1px solid var(--line); display: flex; gap: 10px; align-items: flex-start; min-width: 0; }
+.tile:last-child { border-right: 0; }
+.tile .ico { width: 22px; height: 22px; color: var(--link); margin-top: 2px; }
+.tile b { display: block; font-size: 19px; line-height: 1.2; }
+.tile span { display: block; font-size: 12px; color: var(--muted); }
+.tile small { display: block; font-size: 11px; color: var(--faint); }
+.meter { display: flex; gap: 2px; margin-top: 4px; }
+.meter i { width: 10px; height: 5px; border-radius: 2px; background: var(--line); }
+.meter i.on { background: var(--orange); }
+
+/* Org & contact */
+.org-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.kv { display: grid; gap: 8px; }
+.kv div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 8px; align-items: baseline; }
+.kv label { font-size: 12px; color: var(--muted); }
+.kv span { overflow-wrap: anywhere; }
+.label-card { font-family: var(--f-mono); font-size: 12.5px; line-height: 1.6; background: var(--surface-2); border: 1px dashed var(--line-strong); border-radius: 8px; padding: 10px 12px; text-transform: uppercase; white-space: pre-line; }
+.person { display: flex; gap: 12px; align-items: flex-start; }
+.person .avatar { background: var(--surface-2); color: var(--link); border: 1px solid var(--line-strong); }
+.line-act { display: flex; gap: 8px; align-items: center; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.line-act:last-child { border-bottom: 0; }
+.line-act > span { display: inline-flex; gap: 8px; align-items: center; min-width: 0; overflow-wrap: anywhere; }
+.icon-btn { border: 1px solid var(--line); background: var(--surface); border-radius: 6px; padding: 4px; cursor: pointer; color: var(--muted); display: inline-grid; place-items: center; }
+.icon-btn:hover { color: var(--fg); background: var(--surface-2); }
+
+/* Action items */
+.todo { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.todo li { display: grid; grid-template-columns: 20px minmax(0, 1fr) auto; gap: 10px; padding: 9px 4px; border-bottom: 1px solid var(--line); align-items: start; }
+.todo li:last-child { border-bottom: 0; }
+.todo .dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 5px; justify-self: center; }
+.todo .crit .dot, .todo li.crit .dot { background: var(--crit); }
+.todo li.warn .dot { background: var(--orange); }
+.todo li.info .dot { background: var(--info); }
+.todo li.done { opacity: .5; } .todo li.done .t { text-decoration: line-through; }
+.todo .t { font-weight: 500; font-size: 13px; }
+.todo .d { font-size: 12px; color: var(--muted); }
+.todo .acts { display: flex; gap: 4px; }
+.allclear { display: flex; gap: 10px; align-items: center; color: var(--ok); font-weight: 500; padding: 8px 0; }
+
+select.field, textarea.field { width: 100%; border: 1px solid var(--line-strong); border-radius: 8px; padding: 8px 10px; background: var(--surface); }
+textarea.field { min-height: 72px; resize: vertical; }
+.field-label { font-size: 12px; color: var(--muted); display: block; margin: 10px 0 4px; }
+
+/* Timeline */
+.tl { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.tl li { display: grid; grid-template-columns: 28px minmax(0,1fr); gap: 10px; }
+.tl .tl-ico { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-2); border: 1px solid var(--line); color: var(--link); }
+.tl .tl-ico .ico { width: 14px; height: 14px; }
+.tl b { font-weight: 500; font-size: 13px; display: block; }
+.tl span { font-size: 12px; color: var(--muted); }
+
+/* Tables */
+.tbl-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; font-size: 11.5px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); font-weight: 600; padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+.slot { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; }
+.slot i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+
+/* Merge gate */
+.norm { display: grid; grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr); gap: 8px; align-items: center; }
+.norm .box { background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; min-width: 0; overflow-wrap: anywhere; }
+.norm .box label { display: block; font-size: 11px; color: var(--muted); font-family: var(--f-ui); }
+.match { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: grid; gap: 6px; }
+.match.strong { border-color: color-mix(in srgb, var(--ok) 50%, transparent); background: color-mix(in srgb, var(--ok-bg) 60%, var(--surface)); }
+.match.soft { border-color: color-mix(in srgb, var(--orange) 50%, transparent); background: color-mix(in srgb, var(--warn-bg) 60%, var(--surface)); }
+.match-h { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.match-h b { flex: 1; min-width: 160px; }
+.stack { display: grid; gap: 10px; }
+.decision { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+
+.ladder { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.ladder li { display: grid; grid-template-columns: 22px minmax(0,1fr) auto; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); align-items: center; }
+.ladder li:last-child { border-bottom: 0; }
+.ladder .ring { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--line-strong); justify-self: center; }
+.ladder li.on .ring { border-color: var(--ok); background: var(--ok); }
+
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 10px 16px; border-radius: 10px; font-size: 13px; box-shadow: var(--shadow); z-index: 50; display: flex; gap: 12px; align-items: center; max-width: calc(100% - 32px); }
+.toast button { background: transparent; border: 0; color: var(--orange); font-weight: 700; cursor: pointer; }
+
+@media (max-width: 1180px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 900px) {
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .queue { border-right: 0; border-bottom: 1px solid var(--line); }
+  .queue-list { max-height: 280px; }
+  .record { padding: 16px; }
+  .path { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .step::after { display: none; }
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tile:nth-child(2) { border-right: 0; }
+  .tile:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .org-grid { grid-template-columns: minmax(0, 1fr); }
+  .env-pill .long { display: none; }
+}
+@media (max-width: 560px) {
+  .appbar { padding: 8px 16px; gap: 10px; }
+  .appbar .divider, .app-name span { display: none; }
+  .logo-plate img { height: 32px; }
+  .auction-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rec-title h1 { font-size: 25px; }
+  .norm { grid-template-columns: minmax(0, 1fr); }
+  .norm .arrow { transform: rotate(90deg); justify-self: center; }
+  .kv div { grid-template-columns: minmax(0, 1fr); gap: 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .q-item, .btn, .tabs button { transition: background-color .15s, border-color .15s, color .15s; }
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></symbol>
+  <symbol id="i-org" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-5h6v5M9 12h.01M15 12h.01"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+  <symbol id="i-merge" viewBox="0 0 24 24"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="12" r="2"/><path d="M6 7v10M6 7c0 3 3 5 10 5"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 9V3h10v6M7 17H4v-7h16v7h-3M7 14h10v7H7z"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4v10l-9 4-9-4V7zM3 7l9 4 9-4M12 11v10"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3L10 14M21 3l-7 18-4-7-7-4 18-7z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14L4 9l5-5M4 9h11a5 5 0 0 1 0 10h-3"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9M12 8v13M12 8S10.5 3 8 4s0 4 4 4zm0 0s1.5-5 4-4 0 4-4 4z"/></symbol>
+  <symbol id="i-score" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-gala" viewBox="0 0 24 24"><path d="M8 3h8l-1 6a3 3 0 0 1-6 0L8 3zM12 12v8M8 21h8"/></symbol>
+  <symbol id="i-golf" viewBox="0 0 24 24"><path d="M10 21V3l8 4-8 4M6 21h10"/></symbol>
+  <symbol id="i-lunch" viewBox="0 0 24 24"><path d="M4 11h13v3a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-3zM17 12h1.5a2.5 2.5 0 0 1 0 5H16M8 7c0-2 2-2 2-4M12 7c0-2 2-2 2-4"/></symbol>
+  <symbol id="i-dinner" viewBox="0 0 24 24"><path d="M7 3v8a2 2 0 0 0 2 2v8M7 3v6M11 3v6M17 21V3c-2 1-3 4-3 8h3"/></symbol>
+  <symbol id="i-fest" viewBox="0 0 24 24"><path d="M3 20L12 4l9 16H3zM12 4v16M8 20l4-6 4 6"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2L12 3zM12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-sync" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14-4L4 9M4 4v5h5M4 13a8 8 0 0 0 14 4l2-2M20 20v-5h-5"/></symbol>
+</svg>
+
+<header class="appbar">
+  <div class="logo-plate"><img src="data:image/png;base64,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" alt="The Goff Financial Group"></div>
+  <div class="divider"></div>
+  <div class="app-name"><b>GCP Package Desk</b><span>Charity events · gift certificate packages</span></div>
+  <div class="spacer"></div>
+  <span class="env-pill" title="Data read from the Dynamics sandbox. Buttons on this page change this preview only."><svg class="ico"><use href="#i-alert"/></svg>Preview<span class="long">&nbsp;· sandbox orgcad402f2 · changes stay on this page</span></span>
+  <div class="avatar" title="Matt Goff">MG</div>
+</header>
+
+<div class="shell">
+  <aside class="queue" aria-label="Package queue">
+    <div class="queue-head">
+      <h2><span>Package queue</span><span class="num" id="q-count"></span></h2>
+      <label class="search"><svg class="ico"><use href="#i-search"/></svg><input id="q-search" type="search" placeholder="Search events or charities" autocomplete="off"></label>
+      <div class="seg" role="group" aria-label="Filter queue" id="q-filter">
+        <button data-f="all" aria-pressed="true">All</button>
+        <button data-f="overdue" aria-pressed="false">Overdue</button>
+        <button data-f="soon" aria-pressed="false">Due in 14 days</button>
+        <button data-f="attention" aria-pressed="false">Needs attention</button>
+        <button data-f="closed" aria-pressed="false">Closed</button>
+      </div>
+    </div>
+    <ul class="queue-list" id="q-list"></ul>
+  </aside>
+  <main class="record" id="record"></main>
+</div>
+<div id="toast" class="toast" hidden></div>
+
+<script>
+// Read from Dynamics lead (orgcad402f2) on 2026-10-02. Stage 714000010 for every lead at read time.
+const GUID_TAIL = '-e3bc-f111-aaae-70a8a5b0e87a';
+const DYN = 'https://orgcad402f2.crm.dynamics.com/main.aspx?pagetype=entityrecord&etn=lead&id=';
+const LEADS = [
+ {id:'7c4c8eab',ev:'All In for Hope Casino Night Gala',org:'Cy-Hope',fn:'Jennifer',ln:'Herrera',title:'Executive Director',em1:'cy-hope@cy-hope.org',em2:'cy-hope@cy-hope.org',ph1:'713-466-4673',ph2:'713-466-4673',web:'http://www.cy-hope.org',evweb:'https://www.cy-hope.org/gala',evd:'2026-10-10',mby:'2026-09-19',venue:'Gala',au:['Y','N','Y','Y'],evid:'Confirmed',score:88,ein:'45-2346150',line:'12715 Telge Rd',city:'Cypress',zip:'77429',src:'Organization website',c:'10:29 AM'},
+ {id:'a24c8eab',ev:'HEROES of Fort Bend Hope Gala (presented by Momentum BMW)',org:'Fort Bend Hope',fn:'Adam',ln:'Yates',title:'Executive Director',em1:'adam@fortbendhope.org',em2:'adam@fortbendhope.org',ph1:'346-702-3806',ph2:'346-702-3806',web:'http://fortbendhope.org',evweb:'https://fortbendhope.ejoinme.org/gala',evd:'2026-10-22',mby:'2026-10-01',venue:'Gala',au:['Y','N','Y','Y'],evid:'Confirmed',score:88,ein:null,line:'927 3rd Street',city:'Rosenberg',zip:'77471',src:'Organization website',c:'10:29 AM'},
+ {id:'ee9548cb',ev:'13th Annual M.B. "Sonny" Donaldson Golf Tournament & Auction',org:'Aldine Education Foundation',fn:'Jermani',ln:'Atkinson',title:'Director of Aldine Education Foundation',em1:'aef@aldineisd.org',em2:'aef@aldineisd.org',ph1:'281-985-6078',ph2:'281-985-6078',web:'https://aldineeducationfoundation.org',evweb:'https://aldineeducationfoundation.org/events/golf-tournament/',evd:'2026-10-22',mby:'2026-10-01',venue:'Golf Tournament',au:['N','N','Y','Y'],evid:'Confirmed',score:88,ein:null,line:'2520 W.W. Thorne Blvd.',city:'Houston',zip:'77073',src:'Organization website',c:'10:30 AM'},
+ {id:'bf9087a5',ev:'Larry Dierker Celebrity Golf Shootout',org:'Cy-Hope',fn:'Jennifer',ln:'Herrera',title:'Executive Director',em1:'cy-hope@cy-hope.org',em2:'cy-hope@cy-hope.org',ph1:'713-466-4673',ph2:'713-466-4673',web:'http://www.cy-hope.org',evweb:'https://www.cy-hope.org/golf',evd:'2026-10-29',mby:'2026-10-08',venue:'Golf Tournament',au:['N','Y','Y','Y'],evid:'Confirmed',score:95,ein:'45-2346150',line:'12715 Telge Rd',city:'Cypress',zip:'77429',src:'Organization website',c:'10:29 AM'},
+ {id:'069648cb',ev:'In the Pink Luncheon',org:'Northeast Hospital Foundation',fn:'Sabrina',ln:'Carr',title:null,em1:'sabrina@northeasthospitalfoundation.org',em2:'foundation@northeasthospitalfoundation.org',ph1:'281-620-5275',ph2:'281-540-6443',web:'http://www.northeasthospitalfoundation.org',evweb:'https://northeasthospitalfoundation.org/in-the-pink-luncheon/',evd:'2026-10-30',mby:'2026-10-09',venue:'Luncheon',au:['N','N','Y','Y'],evid:'Confirmed',score:87,ein:'76-0224541',line:'P.O. Box 2738',city:'Humble',zip:'77347-2738',src:'Organization website',c:'10:30 AM'},
+ {id:'ca4c8eab',ev:'Lost Is Not Alone Gala',org:'Texas EquuSearch',fn:'Rilene',ln:'Purvis',title:null,em1:'rilene@txeq.org',em2:'info@txeq.org',ph1:'281-309-9500',ph2:'281-309-9500',web:'http://www.texasequusearch.org',evweb:'https://texasequusearch.org/event/lost-is-not-alone/',evd:'2026-10-30',mby:'2026-10-09',venue:'Gala',au:['N','Y','Y','Y'],evid:'Confirmed',score:88,ein:'76-0664878',line:'4307 FM 517 Rd E',city:'Dickinson',zip:'77539',src:'Candid',c:'10:29 AM'},
+ {id:'589648cb',ev:'28th Annual Spirit Award Dinner',org:'Houston Hospice',fn:'Daphne',ln:'Singleterry',title:null,em1:'dsingleterry@houstonhospice.org',em2:'info@houstonhospice.org',ph1:'713-677-7124',ph2:'713-467-7423',web:'https://www.houstonhospice.org',evweb:'https://www.houstonhospice.org/event/spiritaward2026/',evd:'2026-11-03',mby:'2026-10-13',venue:'Dinner',au:['N','Y','Y','Y'],evid:'Confirmed',score:86,ein:null,line:'1905 Holcombe Blvd.',city:'Houston',zip:'77030',src:'Organization website',c:'10:30 AM'},
+ {id:'259648cb',ev:'2026 Concert & Clays',org:'Sky High for Kids',fn:'Hailey',ln:'Kirkpatrick',title:'Special Event Coordinator',em1:'hailey@skyhighforkids.org',em2:'hailey@skyhighforkids.org',ph1:'713-714-8587',ph2:'713-714-8587',web:'https://skyhighforkids.org',evweb:'https://skyhighforkids.org/event/2026-concert-clays/',evd:'2026-11-06',mby:'2026-10-16',venue:'Golf Tournament',au:['N','Y','Y','Y'],evid:'Assumed',score:86,ein:null,line:'9800 Richmond Ave, Suite 335',city:'Houston',zip:'77042',src:'Organization website',c:'10:30 AM'},
+ {id:'fa9548cb',ev:'Hope Shines Bright - 2026 Trees of Hope Annual Gala',org:'Trees of Hope',fn:'Brooke',ln:'Stuckey',title:'Executive Director',em1:'bstuckey@treesofhopehouston.org',em2:'office@treesofhopehouston.org',ph1:'713-942-8733',ph2:'713-942-8733',web:'https://www.treesofhopehouston.org',evweb:'https://tohgala26.givesmart.com/',evd:'2026-11-06',mby:'2026-10-16',venue:'Gala',au:['Y','Y','Y','Y'],evid:'Confirmed',score:88,ein:null,line:'7055 Old Katy Rd #14',city:'Houston',zip:'77024',src:'Organization website',c:'10:30 AM'},
+ {id:'544c8eab',ev:'Inaugural Clay Shoot',org:'Clothed by Faith',fn:'Abi',ln:'Fourie',title:'Founder',em1:'abi@clothedbyfaith.org',em2:'info@clothedbyfaith.org',ph1:'(281) 676-8837',ph2:'(281) 676-8837',web:'http://www.clothedbyfaith.org',evweb:'https://www.clothedbyfaith.org/clay-shoot',evd:'2026-11-06',mby:'2026-10-16',venue:'Golf Tournament',au:['U','Y','Y','Y'],evid:'Confirmed',score:91,ein:'46-4186754',line:'802 Dominion Drive, Suite 100-300',city:'Katy',zip:'77450',src:'Organization website',c:'10:29 AM'},
+ {id:'e29548cb',ev:'2026 Fall Meet & Tweet Fundraiser',org:'Magnolia Exotic Bird Sanctuary',fn:'Sharon',ln:'Markland',title:'Founder and Director',em1:'info@mebsparrots.org',em2:'info@mebsparrots.org',ph1:null,ph2:null,web:'https://www.mebsparrots.org',evweb:'https://www.mebsparrots.org/event-details/2026-fall-meet-tweet-fundraiser',evd:'2026-11-07',mby:'2026-10-17',venue:'Festival',au:['Y','Y','Y','N'],evid:'Confirmed',score:88,ein:'27-4734382',line:'19703 Turtle Creek Ln',city:'Magnolia',zip:'77355',src:'Candid',c:'10:30 AM'},
+ {id:'2f9648cb',ev:'St. Thomas Auction & Gala (Eagle Country)',org:'St. Thomas High School',fn:'Gretchen',ln:'Penny',title:'Auction & Events Coordinator',em1:'gretchen.penny@sths.org',em2:'gretchen.penny@sths.org',ph1:'713-341-5556',ph2:'713-864-6348',web:'https://www.sths.org',evweb:'https://www.sths.org/support/fundraising/auction/',evd:'2026-11-07',mby:'2026-10-17',venue:'Gala',au:['N','Y','Y','Y'],evid:'Confirmed',score:86,ein:null,line:'4500 Memorial Dr.',city:'Houston',zip:'77007',src:'Organization website',c:'10:30 AM'},
+ {id:'ac4c8eab',ev:'11th Annual Hope Impacts Golf Tournament & Charity Auction',org:'Hope Impacts',fn:'Tina',ln:'Hatcher',title:'Executive Director',em1:'susan@hopeimpacts.org',em2:'susan@hopeimpacts.org',ph1:'713-705-7884',ph2:'713-705-7884',web:'http://hopeimpacts.org',evweb:'https://birdease.com/36504/register',evd:'2026-11-09',mby:'2026-10-19',venue:'Golf Tournament',au:['Y','N','Y','Y'],evid:'Confirmed',score:88,ein:null,line:'3115 Fry Rd, Suite 404',city:'Katy',zip:'77449',src:'Organization website',c:'10:29 AM'},
+ {id:'c04c8eab',ev:'7th Annual EMERGE Sporting Clays Tournament',org:'EMERGE',fn:'Cierra',ln:'Duckworth',title:'Managing Director of Development',em1:'cierra@emergescholars.org',em2:'development@emergescholars.org',ph1:null,ph2:null,web:'https://emergescholars.org',evweb:'https://emergescholars.org/events/sportingclays/',evd:'2026-11-12',mby:'2026-10-22',venue:'Golf Tournament',au:['N','Y','Y','Y'],evid:'Confirmed',score:88,ein:'45-4077397',line:'3555 Timmons Ln, Ste 800',city:'Houston',zip:'77027',src:'Organization website',c:'10:29 AM'},
+ {id:'4a4c8eab',ev:'BAFTX Roaring 20s Gala (20th Anniversary)',org:'British American Foundation of Texas',fn:'Kay',ln:'Thomson',title:'Executive Director',em1:'info@baftx.org',em2:'info@baftx.org',ph1:'281-310-0321',ph2:'281-310-0321',web:'https://baftx.org',evweb:'https://baftx.org/gala',evd:'2026-11-13',mby:'2026-10-23',venue:'Gala',au:['Y','Y','Y','Y'],evid:'Confirmed',score:94,ein:'06-1807573',line:'PO Box 421234',city:'Houston',zip:'77242',src:'Organization website',c:'10:29 AM'},
+ {id:'864c8eab',ev:'The Larry & Pat Wallace 20th Annual Gala "Once Upon a Time"',org:'FACES Autism (Foundation for Autism Care, Education and Services)',fn:'Lauren',ln:'McCown',title:'Executive Director',em1:'info@facesautism.org',em2:'info@facesautism.org',ph1:'281-757-6750',ph2:'281-757-6750',web:'https://facesautism.org',evweb:'https://cbo.io/app/public/bidapp/facesannualgala/tickets/tix',evd:'2026-11-14',mby:'2026-10-24',venue:'Gala',au:['Y','N','Y','Y'],evid:'Confirmed',score:88,ein:null,line:'13121 Louetta Road #1360',city:'Cypress',zip:'77429',src:'Organization website',c:'10:29 AM'},
+ {id:'714c8eab',ev:'2026 Land Lover Gala - Hats Off to Conservation',org:'Bayou Land Conservancy',fn:'Melissa',ln:'Carter',title:'Senior Development Manager',em1:'mcarter@bayouland.org',em2:'info@bayouland.org',ph1:'281-576-1634',ph2:'281-576-1634',web:'https://www.bayoulandconservancy.org',evweb:'https://www.bayoulandconservancy.org/landlovergala',evd:'2026-11-14',mby:'2026-10-24',venue:'Gala',au:['Y','N','Y','Y'],evid:'Confirmed',score:90,ein:null,line:'8801 Gosling Road',city:'Spring',zip:'77381',src:'Organization website',c:'10:29 AM'},
+ {id:'399648cb',ev:'Derricks & Diamonds Field of Dreams Benefit Gala',org:'Snowdrop Foundation',fn:null,ln:'Derricks & Diamonds Sponsorship Team (NOV)',title:'Event Sponsorship Contact',em1:'derricksanddiamonds@nov.com',em2:'trish@snowdropfoundation.org',ph1:'713-232-9051',ph2:'713-232-9051',web:'https://snowdropfoundation.org',evweb:'https://www.nov.com/misc/derricks-and-diamonds',evd:'2026-11-14',mby:'2026-10-24',venue:'Gala',au:['N','Y','Y','Y'],evid:'Confirmed',score:86,ein:null,line:'P.O. Box 19808',city:'Houston',zip:'77224',src:'Organization website',c:'10:30 AM'},
+ {id:'109648cb',ev:'2026 Amber Alert Pro-Am Golf Tournament',org:'Texas Center for the Missing',fn:'Mel',ln:'Turnquist',title:'Tournament Coordinator',em1:'mturnquist@tcftm.org',em2:'support@tcftm.org',ph1:'713-986-3542',ph2:'713-599-0235',web:'https://centerforthemissing.org',evweb:'https://online.centerforthemissing.org/GolfForTCM',evd:'2026-11-16',mby:'2026-10-26',venue:'Golf Tournament',au:['Y','N','Y','Y'],evid:'Assumed',score:87,ein:'76-0635336',line:'2500 Bolsover',city:'Houston',zip:'77005',src:'Organization website',c:'10:30 AM'},
+ {id:'439648cb',ev:'Best in the West 2026',org:'The Arc of Fort Bend County',fn:'Cheryl',ln:'Olivier',title:null,em1:'colivier@arcoffortbend.org',em2:'info@arcoffortbend.org',ph1:'281-494-5959',ph2:'281-494-5959',web:'https://arcoffortbend.org',evweb:'https://arcoffortbend.org/best-in-the-west/',evd:'2026-11-21',mby:'2026-10-31',venue:'Gala',au:['U','Y','Y','Y'],evid:'Confirmed',score:86,ein:null,line:'407 Julie Rivers Dr',city:'Sugar Land',zip:'77478',src:'Organization website',c:'10:30 AM'},
+ {id:'b64c8eab',ev:'MAC 38th Annual Luncheon',org:'Mothers Against Cancer',fn:'Lacy',ln:'Abshire',title:'Executive Director',em1:'info@mothersagainstcancer.org',em2:'info@mothersagainstcancer.org',ph1:'281.799.3064',ph2:'281.799.3064',web:'https://www.mothersagainstcancer.org',evweb:'https://www.mothersagainstcancer.org/annual-luncheon',evd:'2026-12-07',mby:'2026-11-16',venue:'Luncheon',au:['N','Y','Y','Y'],evid:'Confirmed',score:88,ein:null,line:'1416 Stonehollow Drive, Ste C',city:'Kingwood',zip:'77339',src:'Organization website',c:'10:29 AM'},
+ {id:'1b9648cb',ev:'4th Annual Heroes Dinner',org:'Hives for Heroes',fn:'Craig',ln:'Midgett',title:'Tennessee State Leader',em1:'craig.midgett@hivesforheroes.org',em2:'support@hivesforheroes.org',ph1:null,ph2:null,web:'https://hivesforheroes.org/',evweb:'https://givebutter.com/c/4th-annual-heroes-dinner',evd:'2027-01-08',mby:'2026-12-18',venue:'Dinner',au:['Y','Y','Y','Y'],evid:'Confirmed',score:86,ein:'83-1465397',line:'919 Oak St',city:'Houston',zip:'77018',src:'Candid',c:'10:30 AM'},
+ {id:'934c8eab',ev:'2027 HSCF Worldwide Hunting Expo & Convention (Banquets, Gala & Auctions)',org:'Houston Safari Club Foundation',fn:'Joe',ln:'Betar',title:'Executive Director',em1:'joe@wehuntwegive.org',em2:'joe@wehuntwegive.org',ph1:'832-767-1881',ph2:'713-623-8844',web:'http://www.wehuntwegive.org',evweb:'https://hscfdn.org/convention-attendees/',evd:'2027-01-15',mby:'2026-12-25',venue:'Gala',au:['Y','Y','Y','Y'],evid:'Confirmed',score:88,ein:null,line:"14811 St. Mary's Lane, Suite 265",city:'Houston',zip:'77079',src:'Organization website',c:'10:29 AM'},
+ {id:'614c8eab',ev:'Fighting Hunger, Feeding Hope Gala 2027',org:'Montgomery County Food Bank',fn:'Courtney',ln:'Budra',title:'Sr. Manager of Development',em1:'cbudra@mcfoodbank.org',em2:'info@mcfoodbank.org',ph1:'936-271-8804',ph2:'936-271-8800',web:'https://mcfoodbank.org/',evweb:'https://mcfoodbank.org/events/gala/',evd:'2027-02-06',mby:'2027-01-16',venue:'Gala',au:['N','Y','Y','Y'],evid:'Confirmed',score:90,ein:'76-0153892',line:'1 Food for Life Way',city:'Conroe',zip:'77385',src:null,c:'10:29 AM'},
+ {id:'4d9648cb',ev:'Men Who Cook 2027',org:'Lamar Educational Awards Foundation',fn:'Kameela',ln:'Lewis',title:'Executive Director',em1:'LEAF@lcisd.org',em2:'LEAF@lcisd.org',ph1:'832-223-0345',ph2:'(832) 223-0334',web:'https://www.lamareducationalaf.com',evweb:'https://www.lamareducationalaf.com/menwhocook',evd:'2027-02-20',mby:'2027-01-30',venue:'Gala',au:['N','Y','Y','N'],evid:'Confirmed',score:86,ein:null,line:'3911 Avenue I',city:'Rosenberg',zip:'77471',src:'Organization website',c:'10:30 AM'},
+];
+
+// GCP address match key. Same input on both sides (lead and account) -> same key.
+const WORDS = {
+  STREET: 'ST', STR: 'ST', ROAD: 'RD', DRIVE: 'DR', DRV: 'DR', AVENUE: 'AVE', AV: 'AVE', AVN: 'AVE',
+  BOULEVARD: 'BLVD', BOUL: 'BLVD', PARKWAY: 'PKWY', PKY: 'PKWY', PARKWY: 'PKWY', LANE: 'LN',
+  COURT: 'CT', CIRCLE: 'CIR', PLACE: 'PL', HIGHWAY: 'HWY', HIWAY: 'HWY', FREEWAY: 'FWY',
+  EXPRESSWAY: 'EXPY', TRAIL: 'TRL', SQUARE: 'SQ', TERRACE: 'TER', PLAZA: 'PLZ', CROSSING: 'XING',
+  NORTH: 'N', SOUTH: 'S', EAST: 'E', WEST: 'W',
+  NORTHEAST: 'NE', NORTHWEST: 'NW', SOUTHEAST: 'SE', SOUTHWEST: 'SW',
+  SAINT: 'ST', MOUNT: 'MT', FORT: 'FT',
+  FIRST: '1ST', SECOND: '2ND', THIRD: '3RD', FOURTH: '4TH', FIFTH: '5TH',
+  SIXTH: '6TH', SEVENTH: '7TH', EIGHTH: '8TH', NINTH: '9TH', TENTH: '10TH',
+};
+const UNIT = '(?:SUITE|STE|UNIT|APT|APARTMENT|BLDG|BUILDING|FLOOR|FL|ROOM|RM|SPACE|SPC)';
+
+function normalizeStreet(line) {
+  if (!line) return '';
+  let s = String(line).toUpperCase();
+  s = s.replace(/[’']/g, '');                                   // St. Mary's -> ST MARYS
+  s = s.replace(/\bP\s*\.?\s*O\s*\.?\s*BOX\b|\bPOST\s+OFFICE\s+BOX\b/g, 'PO BOX');
+  s = s.replace(/\bFARM\s+TO\s+MARKET\b/g, 'FM');
+  s = s.replace(/\./g, '');                                           // W.W. -> WW, Blvd. -> BLVD
+  // Drop the unit and its identifier: "Suite 100-300", "Ste C", "#1360", "# 14"
+  s = s.replace(new RegExp(`,?\\s*(?:#|\\b${UNIT}\\b)\\s*[A-Z0-9-]*`, 'g'), ' ');
+  s = s.replace(/[^A-Z0-9 ]+/g, ' ');                                // commas, hyphens, etc.
+  const tokens = s.split(/\s+/).filter(Boolean).map(t => WORDS[t] || t);
+  return tokens.join(' ');
+}
+
+function zip5(zip) {
+  const m = String(zip || '').match(/\d{5}/);
+  return m ? m[0] : '';
+}
+
+// Key = normalised street + ZIP5. Falls back to city when there is no ZIP.
+function addressMatchKey(line, city, zip) {
+  const street = normalizeStreet(line);
+  if (!street) return '';
+  const z = zip5(zip);
+  const place = z || String(city || '').toUpperCase().replace(/[^A-Z ]/g, '').trim();
+  return place ? `${street}|${place}` : '';
+}
+
+// EIN: digits only, zero-padded to 9 (same form as the IRS EO extract). Empty if not plausible.
+function normalizeEin(ein) {
+  const d = String(ein || '').replace(/\D/g, '');
+  if (!d || d.length > 9) return '';
+  return d.padStart(9, '0');
+}
+
+
+
+const STAGES = [
+  {v:714000010, a:'New Event', b:'Pending Review'},
+  {v:714000011, a:'Pending', b:'Ready to Merge'},
+  {v:714000012, a:'Pending', b:'Merged'},
+  {v:714000013, a:'Printed', b:''},
+  {v:714000014, a:'Assembled', b:'and Sealed'},
+  {v:714000015, a:'Open', b:'Mailed'},
+];
+const OUTCOMES = {714000020:'Pending – Ready to Merge',714000021:'Do Not Donate',714000022:'Not Appropriate for Event',714000023:'Missed Event',714000024:'Duplicate'};
+const AU_NAMES = ['Online auction','Live auction','Silent auction','Raffle'];
+const AU_WORD = {Y:'Yes',N:'No',U:'Unclear'};
+const VENUE_ICON = {Gala:'i-gala','Golf Tournament':'i-golf',Luncheon:'i-lunch',Dinner:'i-dinner',Festival:'i-fest'};
+const GENERIC_MAIL = /^(info|office|support|contact|admin|hello|events?|development|foundation|giving|donate|leaf|cy-hope)$/i;
+
+// ---------- dates ----------
+const DAY = 86400000;
+const today = (() => { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); })();
+const parseD = s => { const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); };
+const days = s => Math.round((parseD(s) - today) / DAY);
+const fmt = (s, opt) => parseD(s).toLocaleDateString('en-US', opt || {month:'short', day:'numeric', year:'numeric'});
+const fmtShort = s => fmt(s, {month:'short', day:'numeric'});
+const nowStamp = () => new Date().toLocaleString('en-US', {month:'short', day:'numeric', hour:'numeric', minute:'2-digit'});
+
+// ---------- derived ----------
+for (const L of LEADS) {
+  L.guid = L.id + GUID_TAIL;
+  L.key = addressMatchKey(L.line, L.city, L.zip);
+  L.einN = normalizeEin(L.ein);
+  L.nameN = L.org.toUpperCase().replace(/\(.*?\)/g,'').replace(/[^A-Z0-9 ]/g,'').replace(/\b(INC|INCORPORATED|THE)\b/g,'').replace(/\s+/g,' ').trim();
+  L.person = [L.fn, L.ln].filter(Boolean).join(' ');
+}
+
+// ---------- state (preview only) ----------
+const STORE_KEY = 'gcp-desk-preview-v1';
+let S = { sel: '589648cb', filter: 'all', q: '', tab: 'summary', leads: {}, accounts: [] };
+try { const raw = localStorage.getItem(STORE_KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch (e) {}
+const st = id => (S.leads[id] ||= { stage: 714000010, outcome: null, notes: '', done: {}, log: [], assembledOn: null, account: null });
+const save = () => { try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {} };
+let undoStack = [];
+
+// ---------- matching ----------
+function matchesFor(L) {
+  const out = [];
+  for (const A of S.accounts) {
+    if (L.einN && A.ein && L.einN === A.ein) out.push({kind:'account', strength:'strong', reason:'Same EIN', A});
+    else if (L.key && A.key === L.key) out.push({kind:'account', strength:'strong', reason:'Same address key', A});
+  }
+  for (const O of LEADS) {
+    if (O.id === L.id) continue;
+    let reason = null, strength = null;
+    if (L.einN && O.einN && L.einN === O.einN) { reason = 'Same EIN'; strength = 'strong'; }
+    else if (L.key && O.key === L.key) { reason = 'Same address key'; strength = 'strong'; }
+    else if (L.nameN && O.nameN === L.nameN) { reason = 'Same name, different address'; strength = 'soft'; }
+    if (reason) out.push({kind:'lead', strength, reason, O});
+  }
+  return out;
+}
+
+// ---------- action items ----------
+function flags(L) {
+  const s = st(L.id), out = [], open = !s.outcome || s.outcome === 714000020;
+  if (!open) return out;
+  const dm = days(L.mby), de = days(L.evd);
+  if (s.stage < 714000015) {
+    if (de < 0) out.push({id:'past', sev:'crit', t:'Event date has passed', d:`The event was ${fmt(L.evd)}. Record the outcome as Missed Event.`, act:'missed'});
+    else if (dm < 0) out.push({id:'late', sev:'crit', t:`Mail-by date passed ${-dm} day${dm===-1?'':'s'} ago`, d:`Event is in ${de} days (${fmt(L.evd)}). Mail now if the charity can still use it, or record Missed Event.`, act:'missed'});
+    else if (dm <= 7) out.push({id:'soon', sev:'warn', t:`Mail by ${fmt(L.mby)} (${dm === 0 ? 'today' : dm + ' days'})`, d:'This package needs to move this week.'});
+  }
+  if (s.stage === 714000010) out.push({id:'review', sev:'info', t:'Review the event and choose an outcome', d:'Approve to send it to Matt for merge, or record why not.', act:'review'});
+  if (s.stage === 714000011) out.push({id:'merge', sev:'warn', t:'Merge with a charity account', d:'Link to an existing charity or create one. Matches are on the Merge gate tab.', act:'merge'});
+  const ms = matchesFor(L).filter(m => m.kind === 'lead' && m.strength === 'strong');
+  if (ms.length) out.push({id:'dup', sev:'warn', t:`Same charity as ${ms.length} other lead${ms.length>1?'s':''}`, d: ms.map(m => m.O.ev).join('; ') + '. Merge both to one account and decide whether one package covers both events.', act:'merge'});
+  const assumedBad = L.evid === 'Assumed' && [0,1,3].some(i => L.au[i] === 'Y');
+  if (assumedBad) out.push({id:'evid', sev:'crit', t:'Auction values break scan rule 5A', d:`${[0,1,3].filter(i => L.au[i]==='Y').map(i => AU_NAMES[i]).join(' and ')} set to Yes on Assumed evidence. Only Silent auction may be assumed. Check the event page before mailing.`, link:L.evweb});
+  if (L.au.includes('U')) out.push({id:'unclear', sev:'info', t:`${L.au.map((v,i)=>v==='U'?AU_NAMES[i]:null).filter(Boolean).join(', ')} is Unclear`, d:'The weekly scan revisits this within 120 days of the event.'});
+  if (/\bP\.?\s*O\.?\s*BOX\b/i.test(L.line)) out.push({id:'pobox', sev:'warn', t:'Mailing address is a PO Box', d:'UPS and FedEx cannot deliver to PO Boxes. Ship by USPS or find a street address.'});
+  if (!L.einN) out.push({id:'ein', sev:'info', t:'No EIN on file', d:'Find it in the IRS Texas extract or Candid. EIN is the strongest merge key.'});
+  out.push({id:'verify', sev:'info', t:'Mailing address not verified', d:`Source: ${L.src || 'not recorded'}. Confirm before printing the label.`});
+  out.push({id:'deadline', sev:'info', t:'Charity donation deadline not recorded', d:'Mail-by is the 21-day assumption. Use the charity’s own "donation needed by" date when it publishes one.'});
+  if (!L.fn) out.push({id:'contact', sev:'warn', t:'Contact is a team, not a person', d:`${L.ln}. Find a named person at ${L.org} for the package and follow-up.`});
+  else {
+    const local = (L.em1 || '').split('@')[0].toLowerCase().replace(/[^a-z]/g,'');
+    if (local && !GENERIC_MAIL.test(local) && !local.includes(L.fn.toLowerCase().slice(0,3)) && !local.includes(L.ln.toLowerCase().slice(0,4)))
+      out.push({id:'email', sev:'warn', t:'Contact e-mail may belong to someone else', d:`${L.person} is listed with ${L.em1}.`});
+  }
+  if (!L.title) out.push({id:'title', sev:'info', t:'Contact title missing', d:'Needed for the cover letter salutation.'});
+  if (!L.ph1 && !L.ph2) out.push({id:'phone', sev:'info', t:'No phone number on file', d:'Delivery confirmation calls need one.'});
+  return out;
+}
+const openFlags = L => flags(L).filter(f => !st(L.id).done[f.id]);
+const urgency = L => { const f = openFlags(L); return f.some(x => x.sev==='crit') ? 'crit' : f.some(x => x.sev==='warn' && (x.id==='soon'||x.id==='dup'||x.id==='merge')) ? 'warn' : ''; };
+const isClosed = L => { const o = st(L.id).outcome; return o && o !== 714000020; };
+
+// ---------- helpers ----------
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ico = (id, cls='') => `<svg class="ico ${cls}"><use href="#${id}"/></svg>`;
+const host = u => { try { return new URL(u).host.replace(/^www\./,''); } catch (e) { return u; } };
+const stageIdx = v => STAGES.findIndex(x => x.v === v);
+const stageName = v => { const x = STAGES[stageIdx(v)]; return x.b ? `${x.a} – ${x.b}` : x.a; };
+function mailChip(L) {
+  const s = st(L.id);
+  if (isClosed(L)) return `<span class="chip">${esc(OUTCOMES[s.outcome])}</span>`;
+  if (s.stage === 714000015) return `<span class="chip ok">${ico('i-check')}Mailed</span>`;
+  const d = days(L.mby);
+  if (d < 0) return `<span class="chip crit">Overdue ${-d}d</span>`;
+  if (d <= 7) return `<span class="chip warn">Mail in ${d}d</span>`;
+  if (d <= 14) return `<span class="chip info">Mail in ${d}d</span>`;
+  return `<span class="chip">Mail ${fmtShort(L.mby)}</span>`;
+}
+function labelText(L) {
+  const lines = [L.org, L.person ? `Attn: ${L.person}` : null, L.line, `${L.city}, TX ${L.zip}`];
+  return lines.filter(Boolean).join('\n');
+}
+async function copy(text, what) {
+  try { await navigator.clipboard.writeText(text); toast(`${what} copied`); }
+  catch (e) { toast(`Copy blocked here. ${what}: ${text.replace(/\n/g, ', ')}`); }
+}
+let toastTimer;
+function toast(msg, undo) {
+  const t = document.getElementById('toast');
+  t.innerHTML = `<span>${esc(msg)}</span>` + (undo ? `<button id="undo-btn">Undo</button>` : '');
+  t.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.hidden = true, 5000);
+  if (undo) document.getElementById('undo-btn').onclick = doUndo;
+}
+function snapshot() { undoStack.push(JSON.stringify({leads:S.leads, accounts:S.accounts})); if (undoStack.length > 20) undoStack.shift(); }
+function doUndo() { const p = undoStack.pop(); if (!p) return; const o = JSON.parse(p); S.leads = o.leads; S.accounts = o.accounts; save(); render(); toast('Undone'); }
+function log(L, text, icon='i-check') { st(L.id).log.unshift({t: nowStamp(), text, icon}); }
+
+// ---------- actions ----------
+const ACTIONS = {
+  approve(L) { const s = st(L.id); s.stage = 714000011; s.outcome = 714000020; log(L, 'Approved. Moved to Pending – Ready to Merge'); return 'Approved and sent to merge'; },
+  reject(L, o) { const s = st(L.id); s.outcome = Number(o); log(L, `Closed as ${OUTCOMES[o]}`, 'i-x'); return `Recorded: ${OUTCOMES[o]}`; },
+  reopen(L) { const s = st(L.id); s.outcome = null; log(L, 'Reopened for review', 'i-undo'); return 'Reopened'; },
+  mergeNew(L) {
+    const s = st(L.id); const A = {id: 'A' + (S.accounts.length + 1), name: L.org, ein: L.einN, key: L.key, from: L.id};
+    S.accounts.push(A); s.account = A.id; s.stage = 714000012;
+    log(L, `Merged. New charity account created: ${L.org}`, 'i-merge'); return `Charity account created for ${L.org}`;
+  },
+  mergeInto(L, accId) {
+    const s = st(L.id); const A = S.accounts.find(a => a.id === accId); s.account = A.id; s.stage = 714000012;
+    log(L, `Merged into existing account: ${A.name}`, 'i-merge'); return `Linked to ${A.name}`;
+  },
+  printed(L) { st(L.id).stage = 714000013; log(L, 'Certificates printed', 'i-print'); return 'Marked printed'; },
+  assembled(L) { const s = st(L.id); s.stage = 714000014; s.assembledOn = nowStamp(); log(L, 'Assembled and sealed. Red, Green and Blue certificates created', 'i-box'); return 'Assembled and sealed'; },
+  mailed(L) { st(L.id).stage = 714000015; log(L, 'Package mailed. Follow-up opened', 'i-send'); return 'Marked mailed'; },
+};
+function run(name, ...args) {
+  const L = LEADS.find(x => x.id === S.sel);
+  snapshot(); const msg = ACTIONS[name](L, ...args); save(); render(); toast(msg, true);
+}
+
+// ---------- render: queue ----------
+function renderQueue() {
+  const q = S.q.trim().toLowerCase();
+  let list = LEADS.filter(L => !q || (L.ev + ' ' + L.org + ' ' + L.city).toLowerCase().includes(q));
+  const f = S.filter;
+  list = list.filter(L => {
+    const closed = isClosed(L), mailed = st(L.id).stage === 714000015;
+    if (f === 'closed') return closed;
+    if (closed) return false;
+    if (f === 'overdue') return !mailed && days(L.mby) < 0;
+    if (f === 'soon') return !mailed && days(L.mby) >= 0 && days(L.mby) <= 14;
+    if (f === 'attention') return urgency(L) === 'crit';
+    return true;
+  });
+  document.getElementById('q-count').textContent = `${list.length} of ${LEADS.length}`;
+  document.querySelectorAll('#q-filter button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.f === f)));
+  const ul = document.getElementById('q-list');
+  if (!list.length) { ul.innerHTML = `<li class="q-empty">No events match this filter.</li>`; return; }
+  ul.innerHTML = list.map(L => {
+    const u = urgency(L), closed = isClosed(L), s = st(L.id);
+    return `<li class="q-item ${closed ? 'closed' : u}" data-id="${L.id}" tabindex="0" aria-current="${L.id === S.sel}">
+      <span class="stripe"></span>
+      <div style="min-width:0"><div class="q-title">${esc(L.ev)}</div><div class="q-org">${esc(L.org)} · ${esc(L.city)}</div>
+        <div class="q-meta">${mailChip(L)}<span class="chip">${esc(STAGES[stageIdx(s.stage)].a)}${STAGES[stageIdx(s.stage)].b ? ' · ' + esc(STAGES[stageIdx(s.stage)].b) : ''}</span></div></div>
+      <div class="q-right num">${fmtShort(L.evd)}<br><span style="color:var(--faint)">event</span></div>
+    </li>`;
+  }).join('');
+}
+
+// ---------- render: record ----------
+function primaryAction(L) {
+  const s = st(L.id);
+  if (isClosed(L)) return `<button class="btn primary" data-act="reopen">${ico('i-undo')}Reopen for review</button>`;
+  switch (s.stage) {
+    case 714000010: return `<button class="btn primary" data-act="approve">${ico('i-check')}Approve for merge</button>`;
+    case 714000011: return `<button class="btn primary" data-tab="merge">${ico('i-merge')}Merge charity</button>`;
+    case 714000012: return `<button class="btn primary" data-act="printed">${ico('i-print')}Mark printed</button>`;
+    case 714000013: return `<button class="btn primary" data-act="assembled">${ico('i-box')}Assembled and sealed</button>`;
+    case 714000014: return `<button class="btn accent" data-act="mailed">${ico('i-send')}Mark mailed</button>`;
+    default: return `<button class="btn" disabled>${ico('i-check')}Package mailed</button>`;
+  }
+}
+function renderRecord() {
+  const L = LEADS.find(x => x.id === S.sel), s = st(L.id), si = stageIdx(s.stage);
+  const dm = days(L.mby), de = days(L.evd), fl = openFlags(L), crit = fl.filter(f => f.sev === 'crit').length;
+  const mailedYet = s.stage === 714000015;
+  const dmCls = mailedYet || isClosed(L) ? '' : dm < 0 ? 'crit' : dm <= 7 ? 'warn' : '';
+  const dmVal = mailedYet ? 'Mailed' : dm < 0 ? `${-dm} late` : dm;
+  const dmLbl = mailedYet ? 'Package' : dm < 0 ? `days · mail-by ${fmtShort(L.mby)}` : `days to mail-by`;
+  const rec = document.getElementById('record');
+  rec.innerHTML = `
+  <section class="card rec-head" aria-label="Event lead">
+    <div class="rec-top">
+      <div class="venue-badge">${ico(VENUE_ICON[L.venue] || 'i-org')}</div>
+      <div class="rec-title">
+        <h1>${esc(L.ev)}</h1>
+        <div class="rec-sub"><span>Lead · GCP event</span><span>·</span><span>${esc(L.org)}</span>${isClosed(L) ? `<span class="chip">${esc(OUTCOMES[s.outcome])}</span>` : ''}</div>
+      </div>
+      <div class="kpis">
+        <div class="kpi ${dmCls}"><b class="num">${dmVal}</b><span>${dmLbl}</span></div>
+        <div class="kpi"><b class="num">${L.score}</b><span>event score / 100</span></div>
+        <div class="kpi"><b>${esc(L.evid)}</b><span>auction evidence</span></div>
+      </div>
+    </div>
+    <div class="meta-row">
+      <div><label>Organization</label><span>${ico('i-org')}${esc(L.org)}</span></div>
+      <div><label>Event date</label><span class="num">${ico('i-cal')}${fmt(L.evd)}</span></div>
+      <div><label>City</label><span>${ico('i-pin')}${esc(L.city)}, TX</span></div>
+      <div><label>Lead source</label><span>${ico('i-sync')}Weekly AI scan</span></div>
+      <div><label>Owner</label><span>${ico('i-user')}AB Alhammouri</span></div>
+    </div>
+    <div class="path" role="list" aria-label="GCP stage">
+      ${STAGES.map((x, i) => `<div role="listitem" class="step ${i < si ? 'done' : i === si ? 'current' : ''}" ${i === si ? 'aria-current="step"' : ''}><b>${x.a}</b><small>${x.b}</small></div>`).join('')}
+    </div>
+  </section>
+
+  <section class="card cmdbar" aria-label="Quick actions">
+    ${primaryAction(L)}
+    <div class="menu-wrap">
+      <button class="btn danger" id="reject-btn" aria-haspopup="true" aria-expanded="false" ${isClosed(L) || s.stage >= 714000012 ? 'disabled' : ''}>${ico('i-x')}Close lead…</button>
+      <div class="menu" id="reject-menu" hidden>
+        ${[714000021,714000022,714000023,714000024].map(o => `<button data-reject="${o}">${OUTCOMES[o]}<small>${{714000021:'The firm will not donate to this charity',714000022:'The event is not a fit for a certificate',714000023:'Too late to mail before the event',714000024:'Another lead already covers this event'}[o]}</small></button>`).join('')}
+      </div>
+    </div>
+    <span class="sep"></span>
+    <button class="btn" data-copy="label">${ico('i-copy')}Copy mailing label</button>
+    <a class="btn" href="${esc(L.evweb)}" target="_blank" rel="noopener">${ico('i-ext')}Event page</a>
+    <a class="btn" href="${DYN + L.guid}" target="_blank" rel="noopener">${ico('i-ext')}Open in Dynamics</a>
+    ${undoStack.length ? `<button class="btn" id="undo-cmd">${ico('i-undo')}Undo</button>` : ''}
+  </section>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-tab="summary" aria-selected="${S.tab==='summary'}">Summary ${crit ? `<span class="count">${crit}</span>` : ''}</button>
+    <button role="tab" data-tab="merge" aria-selected="${S.tab==='merge'}">Merge gate</button>
+    <button role="tab" data-tab="package" aria-selected="${S.tab==='package'}">Package and follow-up</button>
+  </nav>
+  <div id="tabpanel">${S.tab === 'merge' ? mergeTab(L) : S.tab === 'package' ? packageTab(L) : summaryTab(L, fl)}</div>`;
+}
+
+function summaryTab(L, fl) {
+  const s = st(L.id);
+  const all = flags(L);
+  const meter = Array.from({length: 10}, (_, i) => `<i class="${i < Math.round(L.score / 10) ? 'on' : ''}"></i>`).join('');
+  return `<div class="grid">
+  <div class="col">
+    <section class="band">
+      <div class="eyebrow">${esc(L.venue)} · ${esc(L.city)}</div>
+      <h2>${esc(L.ev)}</h2>
+      <div class="band-meta"><span>${ico('i-cal')}${fmt(L.evd, {weekday:'short', month:'short', day:'numeric', year:'numeric'})}</span><span class="num">${ico('i-clock')}${days(L.evd) >= 0 ? `${days(L.evd)} days away` : 'Held'}</span><span>${ico('i-org')}${esc(L.org)}</span></div>
+      <div class="auction-row">${L.au.map((v,i) => `<div class="au ${({Y:'yes',N:'no',U:'unclear'})[v]}"><label>${AU_NAMES[i]}</label><b>${AU_WORD[v]}</b></div>`).join('')}</div>
+      <div class="band-foot"><span class="evid ${esc(L.evid)}">Evidence: ${esc(L.evid)}</span><a class="btn sm" href="${esc(L.evweb)}" target="_blank" rel="noopener">${ico('i-ext')}${esc(host(L.evweb))}</a></div>
+    </section>
+
+    <section class="card tiles" aria-label="At a glance">
+      <div class="tile">${ico('i-cal')}<div><b class="num">${fmtShort(L.mby)}</b><span>Mail-by date</span><small>Event date minus 21 days</small></div></div>
+      <div class="tile">${ico('i-gift')}<div><b class="num">${s.stage >= 714000014 ? 3 : 0} / 3</b><span>Certificates</span><small>Red · Green · Blue</small></div></div>
+      <div class="tile">${ico('i-score')}<div><b class="num">${L.score}</b><span>Event score</span><div class="meter">${meter}</div></div></div>
+      <div class="tile">${ico('i-merge')}<div><b>${s.account ? 'Linked' : 'Not yet'}</b><span>Charity account</span><small>${s.account ? esc(S.accounts.find(a => a.id === s.account)?.name || '') : 'Set at the merge gate'}</small></div></div>
+    </section>
+
+    <section class="card">
+      <div class="card-h">${ico('i-org')}<h3>Organization and contact</h3></div>
+      <div class="card-b org-grid">
+        <div class="stack">
+          <div class="kv">
+            <div><label>Charity</label><span><b>${esc(L.org)}</b></span></div>
+            <div><label>Website</label><span><a href="${esc(L.web)}" target="_blank" rel="noopener">${esc(host(L.web))}</a></span></div>
+            <div><label>EIN</label><span class="mono">${L.ein ? esc(L.ein) : '<span class="hint">Not on file</span>'}</span></div>
+            <div><label>Address source</label><span>${esc(L.src || 'Not recorded')}</span></div>
+          </div>
+          <div><span class="field-label">Mailing label</span><div class="label-card">${esc(labelText(L))}</div></div>
+        </div>
+        <div class="stack">
+          <div class="person"><div class="avatar">${esc((L.fn ? L.fn[0] : '') + (L.ln ? L.ln[0] : ''))}</div><div style="min-width:0"><b>${esc(L.person)}</b><div class="hint">${esc(L.title || 'Title not recorded')}</div><div class="hint">Primary charity contact</div></div></div>
+          <div>
+            ${[[L.em1,'i-mail','E-mail'],[L.em2 !== L.em1 ? L.em2 : null,'i-mail','Org e-mail'],[L.ph1,'i-phone','Phone'],[L.ph2 !== L.ph1 ? L.ph2 : null,'i-phone','Org phone']].filter(x => x[0]).map(([v, i, w]) =>
+              `<div class="line-act"><span>${ico(i)}<span><span class="hint">${w}</span><br>${esc(v)}</span></span><button class="icon-btn" data-copytext="${esc(v)}" data-what="${w}" aria-label="Copy ${w}">${ico('i-copy')}</button></div>`).join('') || '<p class="hint">No e-mail or phone on file.</p>'}
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="col">
+    <section class="card">
+      <div class="card-h">${ico('i-alert')}<h3>Action items</h3><span class="chip num">${fl.length} open</span></div>
+      <div class="card-b">
+        ${all.length ? `<ul class="todo">${all.map(f => {
+          const done = !!s.done[f.id];
+          const btn = f.act === 'missed' ? `<button class="btn sm" data-reject="714000023">Missed</button>`
+            : f.act === 'review' ? `<button class="btn sm" data-focus="review">Review</button>`
+            : f.act === 'merge' ? `<button class="btn sm" data-tab="merge">Open</button>`
+            : f.link ? `<a class="btn sm" href="${esc(f.link)}" target="_blank" rel="noopener">Check</a>` : '';
+          return `<li class="${f.sev} ${done ? 'done' : ''}"><span class="dot"></span><div style="min-width:0"><div class="t">${esc(f.t)}</div><div class="d">${esc(f.d)}</div></div>
+            <div class="acts">${done ? '' : btn}<button class="icon-btn" data-done="${f.id}" aria-label="${done ? 'Mark not done' : 'Mark done'}" title="${done ? 'Mark not done' : 'Mark done'}">${ico(done ? 'i-undo' : 'i-check')}</button></div></li>`;
+        }).join('')}</ul>` : `<div class="allclear">${ico('i-check')}Nothing needs attention on this lead.</div>`}
+      </div>
+    </section>
+
+    <section class="card" id="review-card">
+      <div class="card-h">${ico('i-check')}<h3>Review outcome</h3></div>
+      <div class="card-b">
+        <label class="field-label" for="outcome">Outcome</label>
+        <select class="field" id="outcome" ${s.stage >= 714000012 ? 'disabled' : ''}>
+          <option value="">Not decided</option>
+          ${Object.entries(OUTCOMES).map(([v, n]) => `<option value="${v}" ${s.outcome == v ? 'selected' : ''}>${n}</option>`).join('')}
+        </select>
+        <label class="field-label" for="notes">Review notes</label>
+        <textarea class="field" id="notes" placeholder="Why this event, anything the merge or print step should know">${esc(s.notes)}</textarea>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-h">${ico('i-clock')}<h3>Timeline</h3></div>
+      <div class="card-b"><ul class="tl">
+        ${s.log.map(e => `<li><span class="tl-ico">${ico(e.icon)}</span><div><b>${esc(e.text)}</b><span>${esc(e.t)} · this preview</span></div></li>`).join('')}
+        <li><span class="tl-ico">${ico('i-sync')}</span><div><b>Lead updated in Dynamics</b><span>Oct 2, 2026, 3:51 PM · Matt Goff (connector)</span></div></li>
+        <li><span class="tl-ico">${ico('i-sync')}</span><div><b>Lead created from the weekly scan</b><span>Sep 30, 2026, ${esc(L.c)} · synced from Airtable</span></div></li>
+      </ul></div>
+    </section>
+  </div></div>`;
+}
+
+function mergeTab(L) {
+  const s = st(L.id), ms = matchesFor(L);
+  const accs = ms.filter(m => m.kind === 'account'), leads = ms.filter(m => m.kind === 'lead');
+  const canMerge = s.stage === 714000011 && !isClosed(L);
+  const merged = s.account ? S.accounts.find(a => a.id === s.account) : null;
+  const status = merged ? `<span class="chip ok">${ico('i-check')}Linked to ${esc(merged.name)}</span>`
+    : canMerge ? `<span class="chip warn">Waiting for Matt</span>`
+    : `<span class="chip">Opens at Pending – Ready to Merge</span>`;
+  return `<div class="grid">
+  <div class="col">
+    <section class="card">
+      <div class="card-h">${ico('i-merge')}<h3>Merge gate</h3>${status}</div>
+      <div class="card-b stack">
+        <p class="hint" style="margin:0">Before a charity account is created, this lead is checked against existing accounts. EIN is checked first. The address key is the fallback, so "Jensen Dr" and "Jensen Drive" count as the same place.</p>
+        <div class="norm">
+          <div class="box"><label>Address on the lead</label>${esc(L.line)}<br>${esc(L.city)}, TX ${esc(L.zip)}</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="box mono"><label>Match key</label>${esc(L.key || '—')}</div>
+        </div>
+        <div class="norm">
+          <div class="box"><label>EIN on the lead</label>${esc(L.ein || 'Not on file')}</div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="box mono"><label>Normalised EIN</label>${esc(L.einN || '—')}</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-h">${ico('i-org')}<h3>Charity accounts that match</h3></div>
+      <div class="card-b stack">
+        ${accs.length ? accs.map(m => `<div class="match strong"><div class="match-h"><b>${esc(m.A.name)}</b><span class="chip ok">${esc(m.reason)}</span></div>
+          <span class="hint">Created in this preview from another lead.</span>
+          ${canMerge ? `<div class="decision"><button class="btn primary" data-mergeinto="${m.A.id}">${ico('i-merge')}Link to this account</button></div>` : ''}</div>`).join('')
+        : `<p class="hint" style="margin:0">No charity account matches. When this was read on Oct 2, Dynamics had no charity accounts. The 220 accounts there are individual clients.</p>`}
+        ${canMerge && !accs.length ? `<div class="decision"><button class="btn primary" data-act="mergeNew">${ico('i-merge')}Create charity account: ${esc(L.org)}</button></div>` : ''}
+        ${canMerge && accs.length ? `<div class="decision"><button class="btn" data-act="mergeNew">Create a separate account anyway</button></div>` : ''}
+      </div>
+    </section>
+  </div>
+  <div class="col">
+    <section class="card">
+      <div class="card-h">${ico('i-alert')}<h3>Other leads for the same charity</h3><span class="chip num">${leads.length}</span></div>
+      <div class="card-b stack">
+        ${leads.length ? leads.map(m => `<div class="match ${m.strength}"><div class="match-h"><b>${esc(m.O.ev)}</b><span class="chip ${m.strength === 'strong' ? 'ok' : 'warn'}">${esc(m.reason)}</span></div>
+          <span class="hint">${esc(m.O.org)} · event ${fmt(m.O.evd)} · mail by ${fmt(m.O.mby)}</span>
+          <span class="mono">${esc(m.O.key)}</span>
+          <div class="decision"><button class="btn sm" data-goto="${m.O.id}">Open lead</button></div></div>`).join('')
+        : `<p class="hint" style="margin:0">No other lead in the queue shares this EIN, address or name.</p>`}
+      </div>
+    </section>
+    <section class="card">
+      <div class="card-h">${ico('i-check')}<h3>How the key is built</h3></div>
+      <div class="card-b"><ul class="hint" style="margin:0;padding-left:18px;display:grid;gap:4px">
+        <li>Uppercase. Remove punctuation, so W.W. becomes WW.</li>
+        <li>Drop suite and unit details: Suite 100-300, Ste C, #1360.</li>
+        <li>Use standard abbreviations: Drive DR, Road RD, Street ST, Boulevard BLVD, Parkway PKWY, Lane LN, East E, Third 3RD.</li>
+        <li>P.O. Box and Post Office Box become PO BOX.</li>
+        <li>Add the 5-digit ZIP, or the city when the ZIP is missing.</li>
+      </ul></div>
+    </section>
+  </div></div>`;
+}
+
+function packageTab(L) {
+  const s = st(L.id), si = stageIdx(s.stage);
+  const certStatus = si >= 5 ? 'Sent with package' : si >= 4 ? 'Created' : 'Not yet issued';
+  const certChip = si >= 5 ? 'ok' : si >= 4 ? 'info' : '';
+  const ladder = [
+    ['Mailed', si >= 5, `Target ${fmt(L.mby)}`],
+    ['Delivered', false, 'Confirm with the charity'],
+    ['Event held', false, fmt(L.evd)],
+    ['Results requested', false, 'Up to 3 purchaser request e-mails'],
+    ['Purchasers recorded', false, 'Each purchaser becomes a prospect contact'],
+  ];
+  return `<div class="grid">
+  <div class="col">
+    <section class="card">
+      <div class="card-h">${ico('i-gift')}<h3>Gift certificates</h3><span class="chip ${certChip}">${certStatus}</span></div>
+      <div class="card-b tbl-wrap"><table>
+        <thead><tr><th>Slot</th><th>Status</th><th>Purchaser</th></tr></thead>
+        <tbody>${[['Red','#c8372d'],['Green','#2c8a55'],['Blue','#264BA7']].map(([n, c]) => `<tr><td><span class="slot"><i style="background:${c}"></i>${n}</span></td><td>${certStatus}</td><td class="hint">Recorded after the event</td></tr>`).join('')}</tbody>
+      </table>
+      <p class="hint" style="margin:10px 0 0">Certificates are created when the package is assembled and sealed${s.assembledOn ? `. Assembled ${esc(s.assembledOn)}.` : '.'}</p></div>
+    </section>
+    <section class="card">
+      <div class="card-h">${ico('i-box')}<h3>Mailing label</h3><button class="btn sm" data-copy="label">${ico('i-copy')}Copy</button></div>
+      <div class="card-b stack">
+        <div class="label-card" style="font-size:14px">${esc(labelText(L))}</div>
+        ${/\bP\.?\s*O\.?\s*BOX\b/i.test(L.line) ? `<span class="chip warn" style="justify-self:start">PO Box: ship by USPS</span>` : ''}
+      </div>
+    </section>
+  </div>
+  <div class="col">
+    <section class="card">
+      <div class="card-h">${ico('i-send')}<h3>GCP event follow-up</h3><span class="chip">${si >= 5 ? 'Open' : 'Starts when mailed'}</span></div>
+      <div class="card-b"><ul class="ladder">
+        ${ladder.map(([n, on, d]) => `<li class="${on ? 'on' : ''}"><span class="ring"></span><div><b style="font-weight:500">${n}</b><div class="hint">${esc(d)}</div></div><span class="chip ${on ? 'ok' : ''}">${on ? 'Done' : 'Not started'}</span></li>`).join('')}
+      </ul>
+      <p class="hint" style="margin:10px 0 0">Closed Won needs at least one purchaser recorded as a prospect. Closed Lost is split: certificates unsold, or sold with no purchaser identified.</p></div>
+    </section>
+  </div></div>`;
+}
+
+function render() { renderQueue(); renderRecord(); }
+
+// ---------- events ----------
+document.getElementById('q-list').addEventListener('click', e => { const li = e.target.closest('.q-item'); if (li) { S.sel = li.dataset.id; save(); render(); document.getElementById('record').scrollIntoView({block:'start'}); } });
+document.getElementById('q-list').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { const li = e.target.closest('.q-item'); if (li) { e.preventDefault(); S.sel = li.dataset.id; save(); render(); } } });
+document.getElementById('q-filter').addEventListener('click', e => { const b = e.target.closest('button'); if (b) { S.filter = b.dataset.f; save(); renderQueue(); } });
+document.getElementById('q-search').addEventListener('input', e => { S.q = e.target.value; renderQueue(); });
+
+document.getElementById('record').addEventListener('click', e => {
+  const L = LEADS.find(x => x.id === S.sel), t = e.target.closest('button, a');
+  if (!t) return;
+  const d = t.dataset;
+  if (d.act) return run(d.act);
+  if (d.reject) { document.getElementById('reject-menu')?.setAttribute('hidden', ''); return run('reject', d.reject); }
+  if (d.mergeinto) return run('mergeInto', d.mergeinto);
+  if (d.tab) { S.tab = d.tab; save(); return renderRecord(); }
+  if (d.goto) { S.sel = d.goto; save(); return render(); }
+  if (d.copy === 'label') return copy(labelText(L), 'Mailing label');
+  if (d.copytext) return copy(d.copytext, d.what);
+  if (d.done) { snapshot(); const s = st(L.id); s.done[d.done] = !s.done[d.done]; save(); return render(); }
+  if (d.focus === 'review') { document.getElementById('review-card').scrollIntoView({behavior:'smooth', block:'center'}); return document.getElementById('outcome').focus(); }
+  if (t.id === 'reject-btn') { const m = document.getElementById('reject-menu'); const open = m.hasAttribute('hidden'); m.toggleAttribute('hidden', !open); t.setAttribute('aria-expanded', String(open)); return; }
+  if (t.id === 'undo-cmd') return doUndo();
+});
+document.getElementById('record').addEventListener('change', e => {
+  if (e.target.id === 'outcome') {
+    const v = e.target.value;
+    if (v === '714000020') return run('approve');
+    if (v) return run('reject', v);
+    return run('reopen');
+  }
+});
+document.getElementById('record').addEventListener('input', e => {
+  if (e.target.id === 'notes') { st(S.sel).notes = e.target.value; save(); }
+});
+document.addEventListener('click', e => { if (!e.target.closest('.menu-wrap')) document.getElementById('reject-menu')?.setAttribute('hidden', ''); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('reject-menu')?.setAttribute('hidden', ''); });
+
+document.getElementById('q-search').value = S.q;
+render();
+</script>

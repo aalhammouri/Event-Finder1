@@ -53,7 +53,7 @@ SCORING (computed by this run; write the total to lead_event_score and the break
 - Timing (max 15): days until event < 7 → 0; ≤ 20 → 5; ≤ 120 → 15; ≤ 210 → 10; else 5; no date → 0.
 - Verification (max 15): min(15, Candid match 6 + address from the organization website 5 + website and Candid addresses agree 4).
 - Rating from the total: A ≥ 85, B ≥ 70, C ≥ 55, else D.
-- Route (lead_package_status): auction score 0 → no lead (Step 7A). Auction ≥ 20 and a complete mailing address → Awaiting Review 714000000. Auction ≥ 20 without a mailable address → On Hold 714000006 with "Need address" (or "Email track" when only an e-mail exists) as the first line of description. Auction 10–19 → On Hold with "Research". Auction < 10 → On Hold with "Hold".
+- Route (lead_package_status): auction score 0 because all four auction fields are a confident No → no lead (Step 7A). Auction score 0 because the fields are Unclear (Step 4 exhausted) → still a lead, On Hold 714000006 with "Hold", so Phase A revisits it. Auction ≥ 20 and a complete mailing address → Awaiting Review 714000000. Auction ≥ 20 without a mailable address → On Hold 714000006 with "Need address" (or "Email track" when only an e-mail exists) as the first line of description. Auction 10–19 → On Hold with "Research". Auction < 10 → On Hold with "Hold".
 - Excluded: "PTA" (case-sensitive), "PTO", "elementary", "preschool" in the organization or event name → Screened Out reason 5. Sensitive: israel, palestin, political, republican, democrat, reproductive, planned parenthood, pro-life, pro-choice → Screened Out reason 6. Neither ever becomes a lead.
 
 PHASE 0 — Hygiene and setup (no crawling)

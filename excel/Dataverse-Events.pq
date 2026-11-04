@@ -92,10 +92,10 @@ let
                 Text.Combine({[#"GCP - Online Auction"], [#"GCP - Live Auction"], [#"GCP - Silent Auction"]}), type text),
     AddDM   = Table.AddColumn(AddOLS, "Donation Methods", each
                 Text.Combine({[#"GCP - Online Auction"], [#"GCP - Live Auction"], [#"GCP - Silent Auction"], [#"GCP - Raffle"]}), type text),
-    // Complete = a real person (not just the org name) + Employee/Volunteer + an email or phone
+    // Complete = the sheet's original rule: Event Contact AND Event Contact Title are both filled in
+    // (blanks were already turned into null in step 4, so checking for null covers empty cells too)
     AddDone = Table.AddColumn(AddDM, "Event Contact Information Complete", each
-                if [Contact] <> null and [Contact] <> [Company] and [#"Employee or Volunteer"] <> null
-                   and ([#"E-mail"] <> null or [#"Phone - Business"] <> null) then "Yes" else "No", type text),
+                if [Event Contact] <> null and [Event Contact Title] <> null then "Yes" else "No", type text),
     AddPG1  = Table.AddColumn(AddDone, "Primary Group 1", each
                 if [#"GCP - Event Date Sort"] = null then null
                 else Text.From(Date.Year([#"GCP - Event Date Sort"])) & " Events", type text),

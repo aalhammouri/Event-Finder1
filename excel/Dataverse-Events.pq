@@ -38,7 +38,9 @@ let
         {"lead_event_contact_2_name",          "Event Contact Person 2"},
         {"lead_event_contact_2_email",         "Event Contact Person 2 E-mail"},
         {"lead_event_contact_2_phone",         "Event Contact Person 2 Phone Number"},
-        {"lead_event_status",                  "GCP - Event Status"}
+        {"lead_gcp_stage",                     "GCP - Event Status"},
+        {"leadsourcecode",                     "_src"},
+        {"lead_source_of_event_information",   "_srcinfo"}
     },
     Kept    = Table.SelectColumns(Events, List.Transform(Map, each _{0}), MissingField.UseNull),
     Renamed = Table.RenameColumns(Kept, Map),
@@ -46,8 +48,11 @@ let
     // 3. Turn the 714000000-style codes into words
     YNU    = [#"714000000" = "Yes", #"714000001" = "No", #"714000002" = "Unclear"],
     EmpVol = [#"714000000" = "Employee", #"714000001" = "Volunteer"],
-    Status = [#"714000100" = "Scheduled", #"714000101" = "Postponed", #"714000102" = "Cancelled",
-              #"714000103" = "Already held", #"714000104" = "Unknown"],
+    Stage  = [#"714000010" = "Pending", #"714000011" = "Pending - Ready to Merge", #"714000012" = "Pending - Merged",
+              #"714000013" = "Printed", #"714000014" = "Assembled and Sealed", #"714000015" = "Open - Mailed"],
+    Src    = [#"714000000" = "AI Search"],
+    SrcInf = [#"714000120" = "AI Search", #"714000121" = "Charity Website", #"714000122" = "Facebook",
+              #"714000123" = "Fundraising Platform", #"714000124" = "Referral", #"714000125" = "Client", #"714000126" = "Other"],
     Label  = (m as record) => (v) => if v = null then null else Record.FieldOrDefault(m, Text.From(v), null),
     Decoded = Table.TransformColumns(Renamed, {
         {"GCP - Online Auction",  Label(YNU),    type text},
@@ -55,7 +60,9 @@ let
         {"GCP - Silent Auction",  Label(YNU),    type text},
         {"GCP - Raffle",          Label(YNU),    type text},
         {"Employee or Volunteer", Label(EmpVol), type text},
-        {"GCP - Event Status",    Label(Status), type text}
+        {"GCP - Event Status",    Label(Stage),  type text},
+        {"_src",                  Label(Src),    type text},
+        {"_srcinfo",              Label(SrcInf), type text}
     }),
 
     // 4. Clean text: trim, blank -> empty cell, drop "[GCP] " prefix from event names
@@ -66,12 +73,10 @@ let
                      in  if t = "" then null else t, type text})),
     NoPrefix = Table.TransformColumns(Trimmed, {{"GCP - Event",
                  each if _ <> null and Text.StartsWith(_, "[GCP] ") then Text.Middle(_, 6) else _, type text}}),
-    // When no person was found, the scan put the org name in Contact; show blank instead
-    RealContact = Table.ReplaceValue(NoPrefix, each [Contact], each if [Contact] = [Company] then null else [Contact],
-                 Replacer.ReplaceValue, {"Contact"}),
+    // Contact is left exactly as the scan wrote it (org name = no person found), so you can grade the AI.
 
     // 5. Dates only (no 12:00 PM time)
-    Dated = Table.TransformColumns(RealContact, {
+    Dated = Table.TransformColumns(NoPrefix, {
         {"GCP - Event Date Sort", each if _ = null then null else DateTime.Date(_), type date},
         {"First Seen",            each if _ = null then null else DateTime.Date(_), type date}
     }),
@@ -80,19 +85,25 @@ let
     AddEC   = Table.AddColumn(Dated,  "Event Contact",              each [Contact], type text),
     AddECPh = Table.AddColumn(AddEC,  "Event Contact Phone Number", each [#"Phone - Business"], type text),
     AddECEm = Table.AddColumn(AddECPh,"Event Contact E-mail",       each [#"E-mail"], type text),
+    // Same helper keys your sheet already uses (merge templates key off these):
+    //   OnlineLiveSilent = Online & Live & Silent      e.g. "UnclearYesYes"
+    //   Donation Methods = Online & Live & Silent & Raffle  e.g. "UnclearYesYesUnclear"
     AddOLS  = Table.AddColumn(AddECEm, "OnlineLiveSilent", each
-                let parts = List.Select({
-                        if [#"GCP - Online Auction"] = "Yes" then "Online" else null,
-                        if [#"GCP - Live Auction"]   = "Yes" then "Live"   else null,
-                        if [#"GCP - Silent Auction"] = "Yes" then "Silent" else null}, each _ <> null)
-                in  if List.IsEmpty(parts) then null else Text.Combine(parts, "/"), type text),
-    AddDone = Table.AddColumn(AddOLS, "Event Contact Information Complete", each
-                if [Contact] <> null and [#"E-mail"] <> null and [#"Phone - Business"] <> null then "Yes" else "No", type text),
+                Text.Combine({[#"GCP - Online Auction"], [#"GCP - Live Auction"], [#"GCP - Silent Auction"]}), type text),
+    AddDM   = Table.AddColumn(AddOLS, "Donation Methods", each
+                Text.Combine({[#"GCP - Online Auction"], [#"GCP - Live Auction"], [#"GCP - Silent Auction"], [#"GCP - Raffle"]}), type text),
+    // Complete = a real person (not just the org name) + Employee/Volunteer + an email or phone
+    AddDone = Table.AddColumn(AddDM, "Event Contact Information Complete", each
+                if [Contact] <> null and [Contact] <> [Company] and [#"Employee or Volunteer"] <> null
+                   and ([#"E-mail"] <> null or [#"Phone - Business"] <> null) then "Yes" else "No", type text),
+    AddPG1  = Table.AddColumn(AddDone, "Primary Group 1", each
+                if [#"GCP - Event Date Sort"] = null then null
+                else Text.From(Date.Year([#"GCP - Event Date Sort"])) & " Events", type text),
+    AddPG2  = Table.AddColumn(AddPG1, "Primary Group 2", each
+                if [_src] <> null then [_src] else [_srcinfo], type text),
 
-    // 7. Columns with no Dataverse field yet (left blank so the layout matches)
-    Blanks = List.Accumulate({"Event Contact Person 2 - Employee or Volunteer", "Donation Methods",
-                              "Primary Group 1", "Primary Group 2"},
-                AddDone, (t, c) => Table.AddColumn(t, c, each null, type text)),
+    // 7. Column with no Dataverse field yet (left blank so the layout matches)
+    Blanks = Table.AddColumn(AddPG2, "Event Contact Person 2 - Employee or Volunteer", each null, type text),
 
     // 8. Exact order of your sheet
     Ordered = Table.SelectColumns(Blanks, {
